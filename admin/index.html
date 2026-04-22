@@ -4,10 +4,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Oltralpe</title>
-  <link href="config.yml" type="text/yaml" rel="cms-config-url">
-  <script src="https://unpkg.com/decap-cms@^3.12.2/dist/decap-cms.js"></script>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>window.CMS_MANUAL_INIT = true;</script>
+  <script src="https://unpkg.com/decap-cms@^3.12.2/dist/decap-cms.js"></script>
 </head>
 <body>
+<script>
+CMS.init({
+  config: {
+    backend: {
+      name: 'git-gateway',
+      branch: 'main'
+    },
+    site_url: 'https://www.oltralpe.it',
+    media_folder: 'images/uploads',
+    public_folder: '/images/uploads',
+    collections: [
+      {
+        name: 'news',
+        label: 'Novita',
+        folder: 'content/news',
+        create: true,
+        slug: '{{slug}}',
+        fields: [
+          { label: 'Titre', name: 'title', widget: 'string' },
+          { label: 'Date', name: 'date', widget: 'datetime' },
+          { label: 'Image de couverture', name: 'image', widget: 'image' },
+          { label: 'Contenu', name: 'body', widget: 'markdown' }
+        ]
+      }
+    ]
+  }
+});
+</script>
 </body>
 </html>
