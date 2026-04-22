@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   branch: main # Votre branche principale
-site_url: https://oltralpe.it
+site_url: https://www.oltralpe.it
 media_folder: "images/uploads" # Où seront stockées les photos
 public_folder: "/images/uploads"
 
