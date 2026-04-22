@@ -1,17 +1,17 @@
-name: Deploy via FTP
-
+name: Deploy to Aruba
 on:
   push:
     branches:
       - main
-
 jobs:
-  deploy:
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
 
-      - name: FTP Deploy
+      - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -19,3 +19,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
+          server-dir: ./
+          # Options spécifiques pour éviter ECONNRESET sur Aruba :
+          dangerous-clean-slate: false
+          timeout: 60000
