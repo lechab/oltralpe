@@ -170,44 +170,48 @@
       </table></td>
       <td width="2%">&nbsp;</td>
            <td width="72%">
-             <div id="news-container">Chargement des news...</div>
+             <div id="news-container"><p class="Stile31">Caricamento notizie...</p></div>
            </td>
     </tr>
   </table>
 
 </div>
-</body>
-</html>
 
-<script>
-  // Remplacez par votre cl� API not�e pr�c�demment
-  const API_KEY = '8d2cc5837084120e5ac56f33a3a867a48ab1660f18d6238a69c33e23aa378d9daa95fe19391368926cdb8b699f0fbd6dc9499c47925235d128e60ade7a5a10e5';
-  const API_URL = 'https://oltralpe.it' + API_KEY;
+<script type="text/javascript">
+  var BLUDIT_API = 'https://oltralpe.aruba.it/backend/api/pages?token=abc123';
+  var BLUDIT_BASE = 'https://oltralpe.aruba.it/backend';
 
-  async function loadNews() {
-    try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-
-      let html = '';
-      // On prend les 3 derni�res news (Bludit renvoie un tableau dans data.data)
-      data.data.slice(0, 3).forEach(news => {
-        html += `
-                <div style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-                    <h3>${news.title}</h3>
-                    <p><small>Publi� le : ${news.date}</small></p>
-                    <p>${news.description}</p>
-                    <a href="https://oltralpe.it{news.key}">Lire la suite</a>
-                </div>
-            `;
+  function loadNews() {
+    fetch(BLUDIT_API)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var items = data.data;
+        if (!items || items.length === 0) {
+          document.getElementById('news-container').innerHTML =
+            '<p class="Stile31">Nessuna notizia disponibile.</p>';
+          return;
+        }
+        var html = '';
+        for (var i = 0; i < items.length; i++) {
+          var n = items[i];
+          html +=
+            '<div style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
+              '<p class="Stile28">' + n.title + '</p>' +
+              '<p class="Stile27">' + n.date + '</p>' +
+              '<p class="Stile31">' + (n.description || n.content || '') + '</p>' +
+              '<a class="Stile46" href="' + BLUDIT_BASE + '/' + n.key + '">Leggi tutto &raquo;</a>' +
+            '</div>';
+        }
+        document.getElementById('news-container').innerHTML = html;
+      })
+      .catch(function() {
+        document.getElementById('news-container').innerHTML =
+          '<p class="Stile31">Impossibile caricare le notizie.</p>';
       });
-
-      document.getElementById('news-container').innerHTML = html;
-    } catch (error) {
-      console.error('Erreur:', error);
-      document.getElementById('news-container').innerHTML = "Impossible de charger les news.";
-    }
   }
 
   loadNews();
 </script>
+
+</body>
+</html>
