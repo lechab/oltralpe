@@ -153,7 +153,24 @@
         </tbody>
       </table>
     </div>
-  </body>
+  <script type="text/javascript">buildNav();</script>
+<script type="text/javascript">
+  fetch('associazione-api.php')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var items = data.data;
+      if (!items || items.length === 0) return;
+      var n = items[0];
+      document.getElementById('assoc-container').innerHTML =
+        '<div class="Stile50">' + n.title + '</div>' +
+        '<div class="Stile31">' + n.content + '</div>';
+    })
+    .catch(function() {
+      document.getElementById('assoc-container').innerHTML =
+        '<p class="Stile31">Impossibile caricare il contenuto.</p>';
+    });
+</script>
+</body>
 </html>
 
 
