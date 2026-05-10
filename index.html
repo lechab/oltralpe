@@ -5,51 +5,9 @@
     <!-- Copyright 2005 Macromedia, Inc. All rights reserved. -->
     <title>Oltralpe Home Page</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    <link type="text/css" href="file:mm_health_nutr.css" rel="stylesheet" />
-    <!-- <link href="file:favicon.gif" rel="shortcut icon" /> -->
-    <link rel="shortcut icon" href="favicon.gif" />
-    <script language="JavaScript" type="text/javascript">
-      <!-- Original:  Andrea Bianchi
-      //  Web Site:  http://www.web-link.it
-      function WebDate() {
-        const now = new Date();
-        let year = now.getYear();
-        if (year < 1000) {
-          year += 1900;
-        }
-        nameDay = ["Domenica",
-          "Lunedi",
-          "Martedi",
-          "Mercoledi",
-          "Giovedi",
-          "Venerdi",
-          "Sabato"];
-        nameMth = ["Gennaio",
-          "Febbraio",
-          "Marzo",
-          "Aprile",
-          "Maggio",
-          "Giugno",
-          "Luglio",
-          "Agosto",
-          "Settembre",
-          "Ottobre",
-          "Novembre",
-          "Dicembre"];
-        document.write(
-          "<p>" +
-            nameDay[now.getDay()] +
-            " " +
-            now.getDate() +
-            " " +
-            nameMth[now.getMonth()] +
-            " " +
-            year +
-            "<\/p>",
-        );
-      }
-      // end -->
-    </script>
+    <link type="text/css" href="assets/css/mm_health_nutr.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="images/shared/favicon.gif" />
+    <script src="assets/js/common.js"></script>
     <style type="text/css">
       <!--
       .Stile1 {
@@ -174,7 +132,7 @@
                 width="250"
                 height="133"
                 alt="logo"
-                src="logoverdepiccolo.png"
+                src="images/shared/logoverdepiccolo.png"
               />
             </td>
             <td width="30%" bgcolor="#D5EDB3"> </td>
@@ -277,21 +235,16 @@
                           <td width="187">
                             <a
                               class="Stile25"
-                              href="file:///D|/sito_oltralpe/index.html"
+                              href="index.html"
                               >Home</a
                             >
                           </td>
                         </tr>
                       </table>
-                      <a
-                        class="Stile25"
-                        href="file:///D|/sito_oltralpe/index.html"
-                      ></a>
                     </td>
                   </tr>
                   <tr>
                     <td height="47" style="text-align: left">
-                      <a class="Stile25" href="file:///D|/sito_oltralpe/novita.html"> </a>
                       <table width="222" border="0" cellspacing="0">
                         <tr>
                           <td width="23" height="21">&nbsp;</td>
@@ -309,7 +262,6 @@
                     <td
                       width="240"
                       height="46"
-                      background="file:///D|/sito_oltralpe/storia.html"
                       style="text-align: left"
                     >
                       <table width="222" border="0" cellspacing="0">
@@ -414,12 +366,12 @@
                       </p>
                       <span class="Stile10">
                         <div align="center">
-                          <a href="camminatori22.jpg"
+                          <a href="images/home/camminatori22.jpg"
                             ><img
                               width="339"
                               height="254"
                               alt="cam2"
-                              src="camminatori22.jpg"
+                              src="images/home/camminatori22.jpg"
                           /></a>
                         </div>
                       </span>
@@ -546,7 +498,7 @@
                           width="230"
                           height="306"
                           alt="pilstrino"
-                          src="crocealpe22.jpg"
+                          src="images/home/crocealpe22.jpg"
                         />
                         <span class="Stile117">Croce dell'Alpe</span>
                       </div>
@@ -574,7 +526,7 @@
                           width="409"
                           height="300"
                           alt="NEBBIA"
-                          src="camminatori_nuovi.jpg"
+                          src="images/home/camminatori_nuovi.jpg"
                         /><span class="Stile41">Camminatori in cammino</span>
                       </div>
                     </td>
@@ -617,15 +569,3 @@
     </div>
   </body>
 </html>
-
-<script type="javascript">
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
