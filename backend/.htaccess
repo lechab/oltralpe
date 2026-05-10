@@ -1,5 +1,12 @@
 AddDefaultCharset UTF-8
 
+# CORS pour l'API Bludit
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
 <IfModule mod_rewrite.c>
 
 # Enable rewrite rules
