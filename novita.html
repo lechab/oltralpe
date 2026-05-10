@@ -5,20 +5,9 @@
 <!-- Copyright 2005 Macromedia, Inc. All rights reserved. -->
 <title>Oltralpe Iniziative</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" href="file:mm_health_nutr.css" type="text/css" />
-<link rel="shortcut icon" href="favicon.gif" />
-<script type="text/javascript" language="JavaScript">
-<!-- Original:  Andrea Bianchi  
-//  Web Site:  http://www.web-link.it 
-function WebDate() {
-	var now = new Date();
-	var year= now.getYear();if (year < 1000) year += 1900;
-	nameDay = new Array('Domenica','Lunedi','Martedi','Mercoledi','Giovedi','Venerdi','Sabato');
-	nameMth = new Array('Gennaio','Febbraio','Marzo','Aprile','Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre','Dicembre');
-	document.write('<p>'+nameDay[now.getDay()]+ ' ' + now.getDate() + " " + nameMth[now.getMonth()] + " " + year+'<\/p>');
-}
-// end -->
-</script>
+<link rel="stylesheet" href="assets/css/mm_health_nutr.css" type="text/css" />
+<link rel="shortcut icon" href="images/shared/favicon.gif" />
+<script src="assets/js/common.js"></script>
 
 
 <style type="text/css">
@@ -106,7 +95,7 @@ body {
 <div align="center">
   <table width="80%" height="109" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <td width="33%" bgcolor="#D5EDB3"><img src="logoverdepiccolo.png" alt="logo" width="250" height="133" /></td>
+      <td width="33%" bgcolor="#D5EDB3"><img src="images/shared/logoverdepiccolo.png" alt="logo" width="250" height="133" /></td>
       <td width="30%" bgcolor="#D5EDB3">&nbsp;</td>
       <td width="37%" bgcolor="#D5EDB3"><div align="center">
         <table width="291" border="0">
@@ -149,10 +138,10 @@ body {
                 <td width="187"><a class="Stile251" href="index.html">Home</a></td>
               </tr>
             </table>
-              <a class="Stile251" href="file:///D|/sito_oltralpe/index.html"></a></td>
+            </td>
           </tr>
           <tr>
-            <td width="247" height="46" background="file:///D|/sito_oltralpe/storia.html" style="text-align: left"><table width="222" border="0" cellspacing="0">
+            <td width="247" height="46" style="text-align: left"><table width="222" border="0" cellspacing="0">
               <tr>
                 <td width="21" height="21">&nbsp;</td>
                 <td width="187"><a class="Stile251"
@@ -224,7 +213,7 @@ body {
 </html>
 
 <script>
-  // Remplacez par votre clé API notée précédemment
+  // Remplacez par votre clï¿½ API notï¿½e prï¿½cï¿½demment
   const API_KEY = '8d2cc5837084120e5ac56f33a3a867a48ab1660f18d6238a69c33e23aa378d9daa95fe19391368926cdb8b699f0fbd6dc9499c47925235d128e60ade7a5a10e5';
   const API_URL = 'https://oltralpe.it' + API_KEY;
 
@@ -234,12 +223,12 @@ body {
       const data = await response.json();
 
       let html = '';
-      // On prend les 3 dernières news (Bludit renvoie un tableau dans data.data)
+      // On prend les 3 derniï¿½res news (Bludit renvoie un tableau dans data.data)
       data.data.slice(0, 3).forEach(news => {
         html += `
                 <div style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
                     <h3>${news.title}</h3>
-                    <p><small>Publié le : ${news.date}</small></p>
+                    <p><small>Publiï¿½ le : ${news.date}</small></p>
                     <p>${news.description}</p>
                     <a href="https://oltralpe.it{news.key}">Lire la suite</a>
                 </div>
