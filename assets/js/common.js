@@ -18,20 +18,11 @@ function buildNav() {
     { href: 'contatti.html',     label: 'Contatti' },
     { href: 'associazione.html', label: 'Associazione' }
   ];
-  var html = '<table width="100%" border="1" align="left" cellpadding="1" cellspacing="0" bordercolor="#C0CFE0">';
-  html += '<tbody>';
-  html += '<tr><td width="247">&nbsp;<br />&nbsp;<br /></td></tr>';
+  var html = '<nav id="navigation"><ul>';
   for (var i = 0; i < links.length; i++) {
-    html += '<tr>';
-    html += '<td width="247" height="47" style="text-align: left">';
-    html += '<table width="222" border="0" cellspacing="0">';
-    html += '<tr><td width="23">&nbsp;</td>';
-    html += '<td width="192"><a class="Stile251" href="' + links[i].href + '">' + links[i].label + '</a></td>';
-    html += '</tr></table>';
-    html += '</td>';
-    html += '</tr>';
+    html += '<li><a href="' + links[i].href + '">' + links[i].label + '</a></li>';
   }
-  html += '</tbody></table>';
+  html += '</ul></nav>';
   var container = document.getElementById('nav-container');
   if (container) {
     container.innerHTML = html;
