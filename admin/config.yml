@@ -25,6 +25,22 @@ collections:
               - {label: "Image", name: "image", widget: "image", required: false}
               - {label: "Contenu", name: "body", widget: "text"}
 
+  - name: "associazione"
+    label: "Associazione"
+    files:
+      - label: "Informations"
+        name: "associazione"
+        file: "data/associazione.json"
+        fields:
+          - {label: "Presidente Onorario", name: "presidente_onorario", widget: "string"}
+          - {label: "Presidente", name: "presidente", widget: "string"}
+          - {label: "Vice Presidente", name: "vice_presidente", widget: "string"}
+          - label: "Consiglieri"
+            name: "consiglieri"
+            widget: list
+            field: {label: "Nome", name: "nome", widget: "string"}
+          - {label: "Numero di soci", name: "num_soci", widget: "number", value_type: "int"}
+
   - name: "galerie"
     label: "Galerie"
     files:

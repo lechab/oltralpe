@@ -36,42 +36,7 @@
         <div id="assoc-content">
           <p class="subtitle">Associazione di Volontariato Oltr'Alpe</p>
           <p class="adresse">via Matteotti, 1 — 40063 Monghidoro BO — C.F. 91207050377</p>
-
-          <h2>L'Associazione</h2>
-
-          <h2>Struttura Organizzativa</h2>
-
-          <div class="role-line">
-            <span class="role-label">Presidente Onorario</span>
-            <span class="role-name">Carlo Mezzini</span>
-          </div>
-          <div class="role-line">
-            <span class="role-label">Presidente</span>
-            <span class="role-name">Lorenzo Monari</span>
-          </div>
-          <div class="role-line">
-            <span class="role-label">Vice Presidente</span>
-            <span class="role-name">Marco Nanni</span>
-          </div>
-
-          <h2>Consiglieri</h2>
-          <ul class="consiglieri-list">
-            <li>Andrea Bonafè</li>
-            <li>Claudia Ferretti</li>
-            <li>Paolo Ferretti</li>
-            <li>Luisa Gironi</li>
-            <li>Marino Lorenzini</li>
-            <li>Marisa Maluccelli</li>
-            <li>Federico Mezzini</li>
-            <li>Maurizio Naldi</li>
-            <li>Augusto Panzacchi</li>
-            <li>Franco Panzacchi</li>
-            <li>Enrico Rossetti</li>
-            <li>Paolo Vitelli</li>
-            <li>Giorgio Zarrelli</li>
-          </ul>
-
-          <p class="soci">Alla data odierna i soci sono 161</p>
+          <p style="color:#666;font-size:11px;">Caricamento...</p>
         </div>
       </td>
       <td width="24%" valign="top" style="padding-top: 10px;">
@@ -90,5 +55,24 @@
 </div>
 
 <script type="text/javascript">buildHeader();buildNav();</script>
+<script type="text/javascript">
+  fetch('data/associazione.json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var consiglieri = (d.consiglieri || []).map(function(n) {
+        return '<li>' + n + '</li>';
+      }).join('');
+      document.getElementById('assoc-content').innerHTML =
+        '<p class="subtitle">Associazione di Volontariato Oltr\'Alpe</p>' +
+        '<p class="adresse">via Matteotti, 1 — 40063 Monghidoro BO — C.F. 91207050377</p>' +
+        '<h2>Struttura Organizzativa</h2>' +
+        '<div class="role-line"><span class="role-label">Presidente Onorario</span><span class="role-name">' + d.presidente_onorario + '</span></div>' +
+        '<div class="role-line"><span class="role-label">Presidente</span><span class="role-name">' + d.presidente + '</span></div>' +
+        '<div class="role-line"><span class="role-label">Vice Presidente</span><span class="role-name">' + d.vice_presidente + '</span></div>' +
+        '<h2>Consiglieri</h2>' +
+        '<ul class="consiglieri-list">' + consiglieri + '</ul>' +
+        '<p class="soci">Alla data odierna i soci sono ' + d.num_soci + '</p>';
+    });
+</script>
 </body>
 </html>
