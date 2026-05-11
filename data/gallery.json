@@ -1,1 +1,32 @@
-{ "albums": [] }
+{
+  "albums": [
+    {
+      "title": "rando 1",
+      "event_type": "uscita",
+      "date": "2026-05-11",
+      "description": "",
+      "photos": [
+        {
+          "image": "/images/uploads/dcedb1994ca79270191b68c1a97c4dc2.jpg",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/c47cf0804215646b9ec24539d6bc07d2.jpg",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "title": "rando2",
+      "event_type": "uscita",
+      "date": "2026-05-11",
+      "description": "",
+      "photos": [
+        {
+          "image": "/images/uploads/c47cf0804215646b9ec24539d6bc07d2.jpg",
+          "caption": ""
+        }
+      ]
+    }
+  ]
+}
