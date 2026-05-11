@@ -1,2 +1,3 @@
 AddDefaultCharset UTF-8
 AddCharset UTF-8 .js .css .html
+AddType text/yaml .yml .yaml
