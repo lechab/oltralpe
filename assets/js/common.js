@@ -25,7 +25,8 @@ function buildHeader() {
     'filmati.html':      'Filmati',
     'contatti.html':     'Contatti',
     'associazione.html': 'Associazione',
-    'iscrizione.html':   'Iscrizione'
+    'iscrizione.html':   'Iscrizione',
+    'galerie.html':      'Galerie'
   };
   var path = window.location.pathname.split('/').pop() || 'index.html';
   var pageLabel = pageMap[path];
@@ -65,6 +66,7 @@ function buildNav() {
     { href: "storia.html", label: "Storia" },
     { href: "iniziative.html", label: "Iniziative" },
     { href: "immagini.html", label: "Immagini" },
+    { href: "galerie.html", label: "Galerie" },
     { href: "filmati.html", label: "Filmati" },
     { href: "contatti.html", label: "Contatti" },
     { href: "iscrizione.html", label: "Iscrizione" },
