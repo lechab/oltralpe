@@ -170,3 +170,46 @@ a:hover {
 	font-size: 14px;
 }
 
+/* Header sémantique moderne */
+
+#site-header {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  background-color: #D5EDB3;
+  min-height: 109px;
+}
+
+.header-logo {
+  flex: 0 0 33%;
+  text-align: center;
+}
+
+.header-spacer {
+  flex: 0 0 30%;
+}
+
+.header-identity {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-datebar {
+  background-color: #99CC66;
+  text-align: center;
+  padding: 4px 0;
+  border: 1px solid #888;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #006600;
+}
+
