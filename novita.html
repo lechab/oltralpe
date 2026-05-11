@@ -2,62 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!-- DW6 -->
 <head>
-<!-- Copyright 2005 Macromedia, Inc. All rights reserved. -->
-<title>Oltralpe Novit�</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Oltralpe Novit&agrave;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="assets/css/mm_health_nutr.css" type="text/css" />
 <link rel="shortcut icon" href="images/shared/favicon.gif" />
 <script src="assets/js/common.js"></script>
-
-
 <style type="text/css">
-<!--
-.Stile16 {
-	line-height:20px;
-	margin-top:0px;
-	font: 11px Arial, Helvetica, sans-serif;
-	font-size: 24px;
-	font-weight: bold;
-	color: #336600;
+.Stile28 {
+  color: #993300;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .Stile27 {
-	color: #000000;
-	font-size: 10px;
-	font-family: Arial, Helvetica, sans-serif;
-}
-.Stile28 {
-	color: #993300;
-	font-weight: bold;
-	font-size: 12px;
-	font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .Stile31 {
-	font-size: 12px;
-	color: #000000;
-	font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.Stile48 {
-	font-size: 12px;
-	font-family: Arial, Helvetica, sans-serif;
-}
-.Stile46 {
-	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-weight: bold;
-	color: #006600;
-}
-.Stile49 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10px;
-}
-.Stile50 {color: #5C743D}
-.Stile51 {
-	font-size: 10px;
-	color: #000000;
-}
-#news-container > div:first-child > p:first-child { margin-top: 0; }
-#news-container > div:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
--->
+#news-container > div:last-child { border-bottom: none; padding-bottom: 0; }
 </style>
 </head>
 <body dir="ltr">
@@ -67,49 +34,59 @@
     <tr>
       <td width="17%" valign="top" bgcolor="#5C743D"><div id="nav-container"></div></td>
       <td width="2%">&nbsp;</td>
-           <td width="72%" valign="top">
-             <div id="news-container"><p class="Stile31">Caricamento notizie...</p></div>
-           </td>
+      <td width="72%" valign="top">
+        <div id="news-container"><p class="Stile31">Caricamento notizie...</p></div>
+      </td>
     </tr>
   </table>
-
 </div>
 
 <script type="text/javascript">buildHeader();buildNav();</script>
 <script type="text/javascript">
-  var BLUDIT_API = 'novita-api.php';
-  var BLUDIT_BASE = 'https://www.oltralpe.it/backend';
+  var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+                 'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
-  function loadNews() {
-    fetch(BLUDIT_API)
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        var items = data.data;
-        if (!items || items.length === 0) {
-          document.getElementById('news-container').innerHTML =
-            '<p class="Stile31">Nessuna notizia disponibile.</p>';
-          return;
-        }
-        var html = '';
-        for (var i = 0; i < items.length; i++) {
-          var n = items[i];
-          html +=
-            '<div style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
-              '<p class="Stile28">' + n.title + '</p>' +
-              '<p class="Stile27">' + n.date + '</p>' +
-              '<p class="Stile31">' + (n.description || n.content || '') + '</p>' +
-            '</div>';
-        }
-        document.getElementById('news-container').innerHTML = html;
-      })
-      .catch(function() {
-        document.getElementById('news-container').innerHTML =
-          '<p class="Stile31">Impossibile caricare le notizie.</p>';
-      });
+  function formatDate(iso) {
+    if (!iso) return '';
+    var p = iso.split('-');
+    if (p.length < 3) return iso;
+    return parseInt(p[2], 10) + ' ' + nameMth[parseInt(p[1], 10) - 1] + ' ' + p[0];
   }
 
-  loadNews();
-</script>
+  function bodyToHtml(text) {
+    if (!text) return '';
+    return text.split(/\n\n+/).map(function(p) {
+      return '<p class="Stile31">' + p.replace(/\n/g, '<br />') + '</p>';
+    }).join('');
+  }
 
+  fetch('data/news.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var items = (data.articles || []).slice().sort(function(a, b) {
+        return (b.date || '').localeCompare(a.date || '');
+      });
+      if (items.length === 0) {
+        document.getElementById('news-container').innerHTML =
+          '<p class="Stile31">Nessuna notizia disponibile.</p>';
+        return;
+      }
+      var html = '';
+      for (var i = 0; i < items.length; i++) {
+        var n = items[i];
+        html +=
+          '<div style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
+            '<p class="Stile28">' + n.title + '</p>' +
+            '<p class="Stile27">' + formatDate(n.date) + '</p>' +
+            bodyToHtml(n.body) +
+          '</div>';
+      }
+      document.getElementById('news-container').innerHTML = html;
+    })
+    .catch(function() {
+      document.getElementById('news-container').innerHTML =
+        '<p class="Stile31">Impossibile caricare le notizie.</p>';
+    });
+</script>
 </body>
 </html>

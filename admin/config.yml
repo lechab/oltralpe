@@ -10,14 +10,19 @@ public_folder: "/images/uploads"
 collections:
   - name: "news"
     label: "Novità"
-    folder: "content/news"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Titre", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Image de couverture", name: "image", widget: "image"}
-      - {label: "Contenu", name: "body", widget: "markdown"}
+    files:
+      - label: "Articles"
+        name: "news"
+        file: "data/news.json"
+        fields:
+          - label: "Articles"
+            name: "articles"
+            widget: list
+            summary: "{{fields.title}} ({{fields.date}})"
+            fields:
+              - {label: "Titre", name: "title", widget: "string"}
+              - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
+              - {label: "Contenu", name: "body", widget: "text"}
 
   - name: "galerie"
     label: "Galerie"
