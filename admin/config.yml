@@ -2,8 +2,6 @@ backend:
   name: github
   repo: lechab/oltralpe
   branch: main
-  base_url: https://api.sveltia.app
-  auth_endpoint: oauth
 
 site_url: https://www.oltralpe.it
 media_folder: "images/uploads"
