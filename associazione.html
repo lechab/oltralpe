@@ -12,8 +12,8 @@
     #assoc-content h2 { color: #336600; font-size: 15px; margin-top: 1.4em; border-bottom: 1px solid #99CC66; padding-bottom: 4px; }
     #assoc-content .subtitle { color: #990000; font-weight: bold; font-size: 14px; margin: 0 0 4px; }
     #assoc-content .adresse { color: #006600; font-size: 12px; margin: 4px 0 16px; }
-    #assoc-content .role-line { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dotted #c8e6b0; }
-    #assoc-content .role-label { color: #006600; font-weight: bold; }
+    #assoc-content .role-line { display: flex; gap: 16px; padding: 7px 0; border-bottom: 1px dotted #c8e6b0; }
+    #assoc-content .role-label { color: #006600; font-weight: bold; width: 160px; flex-shrink: 0; }
     #assoc-content .role-name { color: #990000; font-weight: bold; }
     #assoc-content .consiglieri-list { list-style: none; padding: 0; margin: 10px 0; columns: 2; }
     #assoc-content .consiglieri-list li { color: #336600; padding: 5px 0; border-bottom: 1px dotted #c8e6b0; break-inside: avoid; }
@@ -39,7 +39,7 @@
           <p style="color:#666;font-size:11px;">Caricamento...</p>
         </div>
       </td>
-      <td width="24%" valign="top" style="padding-top: 10px;">
+      <td width="24%" valign="top" style="padding-left: 5rem; padding-top: 10px;">
         <img width="192" height="388" src="images/associazione/caderossi.jpg" alt="ca" />
         <br /><br />
         <img width="193" height="357" src="images/associazione/cristalli.jpg" alt="cri" />
@@ -68,12 +68,14 @@
       document.getElementById('assoc-content').innerHTML =
         '<p class="subtitle">Associazione di Volontariato Oltr\'Alpe</p>' +
         '<p class="adresse">via Matteotti, 1 — 40063 Monghidoro BO — C.F. 91207050377</p>' +
+        '<br><br>' +
         '<h2>Struttura Organizzativa</h2>' +
         '<div class="role-line"><span class="role-label">Presidente Onorario</span><span class="role-name">' + d.presidente_onorario + '</span></div>' +
         '<div class="role-line"><span class="role-label">Presidente</span><span class="role-name">' + d.presidente + '</span></div>' +
         '<div class="role-line"><span class="role-label">Vice Presidente</span><span class="role-name">' + d.vice_presidente + '</span></div>' +
         '<h2>Consiglieri</h2>' +
         '<ul class="consiglieri-list">' + consiglieri + '</ul>' +
+        '<h2>Numero Soci</h2>' +
         '<p class="soci">Alla data odierna i soci sono ' + d.num_soci + '</p>' +
         updatedStr;
     });
