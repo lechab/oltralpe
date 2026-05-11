@@ -8,17 +8,17 @@
   <link rel="shortcut icon" href="images/shared/favicon.gif" />
   <script src="assets/js/common.js"></script>
   <style type="text/css">
-    .Stile46 { font-family: Geneva, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; color: #006600; }
-
-    #assoc-content h2 { color: #336600; font-size: 1.2em; margin-top: 1.4em; border-bottom: 1px solid #99CC66; padding-bottom: 4px; }
-    #assoc-content .subtitle { color: #990000; font-weight: bold; font-size: 1em; margin: 0; }
-    #assoc-content .adresse { color: #006600; font-size: 0.9em; margin: 4px 0 16px; }
-    #assoc-content .role-line { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dotted #c8e6b0; }
-    #assoc-content .role-label { color: #006600; font-weight: bold; font-size: 0.9em; }
+    #assoc-content { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333; }
+    #assoc-content h2 { color: #336600; font-size: 15px; margin-top: 1.4em; border-bottom: 1px solid #99CC66; padding-bottom: 4px; }
+    #assoc-content .subtitle { color: #990000; font-weight: bold; font-size: 14px; margin: 0 0 4px; }
+    #assoc-content .adresse { color: #006600; font-size: 12px; margin: 4px 0 16px; }
+    #assoc-content .role-line { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dotted #c8e6b0; }
+    #assoc-content .role-label { color: #006600; font-weight: bold; }
     #assoc-content .role-name { color: #990000; font-weight: bold; }
-    #assoc-content .consiglieri-list { list-style: none; padding: 0; margin: 10px 0; }
-    #assoc-content .consiglieri-list li { color: #006600; font-weight: bold; padding: 4px 0; border-bottom: 1px dotted #c8e6b0; }
-    #assoc-content .soci { margin-top: 1.2em; color: #006600; font-weight: bold; }
+    #assoc-content .consiglieri-list { list-style: none; padding: 0; margin: 10px 0; columns: 2; }
+    #assoc-content .consiglieri-list li { color: #336600; padding: 5px 0; border-bottom: 1px dotted #c8e6b0; break-inside: avoid; }
+    #assoc-content .soci { margin-top: 1.4em; color: #336600; font-weight: bold; font-size: 13px; }
+    #assoc-content .last-updated { margin-top: 6px; color: #999; font-size: 11px; font-style: italic; }
   </style>
 </head>
 <body dir="ltr">
@@ -62,6 +62,9 @@
       var consiglieri = (d.consiglieri || []).map(function(n) {
         return '<li>' + n + '</li>';
       }).join('');
+      var updatedStr = d.last_updated
+        ? '<p class="last-updated">Aggiornato il ' + d.last_updated.split('-').reverse().join('/') + '</p>'
+        : '';
       document.getElementById('assoc-content').innerHTML =
         '<p class="subtitle">Associazione di Volontariato Oltr\'Alpe</p>' +
         '<p class="adresse">via Matteotti, 1 — 40063 Monghidoro BO — C.F. 91207050377</p>' +
@@ -71,7 +74,8 @@
         '<div class="role-line"><span class="role-label">Vice Presidente</span><span class="role-name">' + d.vice_presidente + '</span></div>' +
         '<h2>Consiglieri</h2>' +
         '<ul class="consiglieri-list">' + consiglieri + '</ul>' +
-        '<p class="soci">Alla data odierna i soci sono ' + d.num_soci + '</p>';
+        '<p class="soci">Alla data odierna i soci sono ' + d.num_soci + '</p>' +
+        updatedStr;
     });
 </script>
 </body>

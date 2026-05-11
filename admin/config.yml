@@ -40,6 +40,7 @@ collections:
             widget: list
             field: {label: "Nome", name: "nome", widget: "string"}
           - {label: "Numero di soci", name: "num_soci", widget: "number", value_type: "int"}
+          - {label: "Dernière mise à jour", name: "last_updated", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
 
   - name: "galerie"
     label: "Galerie"
