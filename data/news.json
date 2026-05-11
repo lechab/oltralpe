@@ -1,1 +1,9 @@
-{ "articles": [] }
+{
+  "articles": [
+    {
+      "title": "Test novità",
+      "date": "2026-05-11",
+      "body": "è la novità del giorno"
+    }
+  ]
+}
