@@ -24,7 +24,8 @@ function buildHeader() {
     'immagini.html':     'Immagini',
     'filmati.html':      'Filmati',
     'contatti.html':     'Contatti',
-    'associazione.html': 'Associazione'
+    'associazione.html': 'Associazione',
+    'iscrizione.html':   'Iscrizione'
   };
   var path = window.location.pathname.split('/').pop() || 'index.html';
   var pageLabel = pageMap[path];
@@ -58,18 +59,19 @@ function buildHeader() {
 }
 
 function buildNav() {
-  var links = [
-    { href: 'index.html',        label: 'Home' },
-    { href: 'novita.html',       label: 'Novità' },
-    { href: 'storia.html',       label: 'Storia' },
-    { href: 'iniziative.html',   label: 'Iniziative' },
-    { href: 'immagini.html',     label: 'Immagini' },
-    { href: 'filmati.html',      label: 'Filmati' },
-    { href: 'contatti.html',     label: 'Contatti' },
-    { href: 'associazione.html', label: 'Associazione' }
+  const links = [
+    { href: "index.html", label: "Home" },
+    { href: "novita.html", label: "Novità" },
+    { href: "storia.html", label: "Storia" },
+    { href: "iniziative.html", label: "Iniziative" },
+    { href: "immagini.html", label: "Immagini" },
+    { href: "filmati.html", label: "Filmati" },
+    { href: "contatti.html", label: "Contatti" },
+    { href: "iscrizione.html", label: "Iscrizione" },
+    { href: "associazione.html", label: "Associazione" },
   ];
-  var html = '<nav id="navigation"><ul>';
-  for (var i = 0; i < links.length; i++) {
+  let html = '<nav id="navigation"><ul>';
+  for ( let i = 0; i < links.length; i++) {
     html += '<li><a href="' + links[i].href + '">' + links[i].label + '</a></li>';
   }
   html += '</ul></nav>';
