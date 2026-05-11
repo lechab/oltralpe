@@ -36,7 +36,7 @@ function buildHeader() {
     '<div id="site-header">' +
       '<div class="header-top">' +
         '<div class="header-logo">' +
-          '<img src="images/shared/logoverdepiccolo.png" alt="Oltr\'Alpe" width="250" height="133" />' +
+          '<a href="index.html"><img src="images/shared/logoverdepiccolo.png" alt="Oltr\'Alpe" width="250" height="133" /></a>' +
         '</div>' +
         '<div class="header-spacer"></div>' +
         '<div class="header-identity">' +
