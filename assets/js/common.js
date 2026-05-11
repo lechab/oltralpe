@@ -16,6 +16,22 @@ function buildHeader() {
   var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
   var dateStr = nameDay[now.getDay()] + ' ' + now.getDate() + ' ' + nameMth[now.getMonth()] + ' ' + year;
 
+  var pageMap = {
+    'index.html':        'Home',
+    'novita.html':       'Novità',
+    'storia.html':       'Storia',
+    'iniziative.html':   'Iniziative',
+    'immagini.html':     'Immagini',
+    'filmati.html':      'Filmati',
+    'contatti.html':     'Contatti',
+    'associazione.html': 'Associazione'
+  };
+  var path = window.location.pathname.split('/').pop() || 'index.html';
+  var pageLabel = pageMap[path];
+  var breadcrumb = pageLabel && pageLabel !== 'Home'
+    ? '<a href="index.html">Home</a> &rsaquo; ' + pageLabel
+    : 'Home';
+
   var html =
     '<div id="site-header">' +
       '<div class="header-top">' +
@@ -29,7 +45,10 @@ function buildHeader() {
           '<span class="Stile22">via Matteotti,1 - 40063 Monghidoro</span>' +
         '</div>' +
       '</div>' +
-      '<div class="header-datebar">' + dateStr + '</div>' +
+      '<div class="header-datebar">' +
+        '<span class="header-breadcrumb">' + breadcrumb + '</span>' +
+        '<span class="header-date">' + dateStr + '</span>' +
+      '</div>' +
     '</div>';
 
   var container = document.getElementById('header-container');

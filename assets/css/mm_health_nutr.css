@@ -203,13 +203,24 @@ a:hover {
 }
 
 .header-datebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #99CC66;
-  text-align: center;
-  padding: 4px 0;
+  padding: 4px 12px;
   border: 1px solid #888;
   font-family: Geneva, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: bold;
   color: #006600;
+}
+
+.header-breadcrumb a {
+  color: #336600;
+  text-decoration: none;
+}
+
+.header-breadcrumb a:hover {
+  text-decoration: underline;
 }
 
