@@ -22,6 +22,7 @@ collections:
             fields:
               - {label: "Titre", name: "title", widget: "string"}
               - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
+              - {label: "Image", name: "image", widget: "image", required: false}
               - {label: "Contenu", name: "body", widget: "text"}
 
   - name: "galerie"

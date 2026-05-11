@@ -78,6 +78,7 @@
           '<div style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
             '<p class="Stile28">' + n.title + '</p>' +
             '<p class="Stile27">' + formatDate(n.date) + '</p>' +
+            (n.image ? '<p><img src="' + n.image + '" alt="' + n.title + '" style="max-width:100%;height:auto;" /></p>' : '') +
             bodyToHtml(n.body) +
           '</div>';
       }
