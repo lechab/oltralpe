@@ -36,22 +36,26 @@ function buildHeader() {
 
   var html =
     '<div id="site-header">' +
-      '<div class="header-top">' +
-        '<div class="header-logo">' +
-          '<a href="index.html"><img src="images/shared/logoverdepiccolo.png" alt="Oltr\'Alpe" width="250" height="133" /></a>' +
-        '</div>' +
-        '<div class="header-spacer"></div>' +
-        '<div class="header-identity">' +
-          '<span class="Stile1">Oltr\'Alpe</span>' +
-          '<span class="Stile38">Associazione di volontariato</span>' +
-          '<span class="Stile22">via Matteotti,1 - 40063 Monghidoro</span>' +
-        '</div>' +
-      '</div>' +
-      '<div class="header-datebar">' +
-        '<span class="header-breadcrumb">' + breadcrumb + '</span>' +
-        '<span class="header-date">' + dateStr + '</span>' +
-      '</div>' +
-    '</div>';
+    '<div class="header-top">' +
+    '<div class="header-logo">' +
+    '<a href="index.html"><img src="images/shared/logoverdepiccolo.png" alt="Oltr\'Alpe" width="250" height="133" /></a>' +
+    "</div>" +
+    '<div class="header-spacer"></div>' +
+    '<div class="header-identity">' +
+    '<span class="Stile1">Oltr\'Alpe</span>' +
+    '<span class="Stile38">Organizzazione di volontariato</span>' +
+    '<span class="Stile22">via Matteotti,1 - 40063 Monghidoro</span>' +
+    "</div>" +
+    "</div>" +
+    '<div class="header-datebar">' +
+    '<span class="header-breadcrumb">' +
+    breadcrumb +
+    "</span>" +
+    '<span class="header-date">' +
+    dateStr +
+    "</span>" +
+    "</div>" +
+    "</div>";
 
   var container = document.getElementById('header-container');
   if (container) {
@@ -70,7 +74,7 @@ function buildNav() {
     { href: "filmati.html", label: "Filmati" },
     { href: "contatti.html", label: "Contatti" },
     { href: "iscrizione.html", label: "Iscrizione" },
-    { href: "associazione.html", label: "Associazione" },
+    { href: "associazione.html", label: "Organizzazione" },
   ];
   let html = '<nav id="navigation"><ul>';
   for ( let i = 0; i < links.length; i++) {
