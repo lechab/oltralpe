@@ -23,6 +23,7 @@
 
         <div id="filmati-filters"></div>
         <div id="filmati-grid" class="gallery-grid"></div>
+        <p id="filmati-empty" class="gallery-empty" style="display:none;">Nessun risultato per questa ricerca.</p>
 
       </td>
     </tr>
@@ -31,7 +32,10 @@
 
 <div id="video-modal" class="video-modal">
   <button type="button" class="video-modal-close" aria-label="Chiudi">&#215;</button>
-  <div class="video-modal-frame"></div>
+  <div class="video-modal-content">
+    <div class="video-modal-frame"></div>
+    <div class="video-modal-caption"></div>
+  </div>
 </div>
 
 <script>
@@ -41,7 +45,14 @@
     evento:    'Eventi'
   };
 
-  var state = { year: '*', theme: '*' };
+  var allVideos = [];
+  var state = { year: '*', theme: '*', location: '*', query: '' };
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
 
   // Extrait l'ID YouTube d'une URL (watch?v=, youtu.be/, /embed/)
   function extractYouTubeId(url) {
@@ -61,41 +72,60 @@
       var thumb = id
         ? '<img src="https://img.youtube.com/vi/' + id + '/hqdefault.jpg" alt="" />'
         : '<div class="album-cover-placeholder">&#127909;</div>';
-      var badgeClass = v.theme || '';
       var badgeLabel = THEMES[v.theme] || v.theme || '';
-      var meta = [v.year, v.location, (v.credit ? 'di ' + v.credit : '')]
-        .filter(function (x) { return x; }).join(' &bull; ');
-      return '<div class="album-card" data-year="' + (v.year || '') + '" data-theme="' + (v.theme || '') + '" data-id="' + id + '">' +
+      var meta = [v.year, (v.credit ? 'di ' + v.credit : '')]
+        .filter(function (x) { return x; }).map(esc).join(' &bull; ');
+      return '<div class="album-card" data-idx="' + idx + '" data-id="' + esc(id) + '">' +
         '<div class="video-thumb">' + thumb + (id ? '<span class="play-overlay"></span>' : '') + '</div>' +
         '<div class="album-info">' +
-          '<p class="album-title">' + (v.title || '') + '</p>' +
+          '<p class="album-title">' + esc(v.title) + '</p>' +
           (meta ? '<p class="album-meta">' + meta + '</p>' : '') +
-          (badgeLabel ? '<span class="event-badge ' + badgeClass + '">' + badgeLabel + '</span>' : '') +
+          (v.location ? '<p class="album-location">&#128205; ' + esc(v.location) + '</p>' : '') +
+          (badgeLabel ? '<span class="event-badge ' + esc(v.theme || '') + '">' + esc(badgeLabel) + '</span>' : '') +
         '</div>' +
       '</div>';
     }).join('');
   }
 
+  function matches(v) {
+    if (!v) return false;
+    if (state.year !== '*' && (v.year || '') !== state.year) return false;
+    if (state.theme !== '*' && (v.theme || '') !== state.theme) return false;
+    if (state.location !== '*' && (v.location || '') !== state.location) return false;
+    if (state.query) {
+      var hay = ((v.title || '') + ' ' + (v.location || '')).toLowerCase();
+      if (hay.indexOf(state.query) === -1) return false;
+    }
+    return true;
+  }
+
   function applyFilters() {
+    var visible = 0;
     document.querySelectorAll('#filmati-grid .album-card').forEach(function (card) {
-      var okYear  = (state.year  === '*' || card.getAttribute('data-year')  === state.year);
-      var okTheme = (state.theme === '*' || card.getAttribute('data-theme') === state.theme);
-      card.style.display = (okYear && okTheme) ? '' : 'none';
+      var v = allVideos[parseInt(card.getAttribute('data-idx'), 10)];
+      var ok = matches(v);
+      card.style.display = ok ? '' : 'none';
+      if (ok) visible++;
     });
+    var empty = document.getElementById('filmati-empty');
+    if (empty) empty.style.display = (visible === 0) ? '' : 'none';
   }
 
   function buildButton(label, value, active) {
-    return '<button class="filter-btn' + (active ? ' active' : '') + '" data-value="' + value + '">' + label + '</button>';
+    return '<button class="filter-btn' + (active ? ' active' : '') + '" data-value="' + esc(value) + '">' + esc(label) + '</button>';
   }
 
   function renderFilters(videos) {
     var years = [];
     var themes = [];
+    var locations = [];
     videos.forEach(function (v) {
       if (v.year && years.indexOf(v.year) === -1) years.push(v.year);
       if (v.theme && themes.indexOf(v.theme) === -1) themes.push(v.theme);
+      if (v.location && locations.indexOf(v.location) === -1) locations.push(v.location);
     });
     years.sort(function (a, b) { return parseInt(b, 10) - parseInt(a, 10); });
+    locations.sort(function (a, b) { return a.localeCompare(b); });
 
     var html = '';
     html += '<div class="filter-group" id="filter-theme"><span class="filter-group-label">Tema</span>' +
@@ -106,6 +136,16 @@
     html += '<div class="filter-group" id="filter-year"><span class="filter-group-label">Anno</span>' +
             buildButton('Tutti', '*', true);
     years.forEach(function (y) { html += buildButton(y, y, false); });
+    html += '</div>';
+
+    html += '<div class="filter-group" id="filter-extra">';
+    if (locations.length > 0) {
+      html += '<span class="filter-group-label">Luogo</span>' +
+              '<select id="filter-location" class="filter-select"><option value="*">Tutti</option>';
+      locations.forEach(function (l) { html += '<option value="' + esc(l) + '">' + esc(l) + '</option>'; });
+      html += '</select>';
+    }
+    html += '<input type="text" id="filter-search" class="filter-search" placeholder="Cerca per titolo o luogo..." />';
     html += '</div>';
 
     var bar = document.getElementById('filmati-filters');
@@ -121,17 +161,33 @@
       if (group.id === 'filter-theme') state.theme = btn.getAttribute('data-value');
       applyFilters();
     });
+
+    var locSel = document.getElementById('filter-location');
+    if (locSel) {
+      locSel.addEventListener('change', function () {
+        state.location = locSel.value;
+        applyFilters();
+      });
+    }
+    var search = document.getElementById('filter-search');
+    search.addEventListener('input', function () {
+      state.query = search.value.trim().toLowerCase();
+      applyFilters();
+    });
   }
 
   // Lightbox vidéo : un seul lecteur YouTube en grand, démarrage auto
   var modal = document.getElementById('video-modal');
   var frame = modal.querySelector('.video-modal-frame');
 
-  function openVideo(id) {
+  function openVideo(id, caption) {
     frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id +
       '?autoplay=1&amp;rel=0" title="YouTube video player" frameborder="0" ' +
       'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
       'allowfullscreen></iframe>';
+    var cap = modal.querySelector('.video-modal-caption');
+    cap.innerHTML = caption || '';
+    cap.style.display = caption ? '' : 'none';
     modal.classList.add('open');
   }
 
@@ -150,16 +206,23 @@
   fetch('data/filmati.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      var videos = data.videos || [];
-      renderGrid(videos);
-      if (videos.length > 0) renderFilters(videos);
+      allVideos = data.videos || [];
+      renderGrid(allVideos);
+      if (allVideos.length > 0) renderFilters(allVideos);
 
       // Ouverture de la vidéo en grand au clic sur une vignette
       document.getElementById('filmati-grid').addEventListener('click', function (e) {
         var card = e.target.closest('.album-card');
         if (!card) return;
         var id = card.getAttribute('data-id');
-        if (id) openVideo(id);
+        if (!id) return;
+        var v = allVideos[parseInt(card.getAttribute('data-idx'), 10)] || {};
+        var sub = [];
+        if (v.location) sub.push('&#128205; ' + esc(v.location));
+        if (v.year) sub.push(esc(v.year));
+        var caption = (v.title ? '<strong>' + esc(v.title) + '</strong>' : '') +
+                      (sub.length ? '<br/>' + sub.join(' &bull; ') : '');
+        openVideo(id, caption);
       });
     })
     .catch(function () {
