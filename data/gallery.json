@@ -1,17 +1,13 @@
 {
   "albums": [
     {
-      "title": "rando 1",
+      "title": "Laghetti la Martina",
       "event_type": "uscita",
-      "date": "2026-05-11",
-      "description": "",
+      "date": "2026-05-30",
+      "description": "Camminata ai laghetti la Martina per osservare la fioritura della Sulla",
       "photos": [
         {
-          "image": "/images/uploads/dcedb1994ca79270191b68c1a97c4dc2.jpg",
-          "caption": ""
-        },
-        {
-          "image": "/images/uploads/c47cf0804215646b9ec24539d6bc07d2.jpg",
+          "image": "/images/uploads/WhatsApp Image 2026-05-30 at 15.06.28 (1).jpeg",
           "caption": ""
         }
       ]
@@ -23,7 +19,7 @@
       "description": "",
       "photos": [
         {
-          "image": "/images/uploads/c47cf0804215646b9ec24539d6bc07d2.jpg",
+          "image": "/images/uploads/WhatsApp Image 2026-05-30 at 15.01.27.jpeg",
           "caption": ""
         }
       ]
