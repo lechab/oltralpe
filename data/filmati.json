@@ -1,24 +1,6 @@
 {
   "videos": [
     {
-      "title": "Sasso di Castro",
-      "url": "https://www.youtube.com/embed/R3Xm_mPUju4",
-      "year": "2020",
-      "location": "Sasso di castro",
-      "theme": "camminata",
-      "credit": "Paolo Ferretti",
-      "description": ""
-    },
-    {
-      "title": "I laghetti della Martina al tramonto",
-      "url": "https://www.youtube.com/embed/r9wdVEEd5KQ",
-      "year": "2020",
-      "location": "Laghetti della Martina",
-      "theme": "camminata",
-      "credit": "Paolo Ferretti",
-      "description": ""
-    },
-    {
       "title": "Ritrovo natalizio al Fantorno del 2019",
       "url": "https://www.youtube.com/embed/nBv42HQbqMo",
       "year": "2019",
@@ -28,10 +10,10 @@
       "description": ""
     },
     {
-      "title": "Immagini dell'estate 2019",
+      "title": "Dall’alba al tramonto (immagini di un’estate a Monghidoro 2019)",
       "url": "https://www.youtube.com/embed/EB1Sw6-fTWE",
       "year": "2019",
-      "location": "",
+      "location": "Vari",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -82,10 +64,10 @@
       "description": ""
     },
     {
-      "title": "Immagini dalle nostre camminate del 2016",
+      "title": "Monghidoro camminate serali",
       "url": "https://www.youtube.com/embed/QWVXe0DR0AI",
       "year": "2016",
-      "location": "",
+      "location": "Fantorno",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
