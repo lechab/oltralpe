@@ -78,6 +78,8 @@ collections:
                   - {label: "Assemblea", value: "assemblea"}
                   - {label: "Varie", value: "varie"}
               - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
+              - {label: "Lieu", name: "location", widget: "string", required: false}
+              - {label: "Réalisation", name: "credit", widget: "string", required: false}
               - {label: "Description", name: "description", widget: "text", required: false}
               - label: "Photos"
                 name: "photos"
