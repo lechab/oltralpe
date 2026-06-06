@@ -22,8 +22,21 @@ collections:
             fields:
               - {label: "Titre", name: "title", widget: "string"}
               - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
-              - {label: "Image", name: "image", widget: "image", required: false}
+              - label: "Tipo"
+                name: "type"
+                widget: select
+                options:
+                  - {label: "Camminata", value: "camminata"}
+                  - {label: "Evento", value: "evento"}
+                  - {label: "Varie", value: "varie"}
+                required: false
+              - {label: "Partenza", name: "partenza", widget: "string", required: false, condition: {field: type, value: camminata}}
+              - {label: "Lunghezza (km)", name: "lunghezza", widget: "string", required: false, condition: {field: type, value: camminata}}
+              - {label: "Dislivello (m)", name: "dislivello", widget: "string", required: false, condition: {field: type, value: camminata}}
+              - {label: "Tempo di percorso", name: "tempo_percorso", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Contenu", name: "body", widget: "text"}
+              - {label: "Image", name: "image", widget: "image", required: false}
+              - {label: "Lien vidéo (YouTube)", name: "video_url", widget: "string", required: false}
 
   - name: "associazione"
     label: "Associazione"
