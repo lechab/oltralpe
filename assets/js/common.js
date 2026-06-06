@@ -69,7 +69,6 @@ function buildNav() {
     { href: "novita.html", label: "Novità" },
     { href: "storia.html", label: "Storia" },
     { href: "iniziative.html", label: "Iniziative" },
-    { href: "immagini.html", label: "Immagini" },
     { href: "galerie.html", label: "Galleria foto" },
     { href: "filmati.html", label: "Filmati" },
     { href: "contatti.html", label: "Contatti" },
