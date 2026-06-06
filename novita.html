@@ -41,24 +41,35 @@
 .news-type-badge.varie     { background: #f0f0f0; color: #555; }
 .camminata-fiche {
   display: table;
-  border-collapse: collapse;
-  margin: 8px 0 10px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 10px 0 14px 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  background: #f5f9f2;
-  border: 1px solid #b8d4a8;
-  border-radius: 3px;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #c8debb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(92,116,61,0.10);
+  min-width: 280px;
 }
 .camminata-fiche td {
-  padding: 4px 10px;
-  border-bottom: 1px solid #d6e8cc;
+  padding: 9px 16px;
+  border-bottom: 1px solid #e8f0e0;
+  vertical-align: middle;
 }
 .camminata-fiche td:first-child {
   font-weight: bold;
   color: #5C743D;
   white-space: nowrap;
+  background: #f4f8ef;
+  width: 160px;
 }
 .camminata-fiche tr:last-child td { border-bottom: none; }
+.camminata-fiche tr:first-child td:first-child { border-radius: 8px 0 0 0; }
+.camminata-fiche tr:first-child td:last-child  { border-radius: 0 8px 0 0; }
+.camminata-fiche tr:last-child  td:first-child { border-radius: 0 0 0 8px; }
+.camminata-fiche tr:last-child  td:last-child  { border-radius: 0 0 8px 0; }
 </style>
 </head>
 <body dir="ltr">
@@ -103,6 +114,7 @@
   function camminateFiche(n) {
     if (n.type !== 'camminata') return '';
     var rows = [
+      ['Data e ora',       n.data_camminata ? n.data_camminata.replace('T', ' ').slice(0, 16) : null],
       ['Partenza',         n.partenza],
       ['Lunghezza',        n.lunghezza ? n.lunghezza + ' km' : null],
       ['Dislivello',       n.dislivello ? n.dislivello + ' m' : null],

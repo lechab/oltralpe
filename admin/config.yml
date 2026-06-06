@@ -30,6 +30,7 @@ collections:
                   - {label: "Evento", value: "evento"}
                   - {label: "Varie", value: "varie"}
                 required: false
+              - {label: "Data e ora", name: "data_camminata", widget: "datetime", format: "YYYY-MM-DD HH:mm", time_format: "HH:mm", required: false, condition: {field: type, value: camminata}}
               - {label: "Partenza", name: "partenza", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Lunghezza (km)", name: "lunghezza", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Dislivello (m)", name: "dislivello", widget: "string", required: false, condition: {field: type, value: camminata}}
