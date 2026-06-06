@@ -4,7 +4,7 @@
 <title>Oltralpe - Galleria foto</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="assets/css/mm_health_nutr.css" type="text/css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css" integrity="sha384-7smI+SjZ/BK+ZIJeHnWR8QD9V0vMZPuWeVpzpF47GJSWXYjV6p9BuxMxE7dI632n" crossorigin="anonymous" />
 <link rel="shortcut icon" href="images/shared/favicon.gif" />
 <script src="assets/js/common.js"></script>
 <style type="text/css">
@@ -41,7 +41,7 @@
           </span>
         </div>
         <div><a href="immagini.html" class="link-archivio">&#x1F4F7; Immagini del passato</a></div>
-        <div id="gallery-filters" class="gallery-filters"></div>
+        <div id="gallery-filters"></div>
         <div id="gallery-grid" class="gallery-grid"></div>
 
       </td>
@@ -49,26 +49,37 @@
   </table>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js" integrity="sha384-WUtxQyGVoQe2ChHdu4IyeL9/eDLyvlOpSOfF/sEzyhqkYZDH0vn4PRgHUQvFv9Bz" crossorigin="anonymous"></script>
+<script type="text/javascript">
 (function () {
   var LABELS = {
     uscita:    'Camminate',
     culturale: 'Evento culturale',
-    assemblea: 'Assemblea'
+    assemblea: 'Assemblea',
+    varie:     'Varie'
   };
 
   var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
                  'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
+  var allAlbums = [];
+  var state = { theme: '*', year: '*', location: '*', query: '' };
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   function formatDate(iso) {
     if (!iso) return '';
     var parts = iso.split('-');
     if (parts.length < 3) return iso;
-    var d = parseInt(parts[2], 10);
-    var m = parseInt(parts[1], 10) - 1;
-    var y = parts[0];
-    return d + ' ' + nameMth[m] + ' ' + y;
+    return parseInt(parts[2], 10) + ' ' + nameMth[parseInt(parts[1], 10) - 1] + ' ' + parts[0];
+  }
+
+  function yearOf(iso) {
+    return iso ? iso.split('-')[0] : '';
   }
 
   function openAlbum(album) {
@@ -87,59 +98,127 @@
       return;
     }
     grid.innerHTML = albums.map(function (album, idx) {
-      var cover = album.photos && album.photos.length > 0
-        ? '<img class="album-cover" src="' + album.photos[0] + '" alt="' + album.title + '" />'
+      var coverSrc = album.cover || (album.photos && album.photos.length > 0 ? album.photos[0] : null);
+      var cover = coverSrc
+        ? '<img class="album-cover" src="' + esc(coverSrc) + '" alt="' + esc(album.title) + '" />'
         : '<div class="album-cover-placeholder">&#128247;</div>';
       var badgeClass = album.event_type || 'uscita';
       var badgeLabel = LABELS[album.event_type] || album.event_type || '';
       var count = album.photos ? album.photos.length : 0;
-      return '<div class="album-card" data-type="' + (album.event_type || '') + '" data-idx="' + idx + '">' +
+      var meta = [formatDate(album.date), count ? count + ' foto' : '']
+        .filter(function (x) { return x; }).join(' &bull; ');
+      return '<div class="album-card"' +
+          ' data-type="' + esc(album.event_type || '') + '"' +
+          ' data-year="' + esc(yearOf(album.date)) + '"' +
+          ' data-location="' + esc(album.location || '') + '"' +
+          ' data-idx="' + idx + '">' +
         cover +
         '<div class="album-info">' +
-          '<p class="album-title">' + album.title + '</p>' +
-          '<p class="album-meta">' + formatDate(album.date) + (count ? ' &bull; ' + count + ' foto' : '') + '</p>' +
-          '<span class="event-badge ' + badgeClass + '">' + badgeLabel + '</span>' +
+          '<p class="album-title">' + esc(album.title) + '</p>' +
+          (meta ? '<p class="album-meta">' + meta + '</p>' : '') +
+          (album.location ? '<p class="album-location">&#128205; ' + esc(album.location) + '</p>' : '') +
+          (album.credit ? '<p class="album-meta">&#128247; ' + esc(album.credit) + '</p>' : '') +
+          (badgeLabel ? '<span class="event-badge ' + esc(badgeClass) + '">' + esc(badgeLabel) + '</span>' : '') +
         '</div>' +
       '</div>';
     }).join('');
   }
 
+  function matches(card) {
+    if (state.theme !== '*' && card.getAttribute('data-type') !== state.theme) return false;
+    if (state.year !== '*' && card.getAttribute('data-year') !== state.year) return false;
+    if (state.location !== '*' && card.getAttribute('data-location') !== state.location) return false;
+    if (state.query) {
+      var idx = parseInt(card.getAttribute('data-idx'), 10);
+      var a = allAlbums[idx] || {};
+      var hay = ((a.title || '') + ' ' + (a.location || '')).toLowerCase();
+      if (hay.indexOf(state.query) === -1) return false;
+    }
+    return true;
+  }
+
+  function applyFilters() {
+    document.querySelectorAll('#gallery-grid .album-card').forEach(function (card) {
+      card.style.display = matches(card) ? '' : 'none';
+    });
+  }
+
+  function buildBtn(label, value, active) {
+    return '<button class="filter-btn' + (active ? ' active' : '') + '" data-value="' + esc(value) + '">' + esc(label) + '</button>';
+  }
+
   function renderFilters(albums) {
-    var bar = document.getElementById('gallery-filters');
-    var types = [];
+    var types = [], years = [], locations = [];
     albums.forEach(function (a) {
       if (a.event_type && types.indexOf(a.event_type) === -1) types.push(a.event_type);
+      var y = yearOf(a.date);
+      if (y && years.indexOf(y) === -1) years.push(y);
+      if (a.location && locations.indexOf(a.location) === -1) locations.push(a.location);
     });
-    var btns = '<button class="filter-btn active" data-filter="*">Tutte</button>';
-    types.forEach(function (t) {
-      btns += '<button class="filter-btn" data-filter="' + t + '">' + (LABELS[t] || t) + '</button>';
-    });
-    bar.innerHTML = btns;
+    years.sort(function (a, b) { return parseInt(b, 10) - parseInt(a, 10); });
+    locations.sort(function (a, b) { return a.localeCompare(b); });
+
+    var html = '';
+
+    html += '<div class="filter-group" id="filter-theme"><span class="filter-group-label">Tema</span>' + buildBtn('Tutte', '*', true);
+    types.forEach(function (t) { html += buildBtn(LABELS[t] || t, t, false); });
+    html += '</div>';
+
+    html += '<div class="filter-group" id="filter-year"><span class="filter-group-label">Anno</span>' + buildBtn('Tutti', '*', true);
+    years.forEach(function (y) { html += buildBtn(y, y, false); });
+    html += '</div>';
+
+    html += '<div class="filter-group" id="filter-extra">';
+    if (locations.length > 0) {
+      html += '<span class="filter-group-label">Luogo</span>' +
+              '<select id="filter-location" class="filter-select"><option value="*">Tutti</option>';
+      locations.forEach(function (l) { html += '<option value="' + esc(l) + '">' + esc(l) + '</option>'; });
+      html += '</select>';
+    }
+    html += '<input type="text" id="filter-search" class="filter-search" placeholder="Cerca per titolo o luogo..." />';
+    html += '</div>';
+
+    var bar = document.getElementById('gallery-filters');
+    bar.innerHTML = html;
 
     bar.addEventListener('click', function (e) {
       var btn = e.target.closest('.filter-btn');
       if (!btn) return;
-      bar.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      var group = btn.parentNode;
+      group.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      var filter = btn.getAttribute('data-filter');
-      document.querySelectorAll('.album-card').forEach(function (card) {
-        card.style.display = (filter === '*' || card.getAttribute('data-type') === filter) ? '' : 'none';
+      if (group.id === 'filter-theme') state.theme = btn.getAttribute('data-value');
+      if (group.id === 'filter-year')  state.year  = btn.getAttribute('data-value');
+      applyFilters();
+    });
+
+    var locSel = document.getElementById('filter-location');
+    if (locSel) {
+      locSel.addEventListener('change', function () {
+        state.location = locSel.value;
+        applyFilters();
       });
+    }
+
+    var search = document.getElementById('filter-search');
+    search.addEventListener('input', function () {
+      state.query = search.value.trim().toLowerCase();
+      applyFilters();
     });
   }
 
   fetch('data/gallery.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      var albums = data.albums || [];
-      renderGallery(albums);
-      if (albums.length > 0) renderFilters(albums);
+      allAlbums = data.albums || [];
+      renderGallery(allAlbums);
+      if (allAlbums.length > 0) renderFilters(allAlbums);
 
       document.getElementById('gallery-grid').addEventListener('click', function (e) {
         var card = e.target.closest('.album-card');
         if (!card) return;
         var idx = parseInt(card.getAttribute('data-idx'), 10);
-        openAlbum(albums[idx]);
+        openAlbum(allAlbums[idx]);
       });
     })
     .catch(function () {

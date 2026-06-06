@@ -59,7 +59,7 @@ collections:
   - name: "galerie"
     label: "Galleria"
     files:
-      - label: "Albums photos"
+      - label: "Albums foto"
         name: "gallery"
         file: "data/gallery.json"
         fields:
@@ -71,7 +71,7 @@ collections:
             summary: "{{fields.title}} — {{fields.event_type}}"
             fields:
               - {label: "Titre", name: "title", widget: "string"}
-              - label: "Type d'événement"
+              - label: "Typo eventi"
                 name: "event_type"
                 widget: select
                 options:
@@ -83,6 +83,7 @@ collections:
               - {label: "Lieu", name: "location", widget: "string", required: false}
               - {label: "Réalisation", name: "credit", widget: "string", required: false}
               - {label: "Description", name: "description", widget: "text", required: false}
+              - {label: "Image d'aperçu", name: "cover", widget: "image", required: false}
               - label: "Photos"
                 name: "photos"
                 widget: image
