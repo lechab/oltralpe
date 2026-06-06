@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <!-- DW6 -->
   <head>
@@ -202,83 +202,9 @@
                   </tr>
                 </tbody>
               </table>
-              <span class="Stile17"> <span class="Stile51">Novità</span></span
-              ><span class="Stile51"> </span>
-              <table
-                width="416"
-                height="655"
-                border="0"
-                bordercolor="#CCFF99"
-                bgcolor="#ECFFF4"
-              >
-                <tbody>
-                  <tr>
-                    <td
-                      width="224"
-                      height="651"
-                      valign="top"
-                      bordercolor="#99FF99"
-                      bgcolor="#ECFFF4"
-                    >
-                      <p class="Stile60">&nbsp;</p>
-                      <p class="Stile60">
-                        <a href="pages/pagina_generica.html" title="generica"
-                          >Camminate e tanto altro</a
-                        >
-                      </p>
-                      <p class="Stile60">
-                        <a href="pages/pag_foto_osservatorio_18.html"
-                          >Osservatorio Oltr'Alpe</a
-                        >
-                      </p>
-                      <p class="Stile60">
-                        <a href="pages/pagina_evento9.html"
-                          >Calendario iniziative 2023</a
-                        >
-                      </p>
-                      <p class="Stile60">
-                        <a href="pages/pagina_generica.html"
-                          >Il prato della Radeccia e il barbecue</a
-                        >
-                      </p>
-                      <p class="Stile60">
-                        <a href="pages/pag_foto_c8.html"
-                          >Un telescopio ricevuto in dono</a
-                        >
-                      </p>
-                      <p class="Stile60">&nbsp;</p>
-                      <p class="Stile60">
-                        <a class="Stile32" href="pages/pagina_evento4.html"
-                          >Informazioni utili per gli escursionisti
-                        </a>
-                      </p>
-                    </td>
-                    <td
-                      width="182"
-                      valign="top"
-                      bordercolor="#99FF99"
-                      bgcolor="#ECFFF4"
-                    >
-                      <div align="center">
-                        <img
-                          width="230"
-                          height="306"
-                          alt="pilstrino"
-                          src="images/home/crocealpe22.jpg"
-                        />
-                        <span class="Stile117">Croce dell'Alpe</span>
-                      </div>
-                      <p class="Stile43">&nbsp;</p>
-                      <p class="Stile43">&nbsp;</p>
-                      <p class="Stile60">
-                        <a href="pages/pag_filmato2014.html"
-                          >Chi siamo e cosa Facciamo (filmato)</a
-                        >
-                      </p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <span class="Stile17"> <span class="Stile51">Novit&agrave;</span></span>
+              <div id="novita-container" style="margin-top:8px;"></div>
+
               <table width="415" border="0">
                 <tbody>
                   <tr>
@@ -330,5 +256,50 @@
       </table>
     </div>
   <script type="text/javascript">buildHeader();buildNav();</script>
+  <script type="text/javascript">
+  (function () {
+    var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+                   'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+    function formatDate(iso) {
+      if (!iso) return '';
+      var p = iso.split('-');
+      if (p.length < 3) return iso;
+      return parseInt(p[2], 10) + ' ' + nameMth[parseInt(p[1], 10) - 1] + ' ' + p[0];
+    }
+    var typeColors = { camminata: '#2d6a3f', evento: '#004085', varie: '#555' };
+    var typeBg     = { camminata: '#d4edda', evento: '#cce5ff', varie: '#f0f0f0' };
+    var typeLabels = { camminata: 'Camminata', evento: 'Evento', varie: 'Varie' };
+
+    fetch('data/news.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var items = (data.articles || []).slice()
+          .sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); })
+          .slice(0, 3);
+        var html = '';
+        for (var i = 0; i < items.length; i++) {
+          var n = items[i];
+          var excerpt = (n.body || '').replace(/\n/g, ' ').slice(0, 120);
+          if ((n.body || '').length > 120) excerpt += '&hellip;';
+          var badge = n.type
+            ? '<span style="display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:bold;text-transform:uppercase;background:' + (typeBg[n.type]||'#eee') + ';color:' + (typeColors[n.type]||'#333') + ';margin-bottom:4px;">' + (typeLabels[n.type] || n.type) + '</span><br />'
+            : '';
+          html +=
+            '<div style="padding:10px 0;border-bottom:1px solid #c8debb;">' +
+              badge +
+              '<a href="novita.html" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;color:#336600;text-decoration:none;">' + n.title + '</a>' +
+              '<br /><span style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#888;">' + formatDate(n.date) + '</span>' +
+              (excerpt ? '<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#333;margin:4px 0 0 0;">' + excerpt + '</p>' : '') +
+            '</div>';
+        }
+        html += '<p style="text-align:right;margin:8px 0 0 0;"><a href="novita.html" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#5C743D;">Tutte le novit&agrave; &rsaquo;</a></p>';
+        document.getElementById('novita-container').innerHTML = html;
+      })
+      .catch(function() {
+        document.getElementById('novita-container').innerHTML =
+          '<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#999;">Nessuna notizia disponibile.</p>';
+      });
+  })();
+  </script>
 </body>
 </html>
