@@ -1,15 +1,3 @@
 {
-  "albums": [
-    {
-      "title": "test",
-      "event_type": "uscita",
-      "date": "2026-06-06",
-      "description": "",
-      "photos": [
-        "/images/uploads/dcedb1994ca79270191b68c1a97c4dc2.jpg",
-        "/images/uploads/Immagine WhatsApp 2024-09-01 ore 08.34.59_0dfc885c.jpg",
-        "/images/uploads/WhatsApp Image 2026-05-30 at 15.01.27.jpeg"
-      ]
-    }
-  ]
+  "albums": []
 }
