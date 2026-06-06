@@ -74,7 +74,7 @@
   function openAlbum(album) {
     if (!album.photos || album.photos.length === 0) return;
     var elements = album.photos.map(function (p) {
-      return { href: p.image, type: 'image', title: p.caption || '' };
+      return { href: p, type: 'image', title: '' };
     });
     var lb = GLightbox({ elements: elements, touchNavigation: true, loop: true });
     lb.open();
@@ -88,7 +88,7 @@
     }
     grid.innerHTML = albums.map(function (album, idx) {
       var cover = album.photos && album.photos.length > 0
-        ? '<img class="album-cover" src="' + album.photos[0].image + '" alt="' + album.title + '" />'
+        ? '<img class="album-cover" src="' + album.photos[0] + '" alt="' + album.title + '" />'
         : '<div class="album-cover-placeholder">&#128247;</div>';
       var badgeClass = album.event_type || 'uscita';
       var badgeLabel = LABELS[album.event_type] || album.event_type || '';

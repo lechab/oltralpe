@@ -67,10 +67,9 @@ collections:
               - {label: "Description", name: "description", widget: "text", required: false}
               - label: "Photos"
                 name: "photos"
-                widget: list
-                fields:
-                  - {label: "Image", name: "image", widget: "image"}
-                  - {label: "Légende", name: "caption", widget: "string", required: false}
+                widget: image
+                multiple: true
+                required: false
 
   - name: "filmati"
     label: "Filmati"
