@@ -26,7 +26,8 @@ function buildHeader() {
     'contatti.html':     'Contatti',
     'associazione.html': 'Associazione',
     'iscrizione.html':   'Iscrizione',
-    'galerie.html':      'Galleria'
+    'galerie.html':      'Galleria',
+    'informazioni.html': 'Informazioni utili'
   };
   var path = window.location.pathname.split('/').pop() || 'index.html';
   var pageLabel = pageMap[path];
@@ -74,6 +75,7 @@ function buildNav() {
     { href: "contatti.html", label: "Contatti" },
     { href: "iscrizione.html", label: "Iscrizione" },
     { href: "associazione.html", label: "Organizzazione" },
+    { href: "informazioni.html", label: "Informazioni utili" },
   ];
   let html = '<nav id="navigation"><ul>';
   for ( let i = 0; i < links.length; i++) {
