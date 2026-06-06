@@ -26,7 +26,7 @@ function buildHeader() {
     'contatti.html':     'Contatti',
     'associazione.html': 'Associazione',
     'iscrizione.html':   'Iscrizione',
-    'galerie.html':      'Galerie'
+    'galerie.html':      'Galleria'
   };
   var path = window.location.pathname.split('/').pop() || 'index.html';
   var pageLabel = pageMap[path];
