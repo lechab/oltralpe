@@ -57,7 +57,7 @@ collections:
           - {label: "Dernière mise à jour", name: "last_updated", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
 
   - name: "galerie"
-    label: "Galerie"
+    label: "Galleria"
     files:
       - label: "Albums photos"
         name: "gallery"
