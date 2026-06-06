@@ -59,9 +59,10 @@ collections:
                 name: "event_type"
                 widget: select
                 options:
-                  - {label: "Uscita / Randonnée", value: "uscita"}
+                  - {label: "Camminate", value: "uscita"}
                   - {label: "Evento culturale", value: "culturale"}
                   - {label: "Assemblea", value: "assemblea"}
+                  - {label: "Varie", value: "varie"}
               - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
               - {label: "Description", name: "description", widget: "text", required: false}
               - label: "Photos"
