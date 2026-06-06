@@ -16,14 +16,23 @@
       "title": "Camminata del 06/06/2026",
       "date": "2026-06-01",
       "partenza": "",
+      "lunghezza": "",
+      "dislivello": "",
+      "tempo_percorso": "",
       "body": "Camminata di Sabato 6 Giugno : Castel dell'Alpi - Madonna dei Fornelli e monte dei Cucchi (Anello). Lunghezza km. 10,600 - Dislivello m. 485 - Tempo ore 3,30 - Partenza ore 8,30 dal parcheggio di fronte al bar La Spiaggetta a Castel dell'Alpi.",
-      "image": "/images/uploads/cartina1.jpg"
+      "image": "/images/uploads/cartina1.jpg",
+      "video_url": ""
     },
     {
       "title": "video del 30/05/2026 Laghetti la Martina",
       "date": "2026-06-02",
+      "partenza": "",
+      "lunghezza": "",
+      "dislivello": "",
+      "tempo_percorso": "",
       "body": "https://youtu.be/jxhMtDAH73Y      Laghetti la Martina 30/05/2026 - Fioritura sulla",
-      "image": "/images/uploads/WhatsApp Image 2026-05-30 at 15.01.28.jpeg"
+      "image": "/images/uploads/WhatsApp Image 2026-05-30 at 15.01.28.jpeg",
+      "video_url": "https://youtu.be/jxhMtDAH73Y"
     }
   ]
 }
