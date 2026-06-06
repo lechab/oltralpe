@@ -1,10 +1,22 @@
 {
   "articles": [
     {
-      "title": "Test novità",
-      "date": "2026-05-11",
-      "image": "/images/uploads/Immagine WhatsApp 2024-09-01 ore 08.34.59_0dfc885c.jpg",
-      "body": "è la novità del giorno"
+      "title": "camminata",
+      "date": "2026-05-29",
+      "image": "/images/uploads/cartina.jpg",
+      "body": "Camminata di sabato mattina 30 maggio '26.Laghetti La Martina.Andiamo a vedere la fioritura della Sulla. Partenza alle ore 08.45 dal parcheggio del Monumento al Capitano D'Amico.\nKm 10 circa . Ore di percorrenza previste 3 e mezzo. Dislivello 250/250 . ATTENZIONE NON Parcheggiare all'agriturismo. \nAllego cartina."
+    },
+    {
+      "title": "Camminata del 06/06/2026",
+      "date": "2026-06-01",
+      "image": "/images/uploads/cartina1.jpg",
+      "body": "Camminata di Sabato 6 Giugno : Castel dell'Alpi - Madonna dei Fornelli e monte dei Cucchi (Anello). Lunghezza km. 10,600 - Dislivello m. 485 - Tempo ore 3,30 - Partenza ore 8,30 dal parcheggio di fronte al bar La Spiaggetta a Castel dell'Alpi."
+    },
+    {
+      "title": "video del 30/05/2026 Laghetti la Martina",
+      "date": "2026-06-02",
+      "image": "/images/uploads/WhatsApp Image 2026-05-30 at 15.01.28.jpeg",
+      "body": "https://youtu.be/jxhMtDAH73Y      Laghetti la Martina 30/05/2026 - Fioritura sulla"
     }
   ]
 }
