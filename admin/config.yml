@@ -93,5 +93,6 @@ collections:
                 options:
                   - {label: "Camminata", value: "camminata"}
                   - {label: "Evento", value: "evento"}
+                  - {label: "Racconti", value: "racconti"}
               - {label: "Réalisation", name: "credit", widget: "string", required: false}
               - {label: "Description", name: "description", widget: "text", required: false}
