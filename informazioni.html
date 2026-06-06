@@ -19,36 +19,33 @@
   margin-top: 0;
   margin-bottom: 14px;
 }
-.subnav {
+.tab-bar {
+  display: flex;
+  border-bottom: 2px solid #5C743D;
+  margin-bottom: 24px;
+}
+.tab-btn {
+  padding: 10px 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5C743D;
   background: #f4f8ef;
   border: 1px solid #c8debb;
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin-bottom: 24px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  margin-right: 4px;
+  transition: background 0.15s;
 }
-.subnav strong {
-  display: block;
-  color: #5C743D;
-  margin-bottom: 6px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.tab-btn:hover { background: #e2f0d4; }
+.tab-btn.active {
+  background: #5C743D;
+  color: #ffffff;
+  border-color: #5C743D;
 }
-.subnav a {
-  display: block;
-  color: #336600;
-  text-decoration: none;
-  padding: 3px 0;
-}
-.subnav a:hover { text-decoration: underline; }
-.section-block {
-  margin-bottom: 40px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid #dde8cc;
-}
-.section-block:last-child { border-bottom: none; }
+.section-block { display: none; }
+.section-block.active { display: block; }
 .serate-table {
   border-collapse: collapse;
   margin: 10px auto 16px auto;
@@ -60,13 +57,43 @@
   color: #003300;
 }
 .serate-table td:first-child { font-weight: bold; }
+.serata-card {
+  background: #0d1b2a;
+  border-radius: 8px;
+  padding: 14px 18px;
+  min-width: 200px;
+  flex: 1 1 180px;
+  max-width: 240px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.serata-data {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #f0c040;
+  margin-bottom: 6px;
+}
+.serata-luogo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #a0bbd0;
+  margin-bottom: 8px;
+}
+.serata-titolo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 .info-box {
   background: #fff8e8;
   border-left: 4px solid #cc9900;
   border-radius: 3px;
   padding: 10px 14px;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   color: #5a4000;
   margin: 16px 0;
 }
@@ -79,7 +106,7 @@
     <tr>
       <td width="17%" valign="top" bgcolor="#5C743D"><div id="nav-container"></div></td>
       <td width="2%">&nbsp;</td>
-      <td width="56%" valign="top" style="padding: 10px 0;">
+      <td width="79%" valign="top" style="padding: 10px 0;">
 
         <table width="100%" border="0"><tr><td height="51" align="center" valign="bottom">
           <p style="font-size:26px;font-weight:bold;color:#336600;font-family:Georgia,'Times New Roman',Times,serif;margin:0 0 16px 0;">
@@ -87,34 +114,45 @@
           </p>
         </td></tr></table>
 
-        <div class="subnav">
-          <strong>In questa pagina</strong>
-          <a href="#camminate">&#x2023; Camminate</a>
-          <a href="#serate-astronomiche">&#x2023; Serate astronomiche</a>
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="showTab('camminate', this)">&#x1F6B6; Camminate</button>
+          <button class="tab-btn" onclick="showTab('serate-astronomiche', this)">&#x2605; Serate astronomiche</button>
         </div>
 
         <!-- SECTION: CAMMINATE -->
-        <div class="section-block" id="camminate">
+        <div class="section-block active" id="camminate">
           <p class="section-title">Camminate</p>
 
           <p class="Stile84">Le camminate organizzate da Oltr'Alpe si svolgono generalmente lungo sentieri di montagna del territorio del Comune di Monghidoro e dei Comuni limitrofi. Occasionalmente ci si sposta in altri Comuni o con mezzi propri o col pullman. In linea di massima chi partecipa alla camminata non conosce la destinazione in anticipo, conosce soltanto l'orario ed il luogo di ritrovo. Questo accade perch&eacute; le destinazioni sono stabilite spesso all'ultimo momento, in funzione del clima (freddo, caldo, vento, pioggia) ed anche in funzione del numero e della tipologia dei partecipanti. La durata del giro pu&ograve; variare da 2-3 ore a inizio stagione fino a 5-6 ore nel periodo estivo quando i camminatori hanno gi&agrave; acquisito un certo allenamento.</p>
 
           <p class="Stile84">I percorsi non sono mai pianeggianti perch&eacute; il territorio non lo consente. I dislivelli possono variare da 200-300 metri per i tracciati pi&ugrave; semplici fino a 600-700 e oltre per i pi&ugrave; impegnativi. I partecipanti devono essere quindi avvertiti che la camminata, come qualsiasi escursione in montagna, comporta sempre un minimo impegno e deve essere affrontata con consapevolezza. Utilizzare quindi un abbigliamento adeguato, tenendo conto che nel corso dell'escursione il tempo pu&ograve; cambiare. Le calzature dovranno essere idonee per camminare su terreno scosceso, con possibilit&agrave; di incontrare fango o neve. L'uso dei bastoni per il Nordic Walking &egrave; sicuramente raccomandato.</p>
 
-          <p class="Stile84">Per quanto riguarda gli alimenti, nelle escursioni da 2-3 ore che generalmente si concludono entro le 12,30-13,00 ciascun partecipante, se lo desidera, pu&ograve; portare il necessario per un breve spuntino che di solito si consuma durante una sosta a met&agrave; percorso. Nelle escursioni pi&ugrave; lunghe, che si concludono intorno alle 16,30-17,00, &egrave; sempre prevista una sosta pi&ugrave; lunga per il pranzo che ciascuno dovr&agrave; portarsi da casa, salvo diverse indicazioni. In alcuni casi il pranzo sar&agrave; fornito dall'organizzazione; chi desidera usufruire del servizio dovr&agrave; versare un piccolo contributo. Indispensabile avere sempre con s&eacute; una borraccia o bottiglia per l'acqua.</p>
+          <p class="Stile84">Per quanto riguarda gli alimenti, nelle escursioni da 2-3 ore che generalmente si concludono entro le 12,30-13,00 ciascun partecipante, se lo desidera, pu&ograve; portare il necessario per un breve spuntino che di solito si consuma durante una sosta a met&agrave; percorso.</p>
+
+          <p class="Stile84">La camminata deve essere un piacere non un dispiacere: deve essere un momento riposante e rilassante da passare in compagnia, in piena amicizia e sereint&agrave;.</p>
 
           <div class="info-box">
-            Partecipare alle camminate non costa niente: non &egrave; richiesta una quota di iscrizione all'evento, &egrave; per&ograve; richiesta la tessera dell'associazione Oltr'Alpe, al costo annuale di &euro;&nbsp;5,00, per motivi assicurativi.
+            Partecipare alle camminate non costa niente: non &egrave; richiesta una quota di iscrizione all'evento, &egrave; per&ograve; richiesta la tessera dell'associazione Oltr'Alpe, al costo annuale di &euro;&nbsp;10,00, per motivi assicurativi.
           </div>
 
           <p style="text-align:center;margin-top:16px;">
-            <img src="images/iniziative/camminatori3.jpg" width="100%" style="max-width:700px;" alt="Camminatori Oltr'Alpe" />
+            <img src="images/informazioni/camminata.jpg" width="100%" style="max-width:700px;" alt="Camminatori Oltr'Alpe" />
           </p>
 
           <p class="section-title" style="font-size:16px;margin-top:24px;">Carte dei percorsi</p>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
-            <a href="images/informazioni/1.pdf" target="_blank" class="link-archivio">&#x1F5FA; Carta dei percorsi 1</a>
-            <a href="images/informazioni/2.pdf" target="_blank" class="link-archivio">&#x1F5FA; Carta dei percorsi 2</a>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;">
+            <div style="text-align:center;">
+              <a href="images/informazioni/1.pdf" target="_blank">
+                <img src="images/informazioni/1.pdf.png" alt="Carta dei percorsi 1" style="width:200px;height:auto;display:block;border:1px solid #c8debb;border-radius:4px;margin-bottom:8px;" />
+              </a>
+              <a href="images/informazioni/1.pdf" target="_blank" class="link-archivio" style="font-size:14px;padding:7px 18px;">&#x1F5FA; Carta dei percorsi 1</a>
+            </div>
+            <div style="text-align:center;">
+              <a href="images/informazioni/2.pdf" target="_blank">
+                <img src="images/informazioni/2.pdf.png" alt="Carta dei percorsi 2" style="width:200px;height:auto;display:block;border:1px solid #c8debb;border-radius:4px;margin-bottom:8px;" />
+              </a>
+              <a href="images/informazioni/2.pdf" target="_blank" class="link-archivio" style="font-size:14px;padding:7px 18px;">&#x1F5FA; Carta dei percorsi 2</a>
+            </div>
           </div>
         </div>
 
@@ -122,25 +160,55 @@
         <div class="section-block" id="serate-astronomiche">
           <p class="section-title">Serate astronomiche</p>
 
-          <p style="text-align:center;margin-bottom:16px;">
-            <img src="images/iniziative/cielo-stellato-2.jpg" width="100%" style="max-width:700px;" alt="Cielo stellato" />
+          <p style="margin-bottom:16px;">
+            <img src="images/iniziative/cielo-stellato-2.jpg" width="100%" style="height:240px;object-fit:cover;border-radius:6px;display:block;" alt="Cielo stellato" />
           </p>
 
           <p class="Stile84">Le serate di osservazione astronomica si svolgono il gioved&igrave; presso l'osservatorio Oltr'Alpe. Sono state scelte serate senza Luna per avere un cielo maggiormente scuro — in presenza della Luna non &egrave; possibile osservare oggetti deboli come le nebulose o le galassie. Naturalmente l'osservazione &egrave; condizionata dal tempo atmosferico: in presenza di cielo nuvoloso le serate saranno annullate senza ulteriori comunicazioni. Si raccomanda di vestirsi adeguatamente perch&eacute; a oltre mille metri di quota, anche in piena estate, di notte pu&ograve; essere freddo.</p>
 
-          <p class="Stile84">La camminata deve essere un piacere non un dispiacere: deve essere un momento riposante e rilassante da passare in compagnia, in piena amicizia e sereint&agrave;.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;">
+            <div style="flex:1 1 45%;min-width:200px;">
+              <img src="images/informazioni/osservatorio.jpg" width="100%" style="height:220px;object-fit:cover;border-radius:6px;display:block;" alt="Osservatorio Oltr'Alpe" />
+            </div>
+            <div style="flex:1 1 45%;min-width:200px;">
+              <img src="images/informazioni/luna.jpg" width="100%" style="height:220px;object-fit:cover;border-radius:6px;display:block;" alt="Luna vista dall'osservatorio" />
+            </div>
+          </div>
 
-          <p class="Stile84">Per informazioni sui prossimi appuntamenti contattare:</p>
-          <table class="serate-table">
-            <tr>
-              <td>Renzo Monari</td>
-              <td>335 776 9433</td>
-            </tr>
-            <tr>
-              <td>Enrico Rossetti</td>
-              <td>347 382 6030</td>
-            </tr>
-          </table>
+          <p class="section-title" style="font-size:16px;margin-top:24px;">Programma 2026</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 20px 0;">
+            <div class="serata-card">
+              <div class="serata-data">Giov. 09.07</div>
+              <div class="serata-luogo">sull'Alpe di Monghidoro — ore 21.30</div>
+              <div class="serata-titolo">SERATA ALL'OSSERVATORIO</div>
+            </div>
+            <div class="serata-card">
+              <div class="serata-data">Giov. 16.07</div>
+              <div class="serata-luogo">sull'Alpe di Monghidoro — ore 21.30</div>
+              <div class="serata-titolo">SERATA ALL'OSSERVATORIO</div>
+            </div>
+            <div class="serata-card">
+              <div class="serata-data">Giov. 06.08</div>
+              <div class="serata-luogo">sull'Alpe di Monghidoro — ore 21.30</div>
+              <div class="serata-titolo">SERATA ALL'OSSERVATORIO</div>
+            </div>
+            <div class="serata-card">
+              <div class="serata-data">Giov. 13.08</div>
+              <div class="serata-luogo">sull'Alpe di Monghidoro — ore 21.30</div>
+              <div class="serata-titolo">SERATA ALL'OSSERVATORIO</div>
+            </div>
+            <div class="serata-card">
+              <div class="serata-data">Giov. 20.08</div>
+              <div class="serata-luogo">sull'Alpe di Monghidoro — ore 21.30</div>
+              <div class="serata-titolo">SERATA ALL'OSSERVATORIO</div>
+            </div>
+            <div class="serata-card">
+              <div class="serata-data">Giov. 03.09</div>
+              <div class="serata-luogo">sull'Alpe di Monghidoro — ore 21.30</div>
+              <div class="serata-titolo">SERATA ALL'OSSERVATORIO</div>
+            </div>
+          </div>
+
 
           <div class="info-box">
             L'Organizzazione di Volontariato Oltr'Alpe non si assume alcuna responsabilit&agrave; per quanto possa accadere ai partecipanti prima, durante e dopo la partecipazione alle iniziative.
@@ -149,13 +217,6 @@
 
       </td>
       <td width="2%">&nbsp;</td>
-      <td width="21%" valign="top" style="padding-top:80px;">
-        <div class="subnav">
-          <strong>Sezioni</strong>
-          <a href="#camminate">Camminate</a>
-          <a href="#serate-astronomiche">Serate astronomiche</a>
-        </div>
-      </td>
     </tr>
   </table>
   <table width="80%" border="0">
@@ -165,5 +226,15 @@
   </table>
 </div>
 <script type="text/javascript">buildHeader();buildNav();</script>
+<script type="text/javascript">
+function showTab(id, btn) {
+  var sections = document.querySelectorAll('.section-block');
+  for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
+  var buttons = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
 </body>
 </html>
