@@ -1,0 +1,747 @@
+/* Global Styles */
+
+body {
+	margin:0px;
+	background-color: #ECFFF4;
+	}
+	
+td {
+	font:11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	}
+	
+a {
+	color: #993300;
+	}
+	
+a:hover {
+	color: #5C743D;
+	}
+
+/* ID Styles */
+
+#navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 16px 0;
+	}
+
+#navigation li {
+	border-bottom: 1px solid #F4FFE4;
+	}
+
+#navigation a {
+	font: bold 13px Arial, Helvetica, sans-serif;
+	color: #D5EDB3;
+	line-height: 16px;
+	letter-spacing: .1em;
+	text-decoration: none;
+	display: block;
+	padding: 8px 6px 10px 20px;
+	}
+
+#navigation a:hover {
+	background: #99CC66;
+	color: #993300;
+	}
+	
+#logo 	{
+	font:24px Arial, Helvetica, sans-serif;
+	color: #5C743D;
+	letter-spacing:.2em;
+	line-height:30px;
+	}
+
+#tagline 	{	
+	font:11px Arial, Helvetica, sans-serif;
+	color: #993300;
+	letter-spacing:.4em;
+	line-height:18px;
+	}
+
+#monthformat {
+	border-bottom: 1px dashed #5C743D;
+	}
+		
+#dateformat {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #993300;
+	letter-spacing:.2em;
+	}
+	
+#dateformat a {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #993300;
+	font-weight:bold;
+	letter-spacing:.1em;
+	text-decoration:none;
+	}
+	
+#dateformat a:hover {
+	color: #F4FFE4;
+	letter-spacing:.1em;
+	}
+	
+/* Class Styles */
+	
+.bodyText {
+	font:11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	line-height:20px;
+	margin-top:0px;
+	}
+	
+.pageName{
+	font: 18px Arial, Helvetica, sans-serif;
+	color: #99CC66;
+	line-height:26px;
+	letter-spacing:.21em;
+	}
+	
+.subHeader {
+	font:bold 11px Arial, Helvetica, sans-serif;
+	color: #993300;
+	line-height:22px;
+	letter-spacing:.2em;
+	}
+
+.quote {
+	font: 20px Arial, Helvetica, sans-serif;
+	color: #759DA1;
+	line-height:30px;
+	}
+	
+.smallText {
+	font: 10px Arial, Helvetica, sans-serif;
+	color: #666666;
+	line-height: 22px;
+	}
+	
+.navText {
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #003366;
+	line-height:16px;
+	letter-spacing:.1em;
+	text-decoration: none;
+	}
+
+/* Shared Oltralpe page styles */
+
+.Stile1 {
+	font-size: 36px;
+	font-weight: bold;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #336633;
+}
+
+.Stile8 { font-family: Geneva, Arial, Helvetica, sans-serif; }
+
+.Stile20 { color: #D5EDB3; }
+
+.Stile22 {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	color: #006600;
+	font-size: 16px;
+}
+
+.Stile25 {
+	line-height: 16px;
+	letter-spacing: .1em;
+	text-decoration: none;
+	font: 11px Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #FFFFCC;
+}
+
+.Stile38 {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	color: #990000;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.Stile251 {
+	line-height: 16px;
+	letter-spacing: .1em;
+	text-decoration: none;
+	font: 11px Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #FFFFCC;
+	font-size: 14px;
+}
+
+/* Header sémantique moderne */
+
+#site-header {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  background-color: #D5EDB3;
+  min-height: 109px;
+}
+
+.header-logo {
+  flex: 0 0 33%;
+  text-align: center;
+}
+
+.header-spacer {
+  flex: 0 0 30%;
+}
+
+.header-identity {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-datebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #99CC66;
+  padding: 4px 12px;
+  border: 0;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #006600;
+}
+
+.header-breadcrumb a {
+  color: #336600;
+  text-decoration: none;
+}
+
+.header-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Galerie photos */
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 18px 0;
+}
+
+.filter-btn {
+  font: bold 11px Arial, Helvetica, sans-serif;
+  letter-spacing: .1em;
+  color: #5C743D;
+  background: #D5EDB3;
+  border: 1px solid #99CC66;
+  padding: 5px 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background .15s, color .15s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #5C743D;
+  color: #D5EDB3;
+  border-color: #5C743D;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.album-card {
+  background: #fff;
+  border: 1px solid #D5EDB3;
+  cursor: pointer;
+  transition: box-shadow .2s, transform .15s;
+}
+
+.album-card:hover {
+  box-shadow: 0 4px 14px rgba(92,116,61,.25);
+  transform: translateY(-2px);
+}
+
+.album-cover {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.album-cover-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #ECFFF4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #99CC66;
+  font-size: 36px;
+}
+
+.album-info {
+  padding: 8px 10px 10px;
+}
+
+.album-title {
+  font: bold 12px Arial, Helvetica, sans-serif;
+  color: #336633;
+  margin: 0 0 4px 0;
+}
+
+.album-meta {
+  font: 10px Arial, Helvetica, sans-serif;
+  color: #666666;
+  margin: 0 0 6px 0;
+}
+
+.event-badge {
+  display: inline-block;
+  font: bold 9px Arial, Helvetica, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.event-badge.uscita      { background: #D5EDB3; color: #336633; }
+.event-badge.culturale   { background: #FFE8D6; color: #993300; }
+.event-badge.assemblea   { background: #E8E8E8; color: #555555; }
+
+.gallery-empty {
+  font: 13px Arial, Helvetica, sans-serif;
+  color: #999;
+  padding: 24px 0;
+  text-align: center;
+}
+
+/* Filmati (vidéos) */
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.filter-group-label {
+  font: bold 10px Arial, Helvetica, sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #5C743D;
+  margin-right: 4px;
+}
+
+.filter-select,
+.filter-search {
+  font: 11px Arial, Helvetica, sans-serif;
+  color: #5C743D;
+  background: #fff;
+  border: 1px solid #99CC66;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.filter-search {
+  min-width: 220px;
+}
+
+.filter-select:focus,
+.filter-search:focus {
+  outline: none;
+  border-color: #5C743D;
+}
+
+.album-location {
+  font: bold 11px Arial, Helvetica, sans-serif;
+  color: #5C743D;
+  margin: 0 0 6px 0;
+}
+
+.video-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-thumb iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 38px;
+  background: rgba(0,0,0,.65);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+
+.album-card:hover .play-overlay { background: #993300; }
+
+.play-overlay::after {
+  content: "";
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 3px;
+}
+
+.event-badge.camminata { background: #D5EDB3; color: #336633; }
+.event-badge.evento    { background: #FFE8D6; color: #993300; }
+
+/* Lightbox vidéo */
+
+.video-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.9);
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 5vw;
+}
+
+.video-modal.open {
+  display: flex;
+}
+
+.video-modal-content {
+  width: 100%;
+  max-width: 1100px;
+}
+
+.video-modal-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.video-modal-caption {
+  color: #fff;
+  text-align: center;
+  font: 14px Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  padding-top: 12px;
+}
+
+.video-modal-caption strong {
+  font-size: 16px;
+  color: #D5EDB3;
+}
+
+.video-modal-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 22px;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.video-modal-close:hover {
+  color: #99CC66;
+}
+
+/* ============================================================
+   Styles partagés (plusieurs pages)
+   ============================================================ */
+
+.Stile27 {
+  color: #000000;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Stile50 {
+  color: #336600;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* ============================================================
+   Page : index
+   ============================================================ */
+
+.page-index .Stile30 { font-size: 24px; font-weight: bold; font-family: Georgia, "Times New Roman", Times, serif; color: #336633; }
+.page-index .Stile17 { font-size: 24px; font-weight: bold; font-family: Georgia, "Times New Roman", Times, serif; }
+.page-index .Stile51 { color: #006600; }
+.page-index .Stile60 {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: #00F;
+}
+.page-index .Stile84 { font-size: 16px; text-align: justify; }
+.page-index .Stile108 { font-size: 12px; }
+
+/* ============================================================
+   Page : contatti
+   ============================================================ */
+
+.page-contatti .Stile50 { font-size: 28px; }
+.page-contatti .Stile52 { font-family: Arial, Helvetica, sans-serif; }
+.page-contatti .Stile62 { color: #990000; font-weight: bold; font-size: 24px; }
+.page-contatti .Stile63 { font-size: 16px; }
+.page-contatti .Stile71 { color: #990000; font-weight: bold; font-size: 16px; }
+.page-contatti .Stile75 { font-size: 14px; font-weight: bold; color: #993300; }
+.page-contatti .Stile76 { color: #990000; font-style: italic; }
+.page-contatti .Stile78 { font-size: 11px; }
+
+/* ============================================================
+   Page : iniziative
+   ============================================================ */
+
+.page-iniziative .still100 { font-variant: small-caps; }
+.page-iniziative .Stile16 {
+  line-height: 20px;
+  margin-top: 0;
+  font: 11px Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #336600;
+}
+.page-iniziative .Stile28 {
+  color: #993300;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.page-iniziative .Stile48 {
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.page-iniziative .Stile84 { font-size: 16px; text-align: justify; }
+
+/* ============================================================
+   Page : storia
+   ============================================================ */
+
+.page-storia .Stile10 {
+  color: #009900;
+  line-height: 26px;
+  letter-spacing: .21em;
+  font: 18px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+.page-storia .Stile16 { line-height: 20px; margin-top: 0; font: 11px Arial, Helvetica, sans-serif; }
+.page-storia .Stile40 { font-size: 28px; font-weight: bold; color: #336600; }
+.page-storia .Stile41 { font-weight: bold; color: #993300; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+.page-storia .Stile42 { color: #003300; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+.page-storia .Stile43 { color: #003300; font-size: 12px; font-style: italic; font-family: Arial, Helvetica, sans-serif; }
+.page-storia .Stile44 { color: #000000; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+
+/* ============================================================
+   Page : novità
+   ============================================================ */
+
+.page-novita .Stile28 {
+  color: #993300;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.page-novita .Stile31 {
+  font-size: 12px;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#news-container > div:last-child { border-bottom: none; padding-bottom: 0; }
+.news-type-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.news-type-badge.camminata { background: #d4edda; color: #2d6a3f; }
+.news-type-badge.evento    { background: #cce5ff; color: #004085; }
+.news-type-badge.varie     { background: #f0f0f0; color: #555; }
+.camminata-fiche {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 10px 0 14px 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  background: #ffffff;
+  border: 1px solid #c8debb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(92,116,61,0.10);
+  min-width: 280px;
+}
+.camminata-fiche td {
+  padding: 9px 16px;
+  border-bottom: 1px solid #e8f0e0;
+  vertical-align: middle;
+}
+.camminata-fiche td:first-child {
+  font-weight: bold;
+  color: #5C743D;
+  white-space: nowrap;
+  background: #f4f8ef;
+  width: 160px;
+}
+.camminata-fiche tr:last-child td { border-bottom: none; }
+.camminata-fiche tr:first-child td:first-child { border-radius: 8px 0 0 0; }
+.camminata-fiche tr:first-child td:last-child  { border-radius: 0 8px 0 0; }
+.camminata-fiche tr:last-child  td:first-child { border-radius: 0 0 0 8px; }
+.camminata-fiche tr:last-child  td:last-child  { border-radius: 0 0 8px 0; }
+
+/* ============================================================
+   Page : informazioni
+   ============================================================ */
+
+.page-informazioni .Stile84 {
+  font-size: 15px;
+  text-align: justify;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: #000;
+  line-height: 1.6;
+}
+.page-informazioni .section-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #5C743D;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  border-bottom: 2px solid #99CC66;
+  padding-bottom: 6px;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+.page-informazioni .tab-bar {
+  display: flex;
+  border-bottom: 2px solid #5C743D;
+  margin-bottom: 24px;
+}
+.page-informazioni .tab-btn {
+  padding: 10px 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5C743D;
+  background: #f4f8ef;
+  border: 1px solid #c8debb;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  margin-right: 4px;
+  transition: background 0.15s;
+}
+.page-informazioni .tab-btn:hover { background: #e2f0d4; }
+.page-informazioni .tab-btn.active {
+  background: #5C743D;
+  color: #ffffff;
+  border-color: #5C743D;
+}
+.page-informazioni .section-block { display: none; }
+.page-informazioni .section-block.active { display: block; }
+.page-informazioni .serata-card {
+  background: #0d1b2a;
+  border-radius: 8px;
+  padding: 14px 18px;
+  min-width: 200px;
+  flex: 1 1 180px;
+  max-width: 240px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.page-informazioni .serata-data {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #f0c040;
+  margin-bottom: 6px;
+}
+.page-informazioni .serata-luogo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #a0bbd0;
+  margin-bottom: 8px;
+}
+.page-informazioni .serata-titolo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.page-informazioni .info-box {
+  background: #fff8e8;
+  border-left: 4px solid #cc9900;
+  border-radius: 3px;
+  padding: 10px 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #5a4000;
+  margin: 16px 0;
+}
+
+/* ============================================================
+   Page : associazione
+   ============================================================ */
+
+#assoc-content { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333; }
+#assoc-content h2 { color: #336600; font-size: 15px; margin-top: 1.4em; border-bottom: 1px solid #99CC66; padding-bottom: 4px; }
+#assoc-content .subtitle { color: #990000; font-weight: bold; font-size: 14px; margin: 0 0 4px; }
+#assoc-content .adresse { color: #006600; font-size: 12px; margin: 4px 0 16px; }
+#assoc-content .role-line { display: flex; gap: 16px; padding: 7px 0; border-bottom: 1px dotted #c8e6b0; }
+#assoc-content .role-label { color: #006600; font-weight: bold; width: 160px; flex-shrink: 0; }
+#assoc-content .role-name { color: #990000; font-weight: bold; }
+#assoc-content .consiglieri-list { list-style: none; padding: 0; margin: 10px 0; columns: 2; }
+#assoc-content .consiglieri-list li { color: #336600; padding: 5px 0; border-bottom: 1px dotted #c8e6b0; break-inside: avoid; }
+#assoc-content .soci { margin-top: 1.4em; color: #336600; font-weight: bold; font-size: 13px; }
+#assoc-content .last-updated { margin-top: 6px; color: #999; font-size: 11px; font-style: italic; }
+
