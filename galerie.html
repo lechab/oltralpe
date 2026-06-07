@@ -82,12 +82,71 @@
     return iso ? iso.split('-')[0] : '';
   }
 
+  // Miniature générée par le CI (scripts/thumbnails.mjs) ; repli sur l'original si absente.
+  function thumbUrl(src) {
+    if (!src) return src;
+    return src.indexOf('/images/uploads/') === 0
+      ? src.replace('/images/uploads/', '/images/uploads/thumbs/')
+      : src;
+  }
+
   function openAlbum(album) {
     if (!album.photos || album.photos.length === 0) return;
-    var elements = album.photos.map(function (p) {
+    var photos = album.photos;
+    var elements = photos.map(function (p) {
       return { href: p, type: 'image', title: '' };
     });
     var lb = GLightbox({ elements: elements, touchNavigation: true, loop: true });
+
+    if (photos.length > 1) {
+      var strip = null, thumbs = [];
+
+      function setActive(i) {
+        thumbs.forEach(function (t, j) {
+          t.classList.toggle('active', j === i);
+        });
+        var cur = thumbs[i];
+        if (cur && cur.scrollIntoView) {
+          cur.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+
+      lb.on('open', function () {
+        var container = document.querySelector('.glightbox-container');
+        if (!container || container.querySelector('.gfilm')) return;
+        strip = document.createElement('div');
+        strip.className = 'gfilm';
+        strip.addEventListener('click', function (e) { e.stopPropagation(); });
+        thumbs = photos.map(function (p, i) {
+          var t = document.createElement('button');
+          t.type = 'button';
+          t.className = 'gfilm-thumb';
+          t.setAttribute('aria-label', 'Foto ' + (i + 1));
+          var im = document.createElement('img');
+          im.alt = '';
+          im.loading = 'lazy';
+          im.onerror = function () { im.onerror = null; im.src = p; };
+          im.src = thumbUrl(p);
+          t.appendChild(im);
+          t.addEventListener('click', function (e) {
+            e.stopPropagation();
+            lb.goToSlide(i);
+          });
+          strip.appendChild(t);
+          return t;
+        });
+        container.appendChild(strip);
+        setActive(lb.index || 0);
+      });
+
+      lb.on('slide_changed', function (data) {
+        var i = (data && data.current && (data.current.slideIndex != null
+                 ? data.current.slideIndex : data.current.index));
+        if (i == null) i = lb.index;
+        if (typeof i === 'number') setActive(i);
+      });
+    }
+
     lb.open();
   }
 
@@ -100,7 +159,7 @@
     grid.innerHTML = albums.map(function (album, idx) {
       var coverSrc = album.cover || (album.photos && album.photos.length > 0 ? album.photos[0] : null);
       var cover = coverSrc
-        ? '<img class="album-cover" src="' + esc(coverSrc) + '" alt="' + esc(album.title) + '" />'
+        ? '<img class="album-cover" src="' + esc(thumbUrl(coverSrc)) + '" data-full="' + esc(coverSrc) + '" loading="lazy" alt="' + esc(album.title) + '" />'
         : '<div class="album-cover-placeholder">&#128247;</div>';
       var badgeClass = album.event_type || 'uscita';
       var badgeLabel = LABELS[album.event_type] || album.event_type || '';
@@ -214,12 +273,22 @@
       renderGallery(allAlbums);
       if (allAlbums.length > 0) renderFilters(allAlbums);
 
-      document.getElementById('gallery-grid').addEventListener('click', function (e) {
+      var gridEl = document.getElementById('gallery-grid');
+
+      gridEl.addEventListener('click', function (e) {
         var card = e.target.closest('.album-card');
         if (!card) return;
         var idx = parseInt(card.getAttribute('data-idx'), 10);
         openAlbum(allAlbums[idx]);
       });
+
+      // Repli sur l'image pleine résolution si la miniature n'existe pas encore.
+      gridEl.addEventListener('error', function (e) {
+        var img = e.target;
+        if (img.tagName !== 'IMG' || !img.getAttribute('data-full') || img.dataset.fellBack) return;
+        img.dataset.fellBack = '1';
+        img.src = img.getAttribute('data-full');
+      }, true);
     })
     .catch(function () {
       document.getElementById('gallery-grid').innerHTML =

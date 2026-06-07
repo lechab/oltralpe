@@ -34,3 +34,5 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 
 ### Déploiement
 GitHub Actions (`deploy.yml`) déploie par FTP via `SamKirkland/FTP-Deploy-Action@v4.3.4`. Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
+
+Avant le FTP, une étape génère les miniatures via `scripts/thumbnails.mjs` (Node + `sharp`) : chaque image de `images/uploads/` produit une version réduite dans `images/uploads/thumbs/` (largeur 400 px). Ce dossier n'est pas versionné (`.gitignore`) et est régénéré à chaque déploiement. Côté client (`galerie.html`), la grille d'albums et la pellicule GLightbox chargent ces miniatures via `thumbUrl()`, avec repli automatique sur l'image originale si la miniature est absente.
