@@ -35,4 +35,10 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 ### Déploiement
 GitHub Actions (`deploy.yml`) déploie par FTP via `SamKirkland/FTP-Deploy-Action@v4.3.4`. Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
 
-Avant le FTP, une étape génère les miniatures via `scripts/thumbnails.mjs` (Node + `sharp`) : chaque image de `images/uploads/` produit une version réduite dans `images/uploads/thumbs/` (largeur 400 px). Ce dossier n'est pas versionné (`.gitignore`) et est régénéré à chaque déploiement. Côté client (`galerie.html`), la grille d'albums et la pellicule GLightbox chargent ces miniatures via `thumbUrl()`, avec repli automatique sur l'image originale si la miniature est absente.
+Avant le FTP, une étape CI exécute deux scripts Node :
+- `scripts/thumbnails.mjs` (`sharp`) — chaque image de `images/uploads/` (récursif) produit une miniature 400 px dans `images/uploads/thumbs/`. La grille d'albums et la pellicule GLightbox les chargent via `thumbUrl()`, avec repli sur l'original si absente.
+- `scripts/credits.mjs` (`exifr`) — lit le crédit auteur (EXIF `Artist`, IPTC `By-line`, XMP `Creator`, `Copyright`) de chaque photo et écrit `data/photo-credits.json`. La lightbox affiche ce crédit par photo, avec repli sur le champ « Réalisation » de l'album. Les valeurs génériques (« Utente », « User »…) sont ignorées.
+
+`images/uploads/thumbs/` et `data/photo-credits.json` ne sont pas versionnés (`.gitignore`) : ils sont régénérés à chaque déploiement.
+
+Pour alimenter les crédits, le crédit auteur doit être présent dans l'EXIF des photos **avant** l'upload CMS (WhatsApp supprime les métadonnées lors d'un transfert WhatsApp, mais pas sur les copies locales). Le script `scripts/crediti-foto.bat` (exclu du déploiement FTP) inscrit l'auteur dans un dossier de photos via `exiftool` — glisser-déposer le dossier dessus, saisir le nom.

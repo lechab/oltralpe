@@ -63,6 +63,7 @@
                  'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
   var allAlbums = [];
+  var creditsMap = {};   // chemin photo -> crédit auteur extrait de l'EXIF (data/photo-credits.json)
   var state = { theme: '*', year: '*', location: '*', query: '' };
 
   function esc(s) {
@@ -94,7 +95,14 @@
     if (!album.photos || album.photos.length === 0) return;
     var photos = album.photos;
     var elements = photos.map(function (p) {
-      return { href: p, type: 'image', title: '' };
+      // Crédit EXIF de la photo, sinon repli sur le champ « Réalisation » de l'album.
+      var credit = creditsMap[p] || album.credit || '';
+      return {
+        href: p,
+        type: 'image',
+        title: '',
+        description: credit ? '<span class="gphoto-credit">&#128247; ' + esc(credit) + '</span>' : ''
+      };
     });
     var lb = GLightbox({ elements: elements, touchNavigation: true, loop: true });
 
@@ -266,9 +274,15 @@
     });
   }
 
-  fetch('data/gallery.json')
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
+  Promise.all([
+    fetch('data/gallery.json').then(function (r) { return r.json(); }),
+    fetch('data/photo-credits.json')
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .catch(function () { return {}; })
+  ])
+    .then(function (res) {
+      var data = res[0];
+      creditsMap = res[1] || {};
       allAlbums = data.albums || [];
       renderGallery(allAlbums);
       if (allAlbums.length > 0) renderFilters(allAlbums);

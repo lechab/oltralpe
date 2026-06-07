@@ -373,6 +373,13 @@ a:hover {
   border-color: #99CC66;
 }
 
+.gphoto-credit {
+  display: inline-block;
+  font: 12px Arial, Helvetica, sans-serif;
+  color: #ddd;
+  opacity: .85;
+}
+
 /* laisse la place aux flèches/compteur de GLightbox au-dessus de la pellicule */
 .glightbox-container .gslide-description,
 .glightbox-container .gprev,

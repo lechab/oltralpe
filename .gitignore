@@ -2,3 +2,4 @@
 .claude/
 node_modules/
 images/uploads/thumbs/
+data/photo-credits.json

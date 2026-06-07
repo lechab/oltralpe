@@ -16,10 +16,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: 🖼️ Generate thumbnails
+      - name: 🖼️ Generate thumbnails & photo credits
         run: |
-          npm install --no-save sharp
+          npm install --no-save sharp exifr
           node scripts/thumbnails.mjs
+          node scripts/credits.mjs
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
