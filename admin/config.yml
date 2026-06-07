@@ -70,7 +70,7 @@ collections:
             min: 0
             summary: "{{fields.title}} — {{fields.event_type}}"
             fields:
-              - {label: "Titre", name: "title", widget: "string"}
+              - {label: "Titolo", name: "title", widget: "string"}
               - label: "Typo eventi"
                 name: "event_type"
                 widget: select
@@ -79,12 +79,12 @@ collections:
                   - {label: "Evento culturale", value: "culturale"}
                   - {label: "Assemblea", value: "assemblea"}
                   - {label: "Varie", value: "varie"}
-              - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
-              - {label: "Lieu", name: "location", widget: "string", required: false}
-              - {label: "Réalisation", name: "credit", widget: "string", required: false}
+              - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
+              - {label: "Luogo", name: "location", widget: "string", required: false}
+              - {label: "Autore", name: "credit", widget: "string", required: false}
               - {label: "Description", name: "description", widget: "text", required: false}
-              - {label: "Image d'aperçu", name: "cover", widget: "image", required: false}
-              - label: "Photos"
+              - {label: "Anteprima", name: "cover", widget: "image", required: false}
+              - label: "Foto"
                 name: "photos"
                 widget: image
                 multiple: true
@@ -102,11 +102,11 @@ collections:
             widget: list
             summary: "{{fields.title}} ({{fields.year}})"
             fields:
-              - {label: "Titre", name: "title", widget: "string"}
-              - {label: "Lien vidéo (YouTube)", name: "url", widget: "string"}
-              - {label: "Année", name: "year", widget: "string"}
-              - {label: "Lieu", name: "location", widget: "string", required: false}
-              - label: "Thème"
+              - {label: "Titolo", name: "title", widget: "string"}
+              - {label: "Link video (YouTube)", name: "url", widget: "string"}
+              - {label: "Anno", name: "year", widget: "string"}
+              - {label: "Luogo", name: "location", widget: "string", required: false}
+              - label: "Tema"
                 name: "theme"
                 widget: select
                 options:
