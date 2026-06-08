@@ -11,17 +11,17 @@ collections:
   - name: "news"
     label: "Novità"
     files:
-      - label: "Articles"
+      - label: "Articoli"
         name: "news"
         file: "data/news.json"
         fields:
-          - label: "Articles"
+          - label: "Articoli"
             name: "articles"
             widget: list
             summary: "{{fields.title}} ({{fields.date}})"
             fields:
-              - {label: "Titre", name: "title", widget: "string"}
-              - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
+              - {label: "Titolo", name: "title", widget: "string"}
+              - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
               - label: "Tipo"
                 name: "type"
                 widget: select
@@ -35,9 +35,9 @@ collections:
               - {label: "Lunghezza (km)", name: "lunghezza", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Dislivello (m)", name: "dislivello", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Tempo di percorso", name: "tempo_percorso", widget: "string", required: false, condition: {field: type, value: camminata}}
-              - {label: "Contenu", name: "body", widget: "text"}
+              - {label: "Contenuto", name: "body", widget: "text"}
               - {label: "Image", name: "image", widget: "image", required: false}
-              - {label: "Lien vidéo (YouTube)", name: "video_url", widget: "string", required: false}
+              - {label: "Link video (YouTube)", name: "video_url", widget: "string", required: false}
 
   - name: "associazione"
     label: "Associazione"
@@ -54,7 +54,7 @@ collections:
             widget: list
             field: {label: "Nome", name: "nome", widget: "string"}
           - {label: "Numero di soci", name: "num_soci", widget: "number", value_type: "int"}
-          - {label: "Dernière mise à jour", name: "last_updated", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
+          - {label: "Ultimo aggiornamento", name: "last_updated", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
 
   - name: "galerie"
     label: "Galleria"
@@ -113,5 +113,5 @@ collections:
                   - {label: "Camminata", value: "camminata"}
                   - {label: "Evento", value: "evento"}
                   - {label: "Racconti", value: "racconti"}
-              - {label: "Réalisation", name: "credit", widget: "string", required: false}
-              - {label: "Description", name: "description", widget: "text", required: false}
+              - {label: "Realizzazione", name: "credit", widget: "string", required: false}
+              - {label: "Descrizione", name: "description", widget: "text", required: false}
