@@ -36,7 +36,7 @@ collections:
               - {label: "Dislivello (m)", name: "dislivello", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Tempo di percorso", name: "tempo_percorso", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Contenuto", name: "body", widget: "text"}
-              - {label: "Image", name: "image", widget: "image", required: false}
+              - {label: "Immagini", name: "image", widget: "image", required: false}
               - {label: "Link video (YouTube)", name: "video_url", widget: "string", required: false}
 
   - name: "associazione"
