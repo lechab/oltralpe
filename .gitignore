@@ -6,3 +6,6 @@ data/photo-credits.json
 stats/config.php
 stats/data/*.sqlite
 stats/data/*.sqlite-*
+stats/config.php
+stats/data/*.sqlite
+stats/data/*.sqlite-*
