@@ -807,3 +807,17 @@ a:hover {
 #assoc-content .soci { margin-top: 1.4em; color: #336600; font-weight: bold; font-size: 13px; }
 #assoc-content .last-updated { margin-top: 6px; color: #999; font-size: 11px; font-style: italic; }
 
+
+/* ============================================================
+   Compteur de visites (pied de page, barre verte)
+   ============================================================ */
+
+.visite-counter {
+  display: block;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #2f3d20;
+  letter-spacing: .03em;
+  padding: 4px 0;
+}

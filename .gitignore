@@ -3,3 +3,6 @@
 node_modules/
 images/uploads/thumbs/
 data/photo-credits.json
+stats/config.php
+stats/data/*.sqlite
+stats/data/*.sqlite-*

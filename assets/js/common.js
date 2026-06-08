@@ -87,3 +87,34 @@ function buildNav() {
     container.innerHTML = html;
   }
 }
+
+// Enregistre la visite côté serveur (stats/track.php) et affiche un compteur
+// discret « Visite: N » dans la barre verte de pied de page. Échec silencieux :
+// le compteur ne doit jamais perturber l'affichage du site.
+function trackVisit() {
+  var path = window.location.pathname.split('/').pop() || 'index.html';
+  fetch('stats/track.php?p=' + encodeURIComponent(path))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || data.total === null || data.total === undefined) {
+        return;
+      }
+      var bars = document.querySelectorAll('td[bgcolor="#99CC66"]');
+      var footer = bars.length ? bars[bars.length - 1] : null;
+      if (!footer) {
+        return;
+      }
+      var span = document.createElement('span');
+      span.className = 'visite-counter';
+      span.textContent = 'Visite: ' + data.total.toLocaleString('it-IT');
+      footer.innerHTML = '';
+      footer.appendChild(span);
+    })
+    .catch(function () { /* hors-ligne ou PHP indisponible : on ignore */ });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', trackVisit);
+} else {
+  trackVisit();
+}
