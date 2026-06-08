@@ -38,6 +38,5 @@ jobs:
             **/.git*
             **/.git*/**
             .claude/**
-            backend/**
             content/**
             scripts/**
