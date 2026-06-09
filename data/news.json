@@ -2,19 +2,21 @@
   "articles": [
     {
       "title": "camminata",
-      "date": "2026-05-30",
+      "date": "2026-06-13",
       "type": "camminata",
-      "partenza": "Partenza alle ore 08.45 dal parcheggio del Monumento al Capitano D'Amico",
-      "lunghezza": "10",
-      "dislivello": "250/250",
-      "tempo_percorso": "3ore 1/2",
-      "body": "Camminata di sabato mattina 30 maggio '26.Laghetti La Martina.Andiamo a vedere la fioritura della Sulla. Partenza alle ore 08.45 dal parcheggio del Monumento al Capitano D'Amico.\nKm 10 circa . Ore di percorrenza previste 3 e mezzo. Dislivello 250/250 . ATTENZIONE NON Parcheggiare all'agriturismo. \nAllego cartina.",
-      "image": "/images/uploads/cartina.jpg",
+      "data_camminata": "",
+      "partenza": "Camminata di Sabato 13 giugno : Monte Beni da Poggio Turchino (Anello ) Lunghezza km 5,200 - Dislivello m. 300 - Tempo 3 ore. Ritrovo ore 8:15 al Futa Point e ore 8:45 a Poggio Turchino",
+      "lunghezza": "5,2",
+      "dislivello": "300",
+      "tempo_percorso": "3ore",
+      "body": "Camminata di Sabato 13 giugno : Monte Beni da Poggio Turchino (Anello ) Lunghezza km 5,200 - Dislivello m. 300 - Tempo 3 ore. Ritrovo ore 8:15 al Futa Point e ore 8:45 a Poggio Turchino",
+      "image": "/images/uploads/montebeni.jpg",
       "video_url": ""
     },
     {
       "title": "Camminata del 06/06/2026",
       "date": "2026-06-06",
+      "data_camminata": "",
       "partenza": "",
       "lunghezza": "",
       "dislivello": "",
