@@ -1,11 +1,11 @@
 {
   "articles": [
     {
-      "title": "camminata",
+      "title": "Camminata del 13/06/2026",
       "date": "2026-06-13",
       "type": "camminata",
       "data_camminata": "",
-      "partenza": "",
+      "partenza": "Poggio turchino",
       "lunghezza": "5,2",
       "dislivello": "300",
       "tempo_percorso": "3ore",
