@@ -35,7 +35,7 @@
       "location": "Castel dell'Alpi",
       "credit": "",
       "description": "Camminata del 06/06/20.26 - Castel dell'Alpi, Madonna dei Fornelli e ritorno",
-      "cover": "",
+      "cover": "/images/uploads/WhatsApp Image 2026-06-06 at 16.41.49.jpeg",
       "photos": [
         "/images/uploads/WhatsApp Image 2026-06-06 at 16.41.49 (3).jpeg",
         "/images/uploads/WhatsApp Image 2026-06-06 at 12.10.22.jpeg",
@@ -60,21 +60,7 @@
       "location": "Monghidoro",
       "credit": "",
       "description": "Assemblea dei soci dell'Organizzazione di volontariato Oltr'Alpe",
-      "cover": "",
-      "photos": [
-        "/images/uploads/P1070504_resize.JPG",
-        "/images/uploads/P1070505_resize.JPG",
-        "/images/uploads/P1070506_resize.JPG",
-        "/images/uploads/P1070507_resize.JPG",
-        "/images/uploads/P1070508_resize.JPG",
-        "/images/uploads/P1070509_resize.JPG",
-        "/images/uploads/P1070513_resize.JPG",
-        "/images/uploads/P1070514_resize.JPG",
-        "/images/uploads/P1070516_resize.JPG",
-        "/images/uploads/P1070517_resize.JPG",
-        "/images/uploads/P1070518_resize.JPG",
-        "/images/uploads/P1070520_resize.JPG"
-      ]
+      "cover": ""
     }
   ]
 }
