@@ -94,17 +94,39 @@
   function openAlbum(album) {
     if (!album.photos || album.photos.length === 0) return;
     var photos = album.photos;
+    // Crédit EXIF de la photo, sinon repli sur le champ « Réalisation » de l'album.
+    var credits = photos.map(function (p) {
+      return creditsMap[p] || album.credit || '';
+    });
     var elements = photos.map(function (p) {
-      // Crédit EXIF de la photo, sinon repli sur le champ « Réalisation » de l'album.
-      var credit = creditsMap[p] || album.credit || '';
-      return {
-        href: p,
-        type: 'image',
-        title: '',
-        description: credit ? '<span class="gphoto-credit">&#128247; ' + esc(credit) + '</span>' : ''
-      };
+      return { href: p, type: 'image', title: '', description: '' };
     });
     var lb = GLightbox({ elements: elements, touchNavigation: true, loop: true });
+
+    // Affiche le crédit auteur en surimpression dans la photo courante (ancré à l'image).
+    function showCredit(i) {
+      var media = document.querySelector('.glightbox-container .gslide.current .gslide-media');
+      if (!media) return;
+      var badge = media.querySelector('.gphoto-credit');
+      var text = credits[i] || '';
+      if (!text) { if (badge) badge.parentNode.removeChild(badge); return; }
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.className = 'gphoto-credit';
+        media.appendChild(badge);
+      }
+      badge.innerHTML = '&#128247; ' + esc(text);
+    }
+
+    function currentIndex(data) {
+      var i = (data && data.current && (data.current.slideIndex != null
+               ? data.current.slideIndex : data.current.index));
+      if (i == null) i = lb.index;
+      return typeof i === 'number' ? i : 0;
+    }
+
+    lb.on('open', function () { showCredit(lb.index || 0); });
+    lb.on('slide_changed', function (data) { showCredit(currentIndex(data)); });
 
     if (photos.length > 1) {
       var strip = null, thumbs = [];
