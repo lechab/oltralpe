@@ -24,7 +24,7 @@ function buildHeader() {
     'immagini.html':     'Immagini',
     'filmati.html':      'Filmati',
     'contatti.html':     'Contatti',
-    'associazione.html': 'Associazione',
+    'associazione.html': 'Organizzazione',
     'iscrizione.html':   'Iscrizione',
     'galerie.html':      'Galleria',
     'informazioni.html': 'Informazioni utili'
