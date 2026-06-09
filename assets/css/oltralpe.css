@@ -375,13 +375,27 @@ a:hover {
 
 .gphoto-credit {
   display: inline-block;
-  font: 12px Arial, Helvetica, sans-serif;
-  color: #ddd;
-  opacity: .85;
+  font: 15px Arial, Helvetica, sans-serif;
+  color: #fff;
+}
+
+/* Crédit auteur : en haut à droite, au-dessus de la pellicule, sur une largeur réduite */
+.glightbox-container .gslide-description {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  bottom: auto;
+  width: auto;
+  max-width: 22%;
+  padding: 10px 14px;
+  text-align: right;
+  background: rgba(0, 0, 0, .55);
+  border-radius: 0 0 0 4px;
+  z-index: 1000001;
 }
 
 /* laisse la place aux flèches/compteur de GLightbox au-dessus de la pellicule */
-.glightbox-container .gslide-description,
 .glightbox-container .gprev,
 .glightbox-container .gnext {
   z-index: 1000000;
