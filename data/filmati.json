@@ -328,7 +328,7 @@
       "title": "19/08/2023 Fantorno, Polenta, Balzo Arcigno, Malpasso e pranzo Fantorno",
       "url": "https://www.youtube.com/embed/cbTdDWfkHYM",
       "year": "2023",
-      "location": "",
+      "location": "Fantorno",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -337,7 +337,7 @@
       "title": "22/08/2023 Monghidoro, Prabitto, Lognola, Le Vaiole",
       "url": "https://www.youtube.com/embed/VBUDH4qaq98",
       "year": "2023",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -346,7 +346,7 @@
       "title": "26/08/2023 Poggio Turchino, Monte Oggioli, Alpe",
       "url": "https://www.youtube.com/embed/W2Rp_aXluEc",
       "year": "2023",
-      "location": "",
+      "location": "Monte Oggioli",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -355,7 +355,7 @@
       "title": "Sigliola – Passo dell’Osteria Bruciata 2 Settembre 2023",
       "url": "https://www.youtube.com/embed/9Yx5Gkgn55I",
       "year": "2023",
-      "location": "",
+      "location": "Sigliola",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -364,7 +364,7 @@
       "title": "Madonna dei Fornelli - Pian di Balestra 28/10/2023",
       "url": "https://www.youtube.com/embed/YsnoZzAzwHo",
       "year": "2023",
-      "location": "",
+      "location": "Madonna dei Fornelli",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -373,7 +373,7 @@
       "title": "12 luglio 2022 Tramonto ai laghetti la Martina",
       "url": "https://www.youtube.com/embed/EZVjKMwliIk",
       "year": "2022",
-      "location": "",
+      "location": "Laghetti la Martina",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -382,8 +382,8 @@
       "title": "22 ottobre 2022 25 anni Oltr’alpe",
       "url": "https://www.youtube.com/embed/bJZikf14IFw",
       "year": "2022",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -391,7 +391,7 @@
       "title": "Inaugurazione Area Pic-Nic al Prè dla Radeccia il 28 Agosto 2021",
       "url": "https://www.youtube.com/embed/7R3P1tpC8T8",
       "year": "2021",
-      "location": "",
+      "location": "Prè dla Radeccia",
       "theme": "evento",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -400,8 +400,8 @@
       "title": "Preparazione mercato del giovedì a Monghidoro",
       "url": "https://www.youtube.com/embed/TaWIe7W3uZI",
       "year": "2020",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -409,8 +409,8 @@
       "title": "Techetechetè Monghidoro",
       "url": "https://www.youtube.com/embed/epIeKwADw58",
       "year": "2020",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -418,8 +418,8 @@
       "title": "I fiori di Monghidoro",
       "url": "https://www.youtube.com/embed/KAST9Wciu1Y",
       "year": "2020",
-      "location": "",
-      "theme": "camminata",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -427,7 +427,7 @@
       "title": "Fioritura ginestre stellate a Monte Beni – Monghidoro luglio 2020",
       "url": "https://www.youtube.com/embed/NbuPOm_6mks",
       "year": "2020",
-      "location": "",
+      "location": "Monte Beni",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -436,7 +436,7 @@
       "title": "Cascata del Rovigo e valle dell’inferno",
       "url": "https://www.youtube.com/embed/pCTk_RRt2xo",
       "year": "2020",
-      "location": "",
+      "location": "Cascata del Rovigo",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -445,7 +445,7 @@
       "title": "Da Pian di Balestra a Strada Romana luglio 2020",
       "url": "https://www.youtube.com/embed/60GIKKfGJHk",
       "year": "2020",
-      "location": "",
+      "location": "Pian di Balestra",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -454,7 +454,7 @@
       "title": "25 luglio 2020 Sasso di Castro e fontana dell’amore",
       "url": "https://www.youtube.com/embed/R3Xm_mPUju4",
       "year": "2020",
-      "location": "",
+      "location": "Sasso di Castro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -463,7 +463,7 @@
       "title": "8 agosto 2020 Passo Raticosa Monte Canda",
       "url": "https://www.youtube.com/embed/66wKNM9dag0",
       "year": "2020",
-      "location": "",
+      "location": "Monte Canda",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -472,7 +472,7 @@
       "title": "18 agosto 2020 Laghetti della Martina al tramonto",
       "url": "https://www.youtube.com/embed/r9wdVEEd5KQ",
       "year": "2020",
-      "location": "",
+      "location": "Laghetti la Martina",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -481,8 +481,8 @@
       "title": "Ottobre 2020 colori dell’autunno a Monghidoro",
       "url": "https://www.youtube.com/embed/90hjPbldn9k",
       "year": "2020",
-      "location": "",
-      "theme": "camminata",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -490,8 +490,8 @@
       "title": "Novembre 2020 I tramonti di Monghidoro",
       "url": "https://www.youtube.com/embed/c2TtWDFh-hs",
       "year": "2020",
-      "location": "",
-      "theme": "camminata",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -499,7 +499,7 @@
       "title": "Auguri di Natale Olt’Alpe",
       "url": "https://www.youtube.com/embed/qWJPMvdBg3Y",
       "year": "2020",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "evento",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -508,7 +508,7 @@
       "title": "Buon anno 2021",
       "url": "https://www.youtube.com/embed/hbtKM3jnuWM",
       "year": "2020",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "evento",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -517,8 +517,8 @@
       "title": "Ritrovo natalizio al Fantorno del 2019",
       "url": "https://www.youtube.com/embed/nBv42HQbqMo",
       "year": "2019",
-      "location": "",
-      "theme": "camminata",
+      "location": "Fantorno",
+      "theme": "evento",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -527,24 +527,24 @@
       "url": "https://www.youtube.com/embed/EB1Sw6-fTWE",
       "year": "2019",
       "location": "Vari",
-      "theme": "camminata",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
     {
-      "title": "(senza titolo)",
+      "title": "Camminate aprile giugno 2018",
       "url": "https://www.youtube.com/embed/MPfE9txZrVg",
       "year": "2018",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
     },
     {
-      "title": "(senza titolo)",
+      "title": "Monghidoro luglio agosto 2018",
       "url": "https://www.youtube.com/embed/ibueXBUeccc",
       "year": "2018",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "",
       "description": ""
@@ -553,8 +553,8 @@
       "title": "Visita ai Mulini 16-06-2018 Oltralpe Consulta",
       "url": "https://www.youtube.com/embed/ZgIR3Z7VuuU",
       "year": "2018",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -562,7 +562,7 @@
       "title": "Parco la Martina – Monte Gurlano 12/10/2018",
       "url": "https://www.youtube.com/embed/V1b90zmT83w",
       "year": "2018",
-      "location": "",
+      "location": "Parco la Martina",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -571,7 +571,7 @@
       "title": "Auguri di Natale 2018",
       "url": "https://www.youtube.com/embed/-OFuUU4lQFs",
       "year": "2018",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "evento",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -580,7 +580,7 @@
       "title": "Immagini dalle nostre camminate del 2017",
       "url": "https://www.youtube.com/embed/yS9z6nYvcGY",
       "year": "2017",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -589,8 +589,8 @@
       "title": "Ritrovo natalizio al Fantorno del 2017",
       "url": "https://www.youtube.com/embed/v7xZJQvgy04",
       "year": "2017",
-      "location": "",
-      "theme": "camminata",
+      "location": "Fantorno",
+      "theme": "evento",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -598,7 +598,7 @@
       "title": "Camminate Monghidoro apr-giu 2017",
       "url": "https://www.youtube.com/embed/b8CKtT-lK-Y",
       "year": "2017",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -607,8 +607,8 @@
       "title": "Marmotte socievoli",
       "url": "https://www.youtube.com/embed/Gw78-Un7rE4",
       "year": "2017",
-      "location": "",
-      "theme": "camminata",
+      "location": "Dolomiti",
+      "theme": "racconti",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -616,7 +616,7 @@
       "title": "Immagini dalle nostre camminate del 2016",
       "url": "https://www.youtube.com/embed/RlBh8oYIPU8",
       "year": "2016",
-      "location": "",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -625,7 +625,7 @@
       "title": "Monghidoro camminate serali",
       "url": "https://www.youtube.com/embed/QWVXe0DR0AI",
       "year": "2016",
-      "location": "Fantorno",
+      "location": "Monghidoro",
       "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
@@ -634,8 +634,8 @@
       "title": "Monghidoro camminate DATTI UNA MOSSA 2016",
       "url": "https://www.youtube.com/embed/sFMKWJgapXU",
       "year": "2016",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "camminata",
       "credit": "Paolo Ferretti",
       "description": ""
     },
@@ -643,8 +643,8 @@
       "title": "Il fiore, la faccia, il gruppo e il panorama",
       "url": "https://www.youtube.com/embed/PuUlqzt6AA0",
       "year": "2014",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "racconti",
       "credit": "Gianni Gitti",
       "description": ""
     },
@@ -652,8 +652,8 @@
       "title": "31 maggio 2013",
       "url": "https://www.youtube.com/embed/fHZuNWF7Ts4",
       "year": "2013",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "camminata",
       "credit": "Gianni Gitti",
       "description": ""
     },
@@ -661,8 +661,8 @@
       "title": "Datti una mossa 2013",
       "url": "https://www.youtube.com/embed/4lS5UPeXzkM",
       "year": "2013",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "camminata",
       "credit": "Giovanni Gitti",
       "description": ""
     },
@@ -670,8 +670,8 @@
       "title": "Immagini dalle nostre camminate del 2013",
       "url": "https://www.youtube.com/embed/vP58Y0Z0K68",
       "year": "2013",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "camminata",
       "credit": "Gianni Gitti",
       "description": ""
     },
@@ -679,8 +679,8 @@
       "title": "Immagini dalle nostre camminate del 2013",
       "url": "https://www.youtube.com/embed/_B3lwpaj-e8",
       "year": "2013",
-      "location": "",
-      "theme": "evento",
+      "location": "Monghidoro",
+      "theme": "camminata",
       "credit": "Gianni Gitti",
       "description": ""
     },
