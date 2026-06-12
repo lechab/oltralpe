@@ -827,6 +827,42 @@
       "theme": "evento",
       "credit": "Gianni Gitti",
       "description": ""
+    },
+    {
+      "title": "Laghetti la Martina 12/07/2022",
+      "url": "https://youtu.be/_NCOXHofWGI",
+      "year": "2022",
+      "location": "Laghetti la Martina",
+      "theme": "camminata",
+      "credit": "Paolo Ferretti",
+      "description": ""
+    },
+    {
+      "title": "Valgattara 12/09/2022",
+      "url": "https://youtu.be/P-kYe0ziZOU",
+      "year": "2022",
+      "location": "Valgattara",
+      "theme": "camminata",
+      "credit": "Paolo Ferretti",
+      "description": ""
+    },
+    {
+      "title": "Autunno a Monghidoro 2022",
+      "url": "https://youtu.be/eYAgLq9taaM",
+      "year": "2022",
+      "location": "Monghidoro",
+      "theme": "camminata",
+      "credit": "Paolo Ferretti",
+      "description": ""
+    },
+    {
+      "title": "Pranzo di Natale 2022 al Fantorno",
+      "url": "https://youtu.be/EQvlw-IGFrE",
+      "year": "2022",
+      "location": "Fantorno",
+      "theme": "evento",
+      "credit": "Paolo Ferretti",
+      "description": ""
     }
   ]
 }
