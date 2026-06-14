@@ -28,6 +28,8 @@
     {
       "title": "Laghetti la Martina 30/05/2026 - Fioritura sulla",
       "date": "2026-06-02",
+      "type": "camminata",
+      "data_camminata": "2026-06-14 17:56",
       "partenza": "",
       "lunghezza": "",
       "dislivello": "",
@@ -35,6 +37,19 @@
       "body": "Laghetti la Martina 30/05/2026 - Fioritura sulla",
       "image": "",
       "video_url": "https://youtu.be/jxhMtDAH73Y"
+    },
+    {
+      "title": "Locandina Datti una Mossa 2026",
+      "date": "2026-06-14",
+      "type": "evento",
+      "data_camminata": "2026-06-14 18:00",
+      "partenza": "",
+      "lunghezza": "",
+      "dislivello": "",
+      "tempo_percorso": "",
+      "body": "Volantino Datti una Mossa",
+      "image": "/images/uploads/volantino datti una mossa.jpg",
+      "video_url": ""
     }
   ]
 }
