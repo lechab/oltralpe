@@ -1,20 +1,29 @@
+// Noms italiens des jours et des mois, partagés par tout le site.
+var GIORNI = ['Domenica','Lunedi','Martedi','Mercoledi','Giovedi','Venerdi','Sabato'];
+var MESI = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+
+// Formate une date ISO "YYYY-MM-DD" en "D Mese YYYY" (ex. "5 Giugno 2026").
+// Renvoie '' si vide, ou la valeur telle quelle si le format est inattendu.
+function formatDateIso(iso) {
+  if (!iso) return '';
+  var p = iso.split('-');
+  if (p.length < 3) return iso;
+  return parseInt(p[2], 10) + ' ' + MESI[parseInt(p[1], 10) - 1] + ' ' + p[0];
+}
+
 function WebDate() {
   let now = new Date();
   let year = now.getYear();
   if (year < 1000) {
     year += 1900;
   }
-  const nameDay = ["Domenica", "Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato"];
-  const nameMth = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-  document.write('<p>' + nameDay[now.getDay()] + ' ' + now.getDate() + ' ' + nameMth[now.getMonth()] + ' ' + year + '<\/p>');
+  document.write('<p>' + GIORNI[now.getDay()] + ' ' + now.getDate() + ' ' + MESI[now.getMonth()] + ' ' + year + '<\/p>');
 }
 
 function buildHeader() {
   var now = new Date();
   var year = now.getFullYear();
-  var nameDay = ['Domenica','Lunedi','Martedi','Mercoledi','Giovedi','Venerdi','Sabato'];
-  var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-  var dateStr = nameDay[now.getDay()] + ' ' + now.getDate() + ' ' + nameMth[now.getMonth()] + ' ' + year;
+  var dateStr = GIORNI[now.getDay()] + ' ' + now.getDate() + ' ' + MESI[now.getMonth()] + ' ' + year;
 
   var pageMap = {
     'index.html':        'Home',

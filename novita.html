@@ -24,16 +24,6 @@
 
 <script type="text/javascript">buildHeader();buildNav();</script>
 <script type="text/javascript">
-  var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
-                 'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-
-  function formatDate(iso) {
-    if (!iso) return '';
-    var p = iso.split('-');
-    if (p.length < 3) return iso;
-    return parseInt(p[2], 10) + ' ' + nameMth[parseInt(p[1], 10) - 1] + ' ' + p[0];
-  }
-
   function bodyToHtml(text) {
     if (!text) return '';
     return text.split(/\n\n+/).map(function(p) {
@@ -88,7 +78,7 @@
           '<div style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
             typeBadge(n.type) +
             '<p class="Stile28">' + n.title + '</p>' +
-            '<p class="Stile27">' + formatDate(n.date) + '</p>' +
+            '<p class="Stile27">' + formatDateIso(n.date) + '</p>' +
             camminateFiche(n) +
             bodyToHtml(n.body) +
             (n.image ? '<p><img src="' + n.image + '" alt="' + n.title + '" style="max-width:100%;height:auto;" /></p>' : '') +

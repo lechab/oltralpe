@@ -49,14 +49,6 @@
   <script type="text/javascript">buildHeader();buildNav();</script>
   <script type="text/javascript">
   (function () {
-    var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
-                   'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-    function formatDate(iso) {
-      if (!iso) return '';
-      var p = iso.split('-');
-      if (p.length < 3) return iso;
-      return parseInt(p[2], 10) + ' ' + nameMth[parseInt(p[1], 10) - 1] + ' ' + p[0];
-    }
     var typeColors = { camminata: '#2d6a3f', evento: '#004085', varie: '#555' };
     var typeBg     = { camminata: '#d4edda', evento: '#cce5ff', varie: '#f0f0f0' };
     var typeLabels = { camminata: 'Camminata', evento: 'Evento', varie: 'Varie' };
@@ -79,7 +71,7 @@
             '<div style="padding:10px 0;border-bottom:1px solid #c8debb;">' +
               badge +
               '<a href="novita.html" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;color:#336600;text-decoration:none;">' + n.title + '</a>' +
-              '<br /><span style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#888;">' + formatDate(n.date) + '</span>' +
+              '<br /><span style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#888;">' + formatDateIso(n.date) + '</span>' +
               (excerpt ? '<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#333;margin:4px 0 0 0;">' + excerpt + '</p>' : '') +
             '</div>';
         }

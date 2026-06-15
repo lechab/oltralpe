@@ -60,9 +60,6 @@
     varie:     'Varie'
   };
 
-  var nameMth = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
-                 'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-
   var allAlbums = [];
   var creditsMap = {};   // chemin photo -> crédit auteur extrait de l'EXIF (data/photo-credits.json)
   var state = { theme: '*', year: '*', location: '*', query: '' };
@@ -71,13 +68,6 @@
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
       .replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  function formatDate(iso) {
-    if (!iso) return '';
-    var parts = iso.split('-');
-    if (parts.length < 3) return iso;
-    return parseInt(parts[2], 10) + ' ' + nameMth[parseInt(parts[1], 10) - 1] + ' ' + parts[0];
   }
 
   function yearOf(iso) {
@@ -195,7 +185,7 @@
       var badgeClass = album.event_type || 'uscita';
       var badgeLabel = LABELS[album.event_type] || album.event_type || '';
       var count = album.photos ? album.photos.length : 0;
-      var meta = [formatDate(album.date), count ? count + ' foto' : '']
+      var meta = [formatDateIso(album.date), count ? count + ' foto' : '']
         .filter(function (x) { return x; }).join(' &bull; ');
       return '<div class="album-card"' +
           ' data-type="' + esc(album.event_type || '') + '"' +
