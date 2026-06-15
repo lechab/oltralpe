@@ -9,19 +9,12 @@
 <script src="assets/js/common.js"></script>
 </head>
 <body class="page-informazioni" dir="ltr">
-<div align="center">
   <div id="header-container"></div>
-  <table width="80%" border="0">
-    <tr>
-      <td width="17%" valign="top" bgcolor="#5C743D"><div id="nav-container"></div></td>
-      <td width="2%">&nbsp;</td>
-      <td width="79%" valign="top" style="padding: 10px 0;">
+  <div class="layout layout--2col">
+    <div id="nav-container" class="layout-nav"></div>
+    <main class="layout-main">
 
-        <table width="100%" border="0"><tr><td height="51" align="center" valign="bottom">
-          <p style="font-size:26px;font-weight:bold;color:#336600;font-family:Georgia,'Times New Roman',Times,serif;margin:0 0 16px 0;">
-            Informazioni utili
-          </p>
-        </td></tr></table>
+        <h1 style="font-size:26px;font-weight:bold;color:#336600;font-family:Georgia,'Times New Roman',Times,serif;margin:0 0 16px 0;text-align:center;">Informazioni utili</h1>
 
         <div class="tab-bar">
           <button class="tab-btn active" onclick="showTab('camminate', this)">&#x1F6B6; Camminate</button>
@@ -124,16 +117,9 @@
           </div>
         </div>
 
-      </td>
-      <td width="2%">&nbsp;</td>
-    </tr>
-  </table>
-  <table width="80%" border="0">
-    <tr>
-      <td bgcolor="#99CC66">&nbsp;</td>
-    </tr>
-  </table>
-</div>
+    </main>
+  </div>
+  <div class="footer-bar"></div>
 <script type="text/javascript">buildHeader();buildNav();</script>
 <script type="text/javascript">
 function showTab(id, btn) {

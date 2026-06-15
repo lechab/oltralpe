@@ -9,18 +9,14 @@
 <script src="assets/js/common.js"></script>
 </head>
 <body class="page-novita" dir="ltr">
-<div align="center">
   <div id="header-container"></div>
-  <table width="80%" border="0">
-    <tr>
-      <td width="17%" valign="top" bgcolor="#5C743D"><div id="nav-container"></div></td>
-      <td width="2%">&nbsp;</td>
-      <td width="72%" valign="top">
-        <div id="news-container"><p class="Stile31">Caricamento notizie...</p></div>
-      </td>
-    </tr>
-  </table>
-</div>
+  <div class="layout layout--2col">
+    <div id="nav-container" class="layout-nav"></div>
+    <main class="layout-main">
+      <div id="news-container"><p class="Stile31">Caricamento notizie...</p></div>
+    </main>
+  </div>
+  <div class="footer-bar"></div>
 
 <script type="text/javascript">buildHeader();buildNav();</script>
 <script type="text/javascript">

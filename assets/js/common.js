@@ -86,14 +86,30 @@ function buildNav() {
     { href: "associazione.html", label: "Organizzazione" },
     { href: "informazioni.html", label: "Informazioni utili" },
   ];
-  let html = '<nav id="navigation"><ul>';
+  let items = '';
   for ( let i = 0; i < links.length; i++) {
-    html += '<li><a href="' + links[i].href + '">' + links[i].label + '</a></li>';
+    items += '<li><a href="' + links[i].href + '">' + links[i].label + '</a></li>';
   }
-  html += '</ul></nav>';
+  // Le bouton hamburger n'est visible qu'en mobile sur les pages converties
+  // (CSS scopé sous .layout) ; ailleurs il reste masqué et le menu déroulé.
+  var html =
+    '<nav id="navigation">' +
+      '<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">' +
+        '<span class="nav-toggle-icon" aria-hidden="true">&#9776;</span>' +
+        '<span>Menu</span>' +
+      '</button>' +
+      '<ul id="nav-menu">' + items + '</ul>' +
+    '</nav>';
   var container = document.getElementById('nav-container');
-  if (container) {
-    container.innerHTML = html;
+  if (!container) return;
+  container.innerHTML = html;
+  var nav = container.querySelector('#navigation');
+  var btn = container.querySelector('.nav-toggle');
+  if (nav && btn) {
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('nav-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
   }
 }
 
@@ -136,8 +152,13 @@ function trackVisit() {
       if (!data || data.total === null || data.total === undefined) {
         return;
       }
-      var bars = document.querySelectorAll('td[bgcolor="#99CC66"]');
-      var footer = bars.length ? bars[bars.length - 1] : null;
+      // Pages converties : barre verte = .footer-bar. Pages encore en tables :
+      // dernier <td bgcolor="#99CC66">.
+      var footer = document.querySelector('.footer-bar');
+      if (!footer) {
+        var bars = document.querySelectorAll('td[bgcolor="#99CC66"]');
+        footer = bars.length ? bars[bars.length - 1] : null;
+      }
       if (!footer) {
         return;
       }

@@ -231,6 +231,82 @@ a, td, p { overflow-wrap: anywhere; }
   text-decoration: underline;
 }
 
+/* ============================================================
+   Layout moderne (conversion tables -> CSS) + responsive
+   Remplace les tables de mise en page héritées de Dreamweaver.
+   ============================================================ */
+
+.layout {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  column-gap: 2%;
+  align-items: stretch;
+}
+
+/* Variantes de colonnes (les largeurs reprennent celles des anciennes tables) */
+.layout--3col { grid-template-columns: 18% 40% 38%; } /* nav | contenu | aside */
+.layout--2col { grid-template-columns: 18% 80%; }     /* nav | contenu       */
+
+/* Colonne de navigation (bande verte verticale sur desktop) */
+.layout-nav { background-color: #5C743D; }
+
+/* min-width: 0 autorise le rétrécissement des colonnes grid (évite le
+   débordement horizontal des images et longs textes). */
+.layout-main { min-width: 0; padding-right: 12px; }
+.layout-aside { min-width: 0; padding-left: 8px; }
+
+/* Barre verte de pied de page (ex-<table>/<td bgcolor="#99CC66">) */
+.footer-bar {
+  width: 80%;
+  margin: 0 auto;
+  min-height: 8px;
+  background-color: #99CC66;
+}
+
+/* Bouton hamburger : masqué hors mobile */
+.nav-toggle { display: none; }
+
+@media (max-width: 768px) {
+  /* Pleine largeur de l'écran */
+  #site-header,
+  .layout,
+  .footer-bar { width: 100%; }
+
+  /* En-tête : on empile et on supprime l'espaceur fixe */
+  .header-top { flex-direction: column; min-height: 0; padding: 12px 0; gap: 8px; }
+  .header-spacer { display: none; }
+  .header-logo,
+  .header-identity { flex: 0 0 auto; }
+  .Stile1 { font-size: 28px; }
+
+  /* Mise en page : on dépile les colonnes */
+  .layout { display: block; }
+  .layout-main { padding: 0 14px; }
+  .layout-aside { padding: 0 14px; }
+
+  /* Navigation : barre verte + menu déroulant (hamburger).
+     Scopé sous .layout pour ne pas toucher les pages encore en tables. */
+  .layout .nav-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 14px 18px;
+    background: #5C743D;
+    border: 0;
+    color: #D5EDB3;
+    font: bold 15px Arial, Helvetica, sans-serif;
+    letter-spacing: .1em;
+    cursor: pointer;
+  }
+  .nav-toggle-icon { font-size: 20px; line-height: 1; }
+  .layout #nav-menu { display: none; padding: 0 0 8px 0; }
+  .layout #navigation.nav-open #nav-menu { display: block; }
+}
+
 /* Galerie photos */
 
 .gallery-filters {
@@ -641,6 +717,36 @@ a, td, p { overflow-wrap: anywhere; }
 .page-contatti .Stile76 { color: #990000; font-style: italic; }
 .page-contatti .Stile78 { font-size: 11px; }
 
+/* Bloc d'introduction : texte (emails) + photo Madonnina */
+.page-contatti .contatti-intro {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.page-contatti .contatti-intro-text { flex: 1 1 320px; min-width: 0; }
+.page-contatti .contatti-intro-figure {
+  flex: 0 0 auto;
+  max-width: 250px;
+  margin: 0 auto;
+  text-align: center;
+}
+.page-contatti .contatti-intro-figure figcaption { margin-top: 4px; }
+
+/* Liste de liens externes : nom | URL, empilés sur mobile */
+.page-contatti .link-list { list-style: none; padding: 0; margin: 0 0 20px; }
+.page-contatti .link-list li {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 8px 20px;
+  align-items: baseline;
+  padding: 7px 0;
+  border-bottom: 1px dotted #c8e6b0;
+}
+@media (max-width: 768px) {
+  .page-contatti .link-list li { grid-template-columns: 1fr; gap: 2px; }
+}
+
 /* ============================================================
    Page : iniziative
    ============================================================ */
@@ -683,6 +789,9 @@ a, td, p { overflow-wrap: anywhere; }
 .page-storia .Stile42 { color: #003300; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
 .page-storia .Stile43 { color: #003300; font-size: 12px; font-style: italic; font-family: Arial, Helvetica, sans-serif; }
 .page-storia .Stile44 { color: #000000; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+/* Colonne photos : images centrées avec légende */
+.page-storia .layout-aside figure { margin: 0 0 24px; text-align: center; }
+.page-storia .layout-aside figcaption { margin-top: 4px; }
 
 /* ============================================================
    Page : novità
@@ -836,8 +945,31 @@ a, td, p { overflow-wrap: anywhere; }
 }
 
 /* ============================================================
+   Page : immagini (galerie d'archives, ex-tables -> grille CSS)
+   ============================================================ */
+
+.page-immagini .immagini-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  margin-top: 12px;
+}
+.page-immagini .immagini-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 0;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.page-immagini .immagini-grid a { display: block; }
+
+/* ============================================================
    Page : associazione
    ============================================================ */
+
+/* Colonnes : contenu large, colonne images étroite (reprend l'ancien 56%/24%) */
+.page-associazione .layout--3col { grid-template-columns: 18% 56% 24%; }
 
 #assoc-content { font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333; }
 #assoc-content h2 { color: #336600; font-size: 15px; margin-top: 1.4em; border-bottom: 1px solid #99CC66; padding-bottom: 4px; }

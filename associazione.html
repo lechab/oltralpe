@@ -8,38 +8,29 @@
   <link rel="shortcut icon" href="images/shared/favicon.png" />
   <script src="assets/js/common.js"></script>
 </head>
-<body dir="ltr">
-<div align="center">
-
+<body class="page-associazione" dir="ltr">
   <!-- En-tête -->
   <div id="header-container"></div>
 
-  <!-- Contenu principal : nav + page -->
-  <table width="80%" border="0" cellpadding="0" cellspacing="0">
-    <tr>
-      <td width="17%" valign="top" bgcolor="#5C743D"><div id="nav-container"></div></td>
-      <td width="3%">&nbsp;</td>
-      <td width="56%" valign="top" style="padding: 10px 0;">
-        <div id="assoc-content">
-          <p class="subtitle">Organizzazione di Volontariato Oltr'Alpe</p>
-          <p class="adresse">via Matteotti, 1 — 40063 Monghidoro BO — C.F. 91207050377</p>
-          <p style="color:#666;font-size:11px;">Caricamento...</p>
-        </div>
-      </td>
-      <td width="24%" valign="top" style="padding-left: 5rem; padding-top: 10px;">
-        <img width="192" height="388" src="images/associazione/caderossi.jpg" alt="ca" />
-        <br /><br />
-        <img width="193" height="357" src="images/associazione/cristalli.jpg" alt="cri" />
-      </td>
-    </tr>
-  </table>
+  <!-- Contenu principal : nav + page + images -->
+  <div class="layout layout--3col">
+    <div id="nav-container" class="layout-nav"></div>
+    <main class="layout-main">
+      <div id="assoc-content">
+        <p class="subtitle">Organizzazione di Volontariato Oltr'Alpe</p>
+        <p class="adresse">via Matteotti, 1 — 40063 Monghidoro BO — C.F. 91207050377</p>
+        <p style="color:#666;font-size:11px;">Caricamento...</p>
+      </div>
+    </main>
+    <aside class="layout-aside">
+      <img width="192" height="388" src="images/associazione/caderossi.jpg" alt="ca" />
+      <br /><br />
+      <img width="193" height="357" src="images/associazione/cristalli.jpg" alt="cri" />
+    </aside>
+  </div>
 
   <!-- Pied de page -->
-  <table width="80%" border="1" cellpadding="0" cellspacing="0">
-    <tr><td bgcolor="#99CC66" style="height: 8px;">&nbsp;</td></tr>
-  </table>
-
-</div>
+  <div class="footer-bar"></div>
 
 <script type="text/javascript">buildHeader();buildNav();</script>
 <script type="text/javascript">
