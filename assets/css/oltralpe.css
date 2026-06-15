@@ -253,8 +253,11 @@ a, td, p { overflow-wrap: anywhere; }
 
 /* min-width: 0 autorise le rétrécissement des colonnes grid (évite le
    débordement horizontal des images et longs textes). */
-.layout-main { min-width: 0; padding-right: 12px; }
-.layout-aside { min-width: 0; padding-left: 8px; }
+/* padding-top : évite que le contenu soit collé sous l'en-tête.
+   On ne met pas la marge sur .layout pour garder la bande verte (nav)
+   au ras de l'en-tête. */
+.layout-main { min-width: 0; padding: 12px 12px 0 0; }
+.layout-aside { min-width: 0; padding: 12px 0 0 8px; }
 
 /* Barre verte de pied de page (ex-<table>/<td bgcolor="#99CC66">) */
 .footer-bar {
@@ -282,8 +285,8 @@ a, td, p { overflow-wrap: anywhere; }
 
   /* Mise en page : on dépile les colonnes */
   .layout { display: block; }
-  .layout-main { padding: 0 14px; }
-  .layout-aside { padding: 0 14px; }
+  .layout-main { padding: 14px 14px 0; }
+  .layout-aside { padding: 14px 14px 0; }
 
   /* Navigation : barre verte + menu déroulant (hamburger).
      Scopé sous .layout pour ne pas toucher les pages encore en tables. */
