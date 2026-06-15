@@ -18,6 +18,13 @@ a:hover {
 	color: #5C743D;
 	}
 
+/* Garde-fou responsive (layout hérité en tables) : images fluides, tables
+   bornées à la largeur de l'écran, et césure des longs liens/URL pour éviter
+   le débordement horizontal sur mobile. */
+img { max-width: 100%; height: auto; }
+table { max-width: 100%; }
+a, td, p { overflow-wrap: anywhere; }
+
 /* ID Styles */
 
 #navigation ul {
