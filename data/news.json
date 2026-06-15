@@ -50,6 +50,19 @@
       "body": "Volantino Datti una Mossa",
       "image": "/images/uploads/volantino datti una mossa.jpg",
       "video_url": ""
+    },
+    {
+      "title": "Camminata di sabato 20 giugno",
+      "date": "2026-06-15",
+      "type": "camminata",
+      "data_camminata": "2026-06-15 16:48",
+      "partenza": "Pian di Balestra",
+      "lunghezza": "9,5",
+      "dislivello": "300",
+      "tempo_percorso": "3,30",
+      "body": "Da pian di Balestra al Passeggere e ritorno",
+      "image": "/images/uploads/pian di balestra.jpg",
+      "video_url": ""
     }
   ]
 }
