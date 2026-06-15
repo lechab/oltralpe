@@ -88,6 +88,34 @@ function buildNav() {
   }
 }
 
+// Construit les liens e-mail à partir d'attributs data-* (anti-spam : l'adresse
+// n'apparaît jamais en clair dans le HTML). Sur chaque élément portant
+// data-email-user et data-email-domain, on injecte un <a href="mailto:...">.
+// Attributs optionnels :
+//   data-email-class : classe CSS appliquée au lien (ex. "Stile63")
+//   data-email-text  : texte affiché à la place de l'adresse
+function buildEmailLinks() {
+  var nodes = document.querySelectorAll('[data-email-user][data-email-domain]');
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    var addr = el.getAttribute('data-email-user') + '@' + el.getAttribute('data-email-domain');
+    var a = document.createElement('a');
+    a.href = 'mailto:' + addr;
+    a.textContent = el.getAttribute('data-email-text') || addr;
+    var cls = el.getAttribute('data-email-class');
+    if (cls) {
+      a.className = cls;
+    }
+    el.appendChild(a);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', buildEmailLinks);
+} else {
+  buildEmailLinks();
+}
+
 // Enregistre la visite côté serveur (stats/track.php) et affiche un compteur
 // discret « Visite: N » dans la barre verte de pied de page. Échec silencieux :
 // le compteur ne doit jamais perturber l'affichage du site.
