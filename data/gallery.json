@@ -145,7 +145,10 @@
       "location": "Monghidoro",
       "credit": "",
       "description": "",
-      "cover": "/images/uploads/P1070690_resize-1.JPG"
+      "cover": "/images/uploads/P1070690_resize-1.JPG",
+      "photos": [
+        "/images/uploads/P1070670_resize-1.JPG"
+      ]
     }
   ]
 }
