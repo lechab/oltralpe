@@ -164,7 +164,11 @@
       "location": "Monghidoro",
       "credit": "",
       "description": "Visita del Cardinale Zuppi a Monghidoro (Incontro con Organizzazioni di volontariato",
-      "cover": "/images/uploads/FB_IMG_1781869921630.jpg"
+      "cover": "/images/uploads/FB_IMG_1781869921630.jpg",
+      "photos": [
+        "/images/uploads/IMG_20260619_102404_resize.jpg",
+        "/images/uploads/IMG_20260619_102510_resize.jpg"
+      ]
     }
   ]
 }
