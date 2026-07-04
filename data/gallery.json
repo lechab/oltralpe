@@ -187,7 +187,19 @@
       "location": "Poggio Turchino",
       "credit": "",
       "description": "Camminata del 04/07/2026 da Poggio Turchino a Monte Oggioli",
-      "cover": "/images/uploads/WhatsApp Image 2026-07-04 at 16.00.06.jpeg"
+      "cover": "/images/uploads/WhatsApp Image 2026-07-04 at 16.00.06.jpeg",
+      "photos": [
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.16.jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.20.jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.33 (1).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.33 (2).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.33 (3).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.34 (1).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.34 (2).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.34 (3).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.34.jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-04 at 16.37.35.jpeg"
+      ]
     }
   ]
 }
