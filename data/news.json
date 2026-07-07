@@ -128,6 +128,19 @@
       "body": "Backstage della diretta Rai 1 del 1/07/2026 della trasmissione Camper Osteria Italia dalla Cisterna di Monghidoro.",
       "image": "",
       "video_url": "https://youtu.be/3fAZT8KXYKI"
+    },
+    {
+      "title": "Camminata di sabato 11/07/2026",
+      "date": "2026-07-07",
+      "type": "camminata",
+      "data_camminata": "2026-07-11 22:10",
+      "partenza": "Badia Moscheta",
+      "lunghezza": "12,5",
+      "dislivello": "625",
+      "tempo_percorso": "5",
+      "body": "camminata di sabato 11 Luglio : Badia di Moscheta,Giogarello, Badia di Moscheta (anello) Lunghezza km. 12,500 - Dislivello m. 625 - Durata 5 ore - Pranzo al sacco- Ritrovo ore 8:30 parcheggio Raticosa e ore 9:00 parcheggio campeggio Badia di Moscheta",
+      "image": "/images/uploads/giogrello.jpg",
+      "video_url": ""
     }
   ]
 }
