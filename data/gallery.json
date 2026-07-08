@@ -212,7 +212,16 @@
       "location": "",
       "credit": "Madonna dei Boschi",
       "description": "Camminata serale del 07/07/2026 - Monghidoro, Ceragne e Madonna dei Boschi",
-      "cover": "/images/uploads/P1070809.JPG"
+      "cover": "/images/uploads/P1070809.JPG",
+      "photos": [
+        "/images/uploads/P1070798_resize.JPG",
+        "/images/uploads/P1070799_resize.JPG",
+        "/images/uploads/P1070801_resize.JPG",
+        "/images/uploads/P1070802_resize.JPG",
+        "/images/uploads/P1070803_resize.JPG",
+        "/images/uploads/P1070804_resize.JPG",
+        "/images/uploads/P1070805_resize.JPG"
+      ]
     }
   ]
 }
