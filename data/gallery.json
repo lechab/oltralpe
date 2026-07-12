@@ -230,6 +230,15 @@
         "/images/uploads/P1070815_resize.JPG",
         "/images/uploads/P1070816_resize.JPG"
       ]
+    },
+    {
+      "title": "Camminata del 11/07/2026",
+      "event_type": "uscita",
+      "date": "2026-07-11",
+      "location": "Badia Moscheta",
+      "credit": "",
+      "description": "Camminata di sabato 11/07/2026 + Badia Moscheta, Giogarello, Ridugio della Serra",
+      "cover": "/images/uploads/WhatsApp Image 2026-07-11 at 19.31.50.jpeg"
     }
   ]
 }
