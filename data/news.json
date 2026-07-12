@@ -173,13 +173,26 @@
       "date": "2026-07-12",
       "type": "evento",
       "data_camminata": "2026-07-01 21:07",
-      "partenza": "",
+      "partenza": "Monghidoro",
       "lunghezza": "",
       "dislivello": "",
       "tempo_percorso": "",
       "body": "Backstage Camper Osteria Italia Rai 1 – 1 Luglio 2026",
       "image": "",
       "video_url": "https://youtu.be/3fAZT8KXYKI"
+    },
+    {
+      "title": "Visita cardinale Zuppi - 19/06/2026",
+      "date": "2026-07-12",
+      "type": "evento",
+      "data_camminata": "2026-06-19 21:10",
+      "partenza": "Monghidoro",
+      "lunghezza": "",
+      "dislivello": "",
+      "tempo_percorso": "",
+      "body": "Visita cardinale Zuppi - Incontro con le organizzazioni di Monghidoro -  19/06/2026",
+      "image": "",
+      "video_url": "https://youtu.be/adXKGIZ1Y0E"
     }
   ]
 }
