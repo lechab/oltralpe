@@ -277,7 +277,13 @@
       "location": "Monghidoro",
       "credit": "",
       "description": "Camminata serale del 14/07/2026 Monghidoro-Lavanda-Chiesa di Lognola-Cà de Rossi",
-      "cover": "/images/uploads/P1070873.JPG"
+      "cover": "/images/uploads/P1070873.JPG",
+      "photos": [
+        "/images/uploads/P1070868.JPG",
+        "/images/uploads/P1070873.JPG",
+        "/images/uploads/P1070880.JPG",
+        "/images/uploads/P1070881.JPG"
+      ]
     }
   ]
 }
