@@ -304,6 +304,22 @@
         "/images/uploads/WhatsApp Image 2026-07-15 at 15.21.11.jpeg",
         "/images/uploads/WhatsApp Image 2026-07-15 at 15.21.12.jpeg"
       ]
+    },
+    {
+      "title": "Camminata del 25/07/2026",
+      "event_type": "uscita",
+      "date": "2026-07-25",
+      "location": "Monte la Fine",
+      "credit": "",
+      "description": "Camminata del 25/07/2026 dall'Agriturismo La Fine a Monte la Fine e ritorno",
+      "cover": "/images/uploads/WhatsApp Image 2026-07-25 at 14.27.24.jpeg",
+      "photos": [
+        "/images/uploads/WhatsApp Image 2026-07-25 at 14.17.23.jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-25 at 14.17.35.jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-25 at 14.17.36 (1).jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-25 at 14.17.36.jpeg",
+        "/images/uploads/WhatsApp Image 2026-07-25 at 14.17.37 (1).jpeg"
+      ]
     }
   ]
 }
