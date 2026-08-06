@@ -384,6 +384,22 @@
         "/images/uploads/WhatsApp Image 2026-08-01 at 17.28.20 (2).jpeg",
         "/images/uploads/WhatsApp Image 2026-08-01 at 18.02.25 (1).jpeg"
       ]
+    },
+    {
+      "title": "Camminataserale del 04/05/2026",
+      "event_type": "uscita",
+      "date": "2026-08-06",
+      "location": "Monte Piano",
+      "credit": "",
+      "description": "Camminata serale del 04/08/2026 da Monghidoro, Cà di Spino, Cà Morandi, Cà di Spino",
+      "cover": "/images/uploads/gruppo.jpg",
+      "photos": [
+        "/images/uploads/P1080932.JPG",
+        "/images/uploads/P1080942.JPG",
+        "/images/uploads/P1080944.JPG",
+        "/images/uploads/P1080947.JPG",
+        "/images/uploads/P1080950.JPG"
+      ]
     }
   ]
 }
