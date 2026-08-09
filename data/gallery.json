@@ -428,12 +428,11 @@
       "description": "Camminata del 08/08/2026 da Tre Fontane, Malpasso , Alpe, Fantorno",
       "cover": "/images/uploads/gruppo.jpeg",
       "photos": [
-        "/images/uploads/WhatsApp Image 2026-08-08 at 17.55.35.jpeg",
-        "/images/uploads/WhatsApp Image 2026-08-08 at 17.55.40 (1).jpeg",
-        "/images/uploads/WhatsApp Image 2026-08-08 at 17.55.46.jpeg",
-        "/images/uploads/WhatsApp Image 2026-08-08 at 17.55.47 (1).jpeg",
-        "/images/uploads/WhatsApp Image 2026-08-08 at 17.55.49.jpeg",
-        "/images/uploads/WhatsApp Image 2026-08-08 at 17.55.53 (1).jpeg"
+        null,
+        null,
+        null,
+        null,
+        null
       ]
     }
   ]
