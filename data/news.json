@@ -350,6 +350,19 @@
       "body": "Video della premiazione del concorso Balconi Fioriti del 7/08/2026",
       "image": "",
       "video_url": "https://youtu.be/WND-qbHyvvQ"
+    },
+    {
+      "title": "Camminata serale del 18/08/026",
+      "date": "2026-08-16",
+      "type": "camminata",
+      "data_camminata": "2026-08-18 22:00",
+      "partenza": "",
+      "lunghezza": "7,4",
+      "dislivello": "212",
+      "tempo_percorso": "2:10",
+      "body": "Partenza dal Comune di Monghidoro alle ore 19 di martedì 18 agosto.\n\nSi parte per Piamaggio alta e ritorno per la strada del Fantorno passando da Cà del Costa.\n\n7,4 Km - 212 metri di dislivello e durata di poco più di due ore.",
+      "image": "/images/uploads/piamaggio1.jpg",
+      "video_url": ""
     }
   ]
 }
