@@ -480,6 +480,21 @@
         "/images/uploads/WhatsApp Image 2026-08-12 at 20.37.59.jpeg",
         "/images/uploads/WhatsApp Image 2026-08-12 at 20.38.00 (2).jpeg"
       ]
+    },
+    {
+      "title": "Camminata del 22/08/2026",
+      "event_type": "uscita",
+      "date": "2026-08-22",
+      "location": "Poggio Turchino",
+      "credit": "",
+      "description": "Montefreddi - Tre querce - Montefreddi - (Anello). Lunghezza km. 7,600 - Dislivello m. 330 - Durata ore 3:30",
+      "cover": "/images/uploads/WhatsApp Image 2026-08-22 at 12.49.24.jpeg",
+      "photos": [
+        "/images/uploads/WhatsApp Image 2026-08-22 at 12.35.32.jpeg",
+        "/images/uploads/WhatsApp Image 2026-08-22 at 12.52.45 (1).jpeg",
+        "/images/uploads/WhatsApp Image 2026-08-22 at 12.59.16.jpeg",
+        "/images/uploads/WhatsApp Image 2026-08-22 at 13.03.56.jpeg"
+      ]
     }
   ]
 }
