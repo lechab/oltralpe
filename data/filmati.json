@@ -943,7 +943,16 @@
       "location": "Monghidoro",
       "theme": "evento",
       "credit": "Paolo Ferretti",
-      "description": "remiazione del concorso Balconi Fioriti del 7/08/2026"
+      "description": "Premiazione del concorso Balconi Fioriti del 7/08/2026"
+    },
+    {
+      "title": "Pranzo di fine stagione del 29/08/2026",
+      "url": "https://youtu.be/8dJZCSBm7XE",
+      "year": "2026",
+      "location": "Prè dla Radeccia",
+      "theme": "evento",
+      "credit": "Paolo Ferretti",
+      "description": "Pranzo di fine stagione del 29/08/2026 al Prè dla Radeccia"
     }
   ]
 }
