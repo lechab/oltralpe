@@ -174,6 +174,24 @@ if (document.readyState === 'loading') {
   buildEmailLinks();
 }
 
+// Identification de l'association, insérée sous la barre verte de pied de page
+// (hors de .footer-bar, que trackVisit() remplace par le compteur).
+function buildFooter() {
+  var bar = document.querySelector('.footer-bar');
+  if (!bar || document.querySelector('.site-footer')) return;
+  var f = document.createElement('footer');
+  f.className = 'site-footer';
+  f.innerHTML = '<strong>Oltr&apos;Alpe OdV</strong> &middot; via Matteotti, 1 &ndash; 40063 Monghidoro (BO)' +
+    ' &middot; C.F. 91207050377';
+  bar.parentNode.insertBefore(f, bar.nextSibling);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', buildFooter);
+} else {
+  buildFooter();
+}
+
 // Enregistre la visite côté serveur (stats/track.php) et affiche un compteur
 // discret « Visite: N » dans la barre verte de pied de page. Échec silencieux :
 // le compteur ne doit jamais perturber l'affichage du site.

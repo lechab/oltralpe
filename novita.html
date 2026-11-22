@@ -298,12 +298,28 @@
     target.classList.add('news-flash');
   });
 
+  // Vidéo YouTube chargée seulement au clic (aucun cookie tiers avant action de l'utilisateur),
+  // via youtube-nocookie.com. Seule la miniature (image statique) est chargée à l'ouverture.
   function videoEmbed(url) {
     if (!url) return '';
-    var m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    var m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
     if (!m) return '';
-    return '<div style="margin:8px 0;"><iframe width="100%" height="315" src="https://www.youtube.com/embed/' + m[1] + '" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>';
+    return '<button type="button" class="video-thumb yt-facade" data-yt="' + m[1] + '" aria-label="Guarda il video">' +
+      '<img src="https://img.youtube.com/vi/' + m[1] + '/hqdefault.jpg" alt="" loading="lazy" />' +
+      '<span class="play-overlay"></span></button>';
   }
+
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest('.yt-facade');
+    if (!f) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'video-thumb yt-player';
+    wrap.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + f.getAttribute('data-yt') +
+      '?autoplay=1&amp;rel=0" title="YouTube video player" ' +
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+      'allowfullscreen="allowfullscreen"></iframe>';
+    f.parentNode.replaceChild(wrap, f);
+  });
 
   fetch('data/news.json')
     .then(function(r) { return r.json(); })

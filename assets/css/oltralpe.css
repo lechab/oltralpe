@@ -267,6 +267,32 @@ a, td, p { overflow-wrap: anywhere; }
   background-color: #99CC66;
 }
 
+/* Identification de l'association sous la barre verte */
+.site-footer {
+  width: 80%;
+  margin: 0 auto;
+  padding: 8px 0 14px 0;
+  text-align: center;
+  font: 11px/1.5 Arial, Helvetica, sans-serif;
+  color: #5C743D;
+}
+.site-footer strong { color: #336600; }
+@media (max-width: 768px) {
+  .site-footer { width: 100%; padding: 8px 14px 14px; box-sizing: border-box; }
+}
+
+/* Novità : vidéo YouTube chargée au clic */
+.yt-facade,
+.yt-player { max-width: 560px; }
+.yt-facade {
+  margin: 8px 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+.yt-facade:hover .play-overlay { background: #993300; }
+.yt-player { margin: 8px 0; }
+
 /* Bouton hamburger : masqué hors mobile */
 .nav-toggle { display: none; }
 
