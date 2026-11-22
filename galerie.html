@@ -61,7 +61,8 @@
 
   var allAlbums = [];
   var creditsMap = {};   // chemin photo -> crédit auteur extrait de l'EXIF (data/photo-credits.json)
-  var state = { theme: '*', year: '*', location: '*', query: '' };
+  var sortedDesc = [];   // albums du plus récent au plus ancien
+  var state = { theme: '*', year: '*', location: '*', query: '', order: 'desc' };
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -253,6 +254,9 @@
     years.forEach(function (y) { html += buildBtn(y, y, false); });
     html += '</div>';
 
+    html += '<div class="filter-group" id="filter-order"><span class="filter-group-label">Ordine</span>' +
+            buildBtn('Più recenti', 'desc', true) + buildBtn('Più vecchi', 'asc', false) + '</div>';
+
     html += '<div class="filter-group" id="filter-extra">';
     if (locations.length > 0) {
       html += '<span class="filter-group-label">Luogo</span>' +
@@ -275,6 +279,11 @@
       btn.classList.add('active');
       if (group.id === 'filter-theme') state.theme = btn.getAttribute('data-value');
       if (group.id === 'filter-year')  state.year  = btn.getAttribute('data-value');
+      if (group.id === 'filter-order') {
+        state.order = btn.getAttribute('data-value');
+        allAlbums = state.order === 'asc' ? sortedDesc.slice().reverse() : sortedDesc.slice();
+        renderGallery(allAlbums);
+      }
       applyFilters();
     });
 
@@ -303,9 +312,10 @@
       var data = res[0];
       creditsMap = res[1] || {};
       // Plus récents en premier, quel que soit l'ordre dans le JSON.
-      allAlbums = (data.albums || []).slice().sort(function (a, b) {
+      sortedDesc = (data.albums || []).slice().sort(function (a, b) {
         return String(b.date || '').localeCompare(String(a.date || ''));
       });
+      allAlbums = sortedDesc.slice();
       renderGallery(allAlbums);
       renderFilters(allAlbums);
 

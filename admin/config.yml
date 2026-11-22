@@ -30,7 +30,8 @@ collections:
                   - {label: "Evento", value: "evento"}
                   - {label: "Varie", value: "varie"}
                 required: false
-              - {label: "Data e ora", name: "data_camminata", widget: "datetime", format: "YYYY-MM-DD HH:mm", time_format: "HH:mm", required: false, condition: {field: type, value: camminata}}
+              - {label: "Data e ora dell'appuntamento", name: "data_camminata", widget: "datetime", format: "YYYY-MM-DD HH:mm", time_format: "HH:mm", required: false, default: "", hint: "Compare nel calendario. Lasciare vuoto per video, resoconti e locandine."}
+              - {label: "Annullato", name: "annullato", widget: "boolean", required: false, default: false, hint: "L'appuntamento resta visibile ma barrato."}
               - {label: "Partenza", name: "partenza", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Lunghezza (km)", name: "lunghezza", widget: "string", required: false, condition: {field: type, value: camminata}}
               - {label: "Dislivello (m)", name: "dislivello", widget: "string", required: false, condition: {field: type, value: camminata}}

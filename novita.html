@@ -13,6 +13,21 @@
   <div class="layout layout--2col">
     <div id="nav-container" class="layout-nav"></div>
     <main class="layout-main">
+      <section id="agenda" class="agenda" style="display:none;">
+        <div class="agenda-next">
+          <h2 class="agenda-title">Prossimi appuntamenti</h2>
+          <ul id="agenda-list" class="agenda-list"></ul>
+        </div>
+        <div class="agenda-cal">
+          <div class="cal-head">
+            <button type="button" class="cal-nav" id="cal-prev" aria-label="Mese precedente">&#8249;</button>
+            <span id="cal-month" class="cal-month"></span>
+            <button type="button" class="cal-nav" id="cal-next" aria-label="Mese successivo">&#8250;</button>
+          </div>
+          <div id="cal-grid" class="cal-grid"></div>
+          <div id="cal-day" class="cal-day"></div>
+        </div>
+      </section>
       <div id="news-container"><p class="Stile31">Caricamento notizie...</p></div>
     </main>
   </div>
@@ -27,16 +42,40 @@
     }).join('');
   }
 
-  function typeBadge(type) {
-    if (!type) return '';
-    var labels = { camminata: 'Camminata', evento: 'Evento', varie: 'Varie' };
-    return '<span class="news-type-badge ' + type + '">' + (labels[type] || type) + '</span><br />';
+  var TYPE_LABELS = { camminata: 'Camminata', evento: 'Evento', varie: 'Varie' };
+  var GIORNI_BREVI = ['Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa', 'Do'];
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function typeBadge(n) {
+    var html = '';
+    if (n.type) html += '<span class="news-type-badge ' + n.type + '">' + (TYPE_LABELS[n.type] || n.type) + '</span> ';
+    if (n.annullato) html += '<span class="news-type-badge annullato">Annullato</span>';
+    return html ? html + '<br />' : '';
+  }
+
+  // "YYYY-MM-DD HH:mm" (ou ISO avec T) -> Date locale ; null si vide ou invalide.
+  function parseAppt(v) {
+    var m = String(v || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/);
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0));
+  }
+
+  function pad(x) { return (x < 10 ? '0' : '') + x; }
+  function dayKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function hhmm(d) { return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function longDate(d) {
+    return GIORNI[d.getDay()] + ' ' + d.getDate() + ' ' + MESI[d.getMonth()] + ' ' + d.getFullYear() + ', ore ' + hhmm(d);
   }
 
   function camminateFiche(n) {
     if (n.type !== 'camminata') return '';
     var rows = [
-      ['Data e ora',       n.data_camminata ? n.data_camminata.replace('T', ' ').slice(0, 16) : null],
+      ['Data e ora',       n._appt ? longDate(n._appt) : null],
       ['Partenza',         n.partenza],
       ['Lunghezza',        n.lunghezza ? n.lunghezza + ' km' : null],
       ['Dislivello',       n.dislivello ? n.dislivello + ' m' : null],
@@ -48,6 +87,110 @@
     }
     return html + '</tbody></table>';
   }
+
+  // Date du rendez-vous pour les événements / varie (les camminate l'ont dans la fiche).
+  function apptLine(n) {
+    if (!n._appt || n.type === 'camminata') return '';
+    return '<p class="news-appt">&#128197; ' + longDate(n._appt) + (n.partenza ? ' &bull; ' + esc(n.partenza) : '') + '</p>';
+  }
+
+  // ---------- Agenda : prochains rendez-vous + calendrier mensuel ----------
+  function buildAgenda(appts) {
+    if (appts.length === 0) return;
+    document.getElementById('agenda').style.display = '';
+
+    var now = new Date();
+    var byDay = {};
+    appts.forEach(function (a) { (byDay[dayKey(a.d)] = byDay[dayKey(a.d)] || []).push(a); });
+
+    // Prochains rendez-vous (5 max), à partir d'aujourd'hui
+    var today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var next = appts.filter(function (a) { return a.d >= today0; }).slice(0, 5);
+    var list = document.getElementById('agenda-list');
+    list.innerHTML = next.length ? next.map(function (a) {
+      var n = a.n;
+      return '<li class="agenda-item' + (n.annullato ? ' is-cancelled' : '') + '">' +
+        '<a href="#' + a.id + '" class="agenda-link">' +
+          '<span class="agenda-date ' + esc(n.type || '') + '">' +
+            '<span class="agenda-day">' + a.d.getDate() + '</span>' +
+            '<span class="agenda-mon">' + MESI[a.d.getMonth()].slice(0, 3) + '</span>' +
+          '</span>' +
+          '<span class="agenda-text">' +
+            '<span class="agenda-name">' + esc(n.title) + '</span>' +
+            '<span class="agenda-meta">' + GIORNI[a.d.getDay()] + ' ore ' + hhmm(a.d) +
+              (n.partenza ? ' &bull; ' + esc(n.partenza) : '') +
+              (n.annullato ? ' &bull; <strong>Annullato</strong>' : '') + '</span>' +
+          '</span>' +
+        '</a></li>';
+    }).join('') : '<li class="agenda-empty">Nessun appuntamento in programma.<br />Gli appuntamenti passati sono nel calendario.</li>';
+
+    // Mois affiché au départ : celui du prochain rendez-vous, sinon le dernier mois avec un rendez-vous.
+    var start = next.length ? next[0].d : appts[appts.length - 1].d;
+    var cur = { y: start.getFullYear(), m: start.getMonth() };
+
+    function renderMonth() {
+      document.getElementById('cal-month').textContent = MESI[cur.m] + ' ' + cur.y;
+      var first = new Date(cur.y, cur.m, 1);
+      var offset = (first.getDay() + 6) % 7;            // lundi = 0
+      var days = new Date(cur.y, cur.m + 1, 0).getDate();
+      var html = GIORNI_BREVI.map(function (g) { return '<span class="cal-wd">' + g + '</span>'; }).join('');
+      for (var i = 0; i < offset; i++) html += '<span class="cal-cell empty"></span>';
+      for (var d = 1; d <= days; d++) {
+        var key = cur.y + '-' + pad(cur.m + 1) + '-' + pad(d);
+        var ev = byDay[key];
+        var cls = 'cal-cell';
+        if (key === dayKey(now)) cls += ' today';
+        if (ev) {
+          cls += ' has-event ' + (ev[0].n.type || '');
+          if (ev.every(function (a) { return a.n.annullato; })) cls += ' is-cancelled';
+          html += '<button type="button" class="' + cls + '" data-day="' + key + '" title="' +
+            esc(ev.map(function (a) { return hhmm(a.d) + ' ' + a.n.title; }).join(' / ')) + '">' + d +
+            (ev.length > 1 ? '<span class="cal-count">' + ev.length + '</span>' : '') + '</button>';
+        } else {
+          html += '<span class="' + cls + '">' + d + '</span>';
+        }
+      }
+      document.getElementById('cal-grid').innerHTML = html;
+      document.getElementById('cal-day').innerHTML = '';
+    }
+
+    function shiftMonth(delta) {
+      cur.m += delta;
+      if (cur.m < 0) { cur.m = 11; cur.y--; }
+      if (cur.m > 11) { cur.m = 0; cur.y++; }
+      renderMonth();
+    }
+
+    document.getElementById('cal-prev').addEventListener('click', function () { shiftMonth(-1); });
+    document.getElementById('cal-next').addEventListener('click', function () { shiftMonth(1); });
+
+    // Clic sur un jour : liste des rendez-vous du jour, avec lien vers l'article
+    document.getElementById('cal-grid').addEventListener('click', function (e) {
+      var cell = e.target.closest('.has-event');
+      if (!cell) return;
+      var ev = byDay[cell.getAttribute('data-day')] || [];
+      document.getElementById('cal-day').innerHTML = ev.map(function (a) {
+        return '<a href="#' + a.id + '" class="cal-day-item' + (a.n.annullato ? ' is-cancelled' : '') + '">' +
+          '<span class="news-type-badge ' + esc(a.n.type || '') + '">' + hhmm(a.d) + '</span> ' + esc(a.n.title) +
+          (a.n.annullato ? ' <em>(annullato)</em>' : '') + '</a>';
+      }).join('');
+    });
+
+    renderMonth();
+  }
+
+  // Lien vers un article : défilement + surbrillance brève
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#art-"]');
+    if (!a) return;
+    var target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.classList.remove('news-flash');
+    void target.offsetWidth;
+    target.classList.add('news-flash');
+  });
 
   function videoEmbed(url) {
     if (!url) return '';
@@ -68,13 +211,17 @@
         return;
       }
       var html = '';
+      var appts = [];
       for (var i = 0; i < items.length; i++) {
         var n = items[i];
+        n._appt = parseAppt(n.data_camminata);
+        if (n._appt) appts.push({ d: n._appt, n: n, id: 'art-' + i });
         html +=
-          '<div style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
-            typeBadge(n.type) +
+          '<div id="art-' + i + '" class="news-item" style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
+            typeBadge(n) +
             '<p class="Stile28">' + n.title + '</p>' +
             '<p class="Stile27">' + formatDateIso(n.date) + '</p>' +
+            apptLine(n) +
             camminateFiche(n) +
             bodyToHtml(n.body) +
             (n.image ? '<p><img src="' + n.image + '" alt="' + n.title + '" style="max-width:100%;height:auto;" /></p>' : '') +
@@ -82,6 +229,8 @@
           '</div>';
       }
       document.getElementById('news-container').innerHTML = html;
+      appts.sort(function (a, b) { return a.d - b.d; });
+      buildAgenda(appts);
     })
     .catch(function() {
       document.getElementById('news-container').innerHTML =

@@ -46,7 +46,8 @@
   };
 
   var allVideos = [];
-  var state = { year: '*', theme: '*', location: '*', query: '' };
+  var sortedDesc = [];   // vidéos de la plus récente à la plus ancienne
+  var state = { year: '*', theme: '*', location: '*', query: '', order: 'desc' };
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -139,6 +140,9 @@
     years.forEach(function (y) { html += buildButton(y, y, false); });
     html += '</div>';
 
+    html += '<div class="filter-group" id="filter-order"><span class="filter-group-label">Ordine</span>' +
+            buildButton('Più recenti', 'desc', true) + buildButton('Più vecchi', 'asc', false) + '</div>';
+
     html += '<div class="filter-group" id="filter-extra">';
     if (locations.length > 0) {
       html += '<span class="filter-group-label">Luogo</span>' +
@@ -161,6 +165,11 @@
       btn.classList.add('active');
       if (group.id === 'filter-year')  state.year  = btn.getAttribute('data-value');
       if (group.id === 'filter-theme') state.theme = btn.getAttribute('data-value');
+      if (group.id === 'filter-order') {
+        state.order = btn.getAttribute('data-value');
+        allVideos = state.order === 'asc' ? sortedDesc.slice().reverse() : sortedDesc.slice();
+        renderGrid(allVideos);
+      }
       applyFilters();
     });
 
@@ -209,9 +218,10 @@
     .then(function (r) { return r.json(); })
     .then(function (data) {
       // Plus récents en premier (tri stable : l'ordre du JSON est conservé dans une même année).
-      allVideos = (data.videos || []).slice().sort(function (a, b) {
+      sortedDesc = (data.videos || []).slice().sort(function (a, b) {
         return (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0);
       });
+      allVideos = sortedDesc.slice();
       renderGrid(allVideos);
       renderFilters(allVideos);
 

@@ -36,8 +36,6 @@
   <script type="text/javascript">buildHeader();buildNav();</script>
   <script type="text/javascript">
   (function () {
-    var typeColors = { camminata: '#2d6a3f', evento: '#004085', varie: '#555' };
-    var typeBg     = { camminata: '#d4edda', evento: '#cce5ff', varie: '#f0f0f0' };
     var typeLabels = { camminata: 'Camminata', evento: 'Evento', varie: 'Varie' };
 
     fetch('data/news.json')
@@ -52,7 +50,7 @@
           var excerpt = (n.body || '').replace(/\n/g, ' ').slice(0, 120);
           if ((n.body || '').length > 120) excerpt += '&hellip;';
           var badge = n.type
-            ? '<span style="display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:bold;text-transform:uppercase;background:' + (typeBg[n.type]||'#eee') + ';color:' + (typeColors[n.type]||'#333') + ';margin-bottom:4px;">' + (typeLabels[n.type] || n.type) + '</span><br />'
+            ? '<span class="news-type-badge ' + n.type + '" style="margin-bottom:4px;">' + (typeLabels[n.type] || n.type) + '</span><br />'
             : '';
           html +=
             '<div style="padding:10px 0;border-bottom:1px solid #c8debb;">' +
