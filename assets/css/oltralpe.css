@@ -404,6 +404,7 @@ a, td, p { overflow-wrap: anywhere; }
 .event-badge.culturale   { background: #FFE8D6; color: #993300; }
 .event-badge.assemblea   { background: #E8E8E8; color: #555555; }
 .event-badge.via_presepi { background: #F6DADA; color: #8B1A1A; }
+.event-badge.varie       { background: #F2EBD9; color: #6B5B2E; }
 
 .gallery-empty {
   font: 13px Arial, Helvetica, sans-serif;
@@ -902,9 +903,9 @@ a, td, p { overflow-wrap: anywhere; }
   letter-spacing: 0.5px;
   margin-bottom: 6px;
 }
-.news-type-badge.camminata { background: #d4edda; color: #2d6a3f; }
-.news-type-badge.evento    { background: #cce5ff; color: #004085; }
-.news-type-badge.varie     { background: #f0f0f0; color: #555; }
+.news-type-badge.camminata { background: #D5EDB3; color: #336633; }
+.news-type-badge.evento    { background: #FFE8D6; color: #993300; }
+.news-type-badge.varie     { background: #F2EBD9; color: #6B5B2E; }
 .camminata-fiche {
   display: table;
   border-collapse: separate;
