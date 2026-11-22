@@ -13,11 +13,15 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 - `pages/` — pages d'événements et de photos archivées (anciennes, ne pas modifier).
 - `assets/css/oltralpe.css` — feuille de styles unique du site. Les styles globaux sont sans scope ; les styles page-spécifiques sont scopés via `.page-xxx` (ex. `.page-contatti`, `.page-storia`).
 - `assets/vendor/` — bibliothèques tierces hébergées localement (pas de CDN côté public, pour ne pas transmettre l'IP des visiteurs) : `glightbox/` (GLightbox 3.3.1, lightbox de la galerie). Pour une mise à jour, retélécharger les fichiers `dist/` de la version voulue et mettre à jour `README.txt`. Seul l'admin (`/admin/`) charge encore Sveltia CMS depuis unpkg.
-- `assets/js/common.js` — fonctions partagées `buildHeader()` et `buildNav()`, appelées sur chaque page, plus `formatDateIso()` et `initChipsScroll()` (rangées de filtres défilantes avec flèches sur mobile, Galleria et Filmati).
-- `data/` — données JSON (`news.json`, `filmati.json`, `associazione.json`) consommées côté client.
-- `images/` — assets visuels ; `images/shared/` contient les éléments communs (logo, favicon).
-- `admin/` — interface Decap CMS accessible à `/admin/`.
-- `content/news/` — articles de news en Markdown, créés via le CMS.
+- `assets/js/common.js` — chargé par chaque page :
+  - appelées explicitement par les pages : `buildHeader()`, `buildNav()` ;
+  - utilitaires : `formatDateIso()`, `initChipsScroll()` (rangées de filtres défilantes avec flèches sur mobile, Galleria et Filmati) ;
+  - lancées automatiquement au chargement : `buildEmailLinks()` (adresses e-mail masquées via `data-email-user` / `data-email-domain`), `buildFooter()` (identification + lien privacy), `trackVisit()` (compteur de visites).
+- `data/` — données JSON consommées côté client : `news.json` (Novità + 3 dernières sur l'accueil), `gallery.json`, `filmati.json`, `associazione.json`, et `photo-credits.json` (généré en CI, non versionné).
+- `images/` — assets visuels ; `images/shared/` contient les éléments communs (logo, favicon) ; `images/uploads/` reçoit les médias du CMS.
+- `docs/` — PDF téléchargeables, dont le formulaire d'adhésion `domanda_di_ammissione_a_socio.pdf` (lié depuis `iscrizione.html`).
+- `admin/` — interface Sveltia CMS accessible à `/admin/` (voir plus bas).
+- `stats/` — compteur de visites PHP + SQLite et son tableau de bord (voir « Privacy et statistiques »).
 
 ### Conventions CSS
 - Chaque `<body>` porte une classe `page-xxx` correspondant à la page (ex. `<body class="page-contatti">`).
@@ -51,7 +55,9 @@ Tout est côté client dans `novita.html` (styles `.agenda`, `.cal-*`, `.ics-lin
 Couleurs communes à Novità, l'accueil, la Galleria et les Filmati : camminata/uscita vert `#D5EDB3`/`#336633`, evento/culturale orangé `#FFE8D6`/`#993300`, varie beige `#F2EBD9`/`#6B5B2E`, assemblea gris, via_presepi rouge `#F6DADA`/`#8B1A1A`, racconti bleu ardoise `#DCE6F2`/`#2C4A6E`. Classes `.news-type-badge.xxx` (Novità, accueil) et `.event-badge.xxx` (Galleria, Filmati). Tout nouveau thème ajouté dans `admin/config.yml` doit aussi être ajouté aux libellés (`LABELS` dans `galerie.html`, `THEMES` dans `filmati.html`) et recevoir une couleur.
 
 ### Déploiement
-GitHub Actions (`deploy.yml`) déploie par FTP via `SamKirkland/FTP-Deploy-Action@v4.3.4`. Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
+GitHub Actions (`deploy.yml`) déploie par FTP vers l'hébergement Aruba via `SamKirkland/FTP-Deploy-Action@v4.3.4`, à chaque push sur `main` (y compris les commits du CMS). Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`. Exclus du FTP : `.git*`, `.claude/`, `content/`, `scripts/`.
+
+Pas d'environnement de test : pour vérifier une page, servir le dépôt en local (`python -m http.server`). Le compteur PHP n'y répond pas, c'est normal ; il se teste avec l'image Docker `php:8.2-cli`.
 
 Avant le FTP, une étape CI exécute deux scripts Node :
 - `scripts/thumbnails.mjs` (`sharp`) — chaque image de `images/uploads/` (récursif) produit une miniature 400 px dans `images/uploads/thumbs/`. La grille d'albums et la pellicule GLightbox les chargent via `thumbUrl()`, avec repli sur l'original si absente.
