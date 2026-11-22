@@ -16,6 +16,10 @@
 
 declare(strict_types=1);
 
+// Les journées (colonne day, clé quotidienne) suivent l'heure italienne,
+// quel que soit le fuseau configuré sur le serveur.
+date_default_timezone_set('Europe/Rome');
+
 /** Version du schéma (PRAGMA user_version). */
 const STATS_SCHEMA_VERSION = 2;
 

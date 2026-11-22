@@ -57,7 +57,12 @@ Couleurs communes à Novità, l'accueil, la Galleria et les Filmati : camminata/
 ### Déploiement
 GitHub Actions (`deploy.yml`) déploie par FTP vers l'hébergement Aruba via `SamKirkland/FTP-Deploy-Action@v4.3.4`, à chaque push sur `main` (y compris les commits du CMS). Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`. Exclus du FTP : `.git*`, `.claude/`, `content/`, `scripts/`.
 
-Pas d'environnement de test : pour vérifier une page, servir le dépôt en local (`python -m http.server`). Le compteur PHP n'y répond pas, c'est normal ; il se teste avec l'image Docker `php:8.2-cli`.
+**Serveur : Windows / IIS 10 avec PHP 8.4** (pas Apache). Conséquences :
+- les fichiers `.htaccess` (racine, `admin/`, `stats/data/`) sont **ignorés** ; la configuration passe par `web.config` (racine : types MIME `.yml`/`.json` ; `stats/web.config` : accès HTTP interdit à `stats/data/` et aux `.sqlite`) ;
+- toute protection d'un dossier ou d'un fichier doit être écrite en `web.config` (`requestFiltering`), puis vérifiée en ligne avec `curl` (attendu : 404) ;
+- PHP 8.4 : tester le code PHP avec l'image Docker `php:8.4-cli` ; `stats/lib.php` force le fuseau `Europe/Rome`.
+
+Pas d'environnement de test : pour vérifier une page, servir le dépôt en local (`python -m http.server`). Le compteur PHP n'y répond pas, c'est normal ; il se teste avec l'image Docker `php:8.4-cli`.
 
 Avant le FTP, une étape CI exécute deux scripts Node :
 - `scripts/thumbnails.mjs` (`sharp`) — chaque image de `images/uploads/` (récursif) produit une miniature 400 px dans `images/uploads/thumbs/`. La grille d'albums et la pellicule GLightbox les chargent via `thumbUrl()`, avec repli sur l'original si absente.
