@@ -12,7 +12,7 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 - Pages principales à la racine : `index.html`, `novita.html`, `storia.html`, `iniziative.html`, `immagini.html`, `filmati.html`, `contatti.html`, `associazione.html`, `informazioni.html` — XHTML 1.0 (style Dreamweaver), contenu en italien.
 - `pages/` — pages d'événements et de photos archivées (anciennes, ne pas modifier).
 - `assets/css/oltralpe.css` — feuille de styles unique du site. Les styles globaux sont sans scope ; les styles page-spécifiques sont scopés via `.page-xxx` (ex. `.page-contatti`, `.page-storia`).
-- `assets/js/common.js` — fonctions partagées `buildHeader()` et `buildNav()`, appelées sur chaque page.
+- `assets/js/common.js` — fonctions partagées `buildHeader()` et `buildNav()`, appelées sur chaque page, plus `formatDateIso()` et `initChipsScroll()` (rangées de filtres défilantes avec flèches sur mobile, Galleria et Filmati).
 - `data/` — données JSON (`news.json`, `filmati.json`, `associazione.json`) consommées côté client.
 - `images/` — assets visuels ; `images/shared/` contient les éléments communs (logo, favicon).
 - `admin/` — interface Decap CMS accessible à `/admin/`.
@@ -27,10 +27,21 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 - Remplaçant de Decap CMS (anciennement Netlify CMS), accessible à `/admin/`.
 - Backend : GitHub direct (`repo: lechab/oltralpe`, branche `main`).
 - Configuration dans `admin/config.yml`. Quatre collections, toutes stockées en JSON dans `data/` :
-  - **news** → `data/news.json` — articles avec type (camminata / evento / varie) et champs conditionnels pour les camminate (date/heure, partenza, lunghezza, dislivello, tempo).
+  - **news** → `data/news.json` — articles avec type (camminata / evento / varie), date de l'appuntamento (`data_camminata`, tous types, vide par défaut), case `annullato`, et champs conditionnels pour les camminate (partenza, lunghezza, dislivello, tempo).
   - **associazione** → `data/associazione.json` — bureau (président, vice, consiglieri, nombre de soci).
-  - **galerie** → `data/gallery.json` — albums photo avec couverture et liste de photos.
+  - **galerie** → `data/gallery.json` — albums photo avec type (uscita / culturale / assemblea / via_presepi / varie), couverture et liste de photos.
+  - Les listes albums et vidéos ont `add_to_top: true` : un nouvel élément s'ajoute en haut, et les JSON sont rangés du plus récent au plus ancien. Sur le site, Galleria et Filmati trient eux-mêmes (plus récents par défaut, bouton « Ordine » pour inverser) et affichent tous les thèmes connus dans les filtres, même sans contenu.
   - **filmati** → `data/filmati.json` — vidéos YouTube avec année, lieu et thème (camminata / evento / racconti / via_presepi).
+
+### Novità : agenda et export .ics
+Tout est côté client dans `novita.html` (styles `.agenda`, `.cal-*`, `.ics-link` dans `oltralpe.css`).
+- **Source** : le champ `data_camminata` (`"YYYY-MM-DD HH:mm"`) de `data/news.json`. Malgré son nom historique, il sert pour tous les types : un article n'apparaît dans l'agenda que s'il est rempli. Le laisser **vide** pour les vidéos, comptes rendus et affiches. Ne pas renommer le champ (données existantes).
+- **« Prossimi appuntamenti »** : les 5 prochains rendez-vous (à partir d'aujourd'hui), annulés inclus mais barrés.
+- **Calendrier mensuel** : jours colorés selon le type, barrés si tous annulés, pastille si plusieurs rendez-vous. Il s'ouvre sur le mois du prochain rendez-vous (sinon le dernier mois avec un rendez-vous). Un clic sur un jour liste ses rendez-vous, avec un lien vers l'article (ancres `#art-N`, N = index dans la liste triée `ARTICLES`).
+- **« Aggiungi al calendario »** : `buildIcs()` génère un fichier `.ics` (RFC 5545) dans le navigateur au clic, téléchargé via un Blob. Il contient le fuseau `Europe/Rome` (VTIMEZONE incluse), une durée par type (`ICS_DURATION` : 3 h, 2 h pour varie), `partenza` en LOCATION, le corps en DESCRIPTION et un rappel la veille. Le lien n'est affiché que pour les rendez-vous à venir et non annulés.
+
+### Palette des badges
+Couleurs communes à Novità, l'accueil, la Galleria et les Filmati : camminata/uscita vert `#D5EDB3`/`#336633`, evento/culturale orangé `#FFE8D6`/`#993300`, varie beige `#F2EBD9`/`#6B5B2E`, assemblea gris, via_presepi rouge `#F6DADA`/`#8B1A1A`, racconti bleu ardoise `#DCE6F2`/`#2C4A6E`. Classes `.news-type-badge.xxx` (Novità, accueil) et `.event-badge.xxx` (Galleria, Filmati). Tout nouveau thème ajouté dans `admin/config.yml` doit aussi être ajouté aux libellés (`LABELS` dans `galerie.html`, `THEMES` dans `filmati.html`) et recevoir une couleur.
 
 ### Déploiement
 GitHub Actions (`deploy.yml`) déploie par FTP via `SamKirkland/FTP-Deploy-Action@v4.3.4`. Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
