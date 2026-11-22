@@ -30,7 +30,7 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
   - **news** → `data/news.json` — articles avec type (camminata / evento / varie) et champs conditionnels pour les camminate (date/heure, partenza, lunghezza, dislivello, tempo).
   - **associazione** → `data/associazione.json` — bureau (président, vice, consiglieri, nombre de soci).
   - **galerie** → `data/gallery.json` — albums photo avec couverture et liste de photos.
-  - **filmati** → `data/filmati.json` — vidéos YouTube avec année, lieu et thème (camminata / evento / racconti).
+  - **filmati** → `data/filmati.json` — vidéos YouTube avec année, lieu et thème (camminata / evento / racconti / via_presepi).
 
 ### Déploiement
 GitHub Actions (`deploy.yml`) déploie par FTP via `SamKirkland/FTP-Deploy-Action@v4.3.4`. Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.

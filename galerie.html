@@ -42,6 +42,7 @@
       <div><a href="immagini.html" class="link-archivio">&#x1F4F7; Immagini del passato</a></div>
       <div id="gallery-filters"></div>
       <div id="gallery-grid" class="gallery-grid"></div>
+      <p id="gallery-noresult" class="gallery-empty" style="display:none;">Nessun album per questa selezione.</p>
 
     </main>
   </div>
@@ -54,6 +55,7 @@
     uscita:    'Camminate',
     culturale: 'Evento culturale',
     assemblea: 'Assemblea',
+    via_presepi: 'La via dei presepi',
     varie:     'Varie'
   };
 
@@ -215,9 +217,14 @@
   }
 
   function applyFilters() {
+    var visible = 0;
     document.querySelectorAll('#gallery-grid .album-card').forEach(function (card) {
-      card.style.display = matches(card) ? '' : 'none';
+      var ok = matches(card);
+      card.style.display = ok ? '' : 'none';
+      if (ok) visible++;
     });
+    var none = document.getElementById('gallery-noresult');
+    if (none) none.style.display = (allAlbums.length > 0 && visible === 0) ? '' : 'none';
   }
 
   function buildBtn(label, value, active) {
@@ -225,7 +232,8 @@
   }
 
   function renderFilters(albums) {
-    var types = [], years = [], locations = [];
+    // Tous les thèmes connus sont affichés, même sans album (ordre du CMS).
+    var types = Object.keys(LABELS), years = [], locations = [];
     albums.forEach(function (a) {
       if (a.event_type && types.indexOf(a.event_type) === -1) types.push(a.event_type);
       var y = yearOf(a.date);
@@ -237,11 +245,11 @@
 
     var html = '';
 
-    html += '<div class="filter-group" id="filter-theme"><span class="filter-group-label">Tema</span>' + buildBtn('Tutte', '*', true);
+    html += '<div class="filter-group filter-chips" id="filter-theme"><span class="filter-group-label">Tema</span>' + buildBtn('Tutte', '*', true);
     types.forEach(function (t) { html += buildBtn(LABELS[t] || t, t, false); });
     html += '</div>';
 
-    html += '<div class="filter-group" id="filter-year"><span class="filter-group-label">Anno</span>' + buildBtn('Tutti', '*', true);
+    html += '<div class="filter-group filter-chips" id="filter-year"><span class="filter-group-label">Anno</span>' + buildBtn('Tutti', '*', true);
     years.forEach(function (y) { html += buildBtn(y, y, false); });
     html += '</div>';
 
@@ -257,6 +265,7 @@
 
     var bar = document.getElementById('gallery-filters');
     bar.innerHTML = html;
+    initChipsScroll(bar);
 
     bar.addEventListener('click', function (e) {
       var btn = e.target.closest('.filter-btn');
@@ -293,9 +302,12 @@
     .then(function (res) {
       var data = res[0];
       creditsMap = res[1] || {};
-      allAlbums = data.albums || [];
+      // Plus récents en premier, quel que soit l'ordre dans le JSON.
+      allAlbums = (data.albums || []).slice().sort(function (a, b) {
+        return String(b.date || '').localeCompare(String(a.date || ''));
+      });
       renderGallery(allAlbums);
-      if (allAlbums.length > 0) renderFilters(allAlbums);
+      renderFilters(allAlbums);
 
       var gridEl = document.getElementById('gallery-grid');
 

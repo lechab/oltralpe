@@ -69,6 +69,7 @@ collections:
             required: false
             min: 0
             summary: "{{fields.title}} — {{fields.event_type}}"
+            add_to_top: true
             fields:
               - {label: "Titolo", name: "title", widget: "string"}
               - label: "Typo eventi"
@@ -78,6 +79,7 @@ collections:
                   - {label: "Camminate", value: "uscita"}
                   - {label: "Evento culturale", value: "culturale"}
                   - {label: "Assemblea", value: "assemblea"}
+                  - {label: "La via dei presepi", value: "via_presepi"}
                   - {label: "Varie", value: "varie"}
               - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
               - {label: "Luogo", name: "location", widget: "string", required: false}
@@ -101,6 +103,7 @@ collections:
             name: "videos"
             widget: list
             summary: "{{fields.title}} ({{fields.year}})"
+            add_to_top: true
             fields:
               - {label: "Titolo", name: "title", widget: "string"}
               - {label: "Link video (YouTube)", name: "url", widget: "string"}
@@ -113,5 +116,6 @@ collections:
                   - {label: "Camminata", value: "camminata"}
                   - {label: "Evento", value: "evento"}
                   - {label: "Racconti", value: "racconti"}
+                  - {label: "La via dei presepi", value: "via_presepi" }
               - {label: "Realizzazione", name: "credit", widget: "string", required: false}
               - {label: "Descrizione", name: "description", widget: "text", required: false}

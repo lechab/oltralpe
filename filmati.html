@@ -40,7 +40,9 @@
 (function () {
   var THEMES = {
     camminata: 'Camminate',
-    evento:    'Eventi'
+    evento:    'Eventi',
+    racconti:  'Racconti',
+    via_presepi: 'La via dei presepi'
   };
 
   var allVideos = [];
@@ -115,7 +117,8 @@
 
   function renderFilters(videos) {
     var years = [];
-    var themes = [];
+    // Tous les thèmes connus sont affichés, même sans vidéo (ordre du CMS).
+    var themes = Object.keys(THEMES);
     var locations = [];
     videos.forEach(function (v) {
       if (v.year && years.indexOf(v.year) === -1) years.push(v.year);
@@ -126,12 +129,12 @@
     locations.sort(function (a, b) { return a.localeCompare(b); });
 
     var html = '';
-    html += '<div class="filter-group" id="filter-theme"><span class="filter-group-label">Tema</span>' +
+    html += '<div class="filter-group filter-chips" id="filter-theme"><span class="filter-group-label">Tema</span>' +
             buildButton('Tutti', '*', true);
     themes.forEach(function (t) { html += buildButton(THEMES[t] || t, t, false); });
     html += '</div>';
 
-    html += '<div class="filter-group" id="filter-year"><span class="filter-group-label">Anno</span>' +
+    html += '<div class="filter-group filter-chips" id="filter-year"><span class="filter-group-label">Anno</span>' +
             buildButton('Tutti', '*', true);
     years.forEach(function (y) { html += buildButton(y, y, false); });
     html += '</div>';
@@ -148,6 +151,7 @@
 
     var bar = document.getElementById('filmati-filters');
     bar.innerHTML = html;
+    initChipsScroll(bar);
 
     bar.addEventListener('click', function (e) {
       var btn = e.target.closest('.filter-btn');
@@ -204,9 +208,12 @@
   fetch('data/filmati.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      allVideos = data.videos || [];
+      // Plus récents en premier (tri stable : l'ordre du JSON est conservé dans une même année).
+      allVideos = (data.videos || []).slice().sort(function (a, b) {
+        return (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0);
+      });
       renderGrid(allVideos);
-      if (allVideos.length > 0) renderFilters(allVideos);
+      renderFilters(allVideos);
 
       // Ouverture de la vidéo en grand au clic sur une vignette
       document.getElementById('filmati-grid').addEventListener('click', function (e) {

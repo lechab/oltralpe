@@ -403,6 +403,7 @@ a, td, p { overflow-wrap: anywhere; }
 .event-badge.uscita      { background: #D5EDB3; color: #336633; }
 .event-badge.culturale   { background: #FFE8D6; color: #993300; }
 .event-badge.assemblea   { background: #E8E8E8; color: #555555; }
+.event-badge.via_presepi { background: #F6DADA; color: #8B1A1A; }
 
 .gallery-empty {
   font: 13px Arial, Helvetica, sans-serif;
@@ -529,6 +530,83 @@ a, td, p { overflow-wrap: anywhere; }
 .filter-search:focus {
   outline: none;
   border-color: #5C743D;
+}
+
+/* Flèches de défilement des filtres : uniquement sur mobile */
+.chips-arrow { display: none; }
+
+/* Mobile : thèmes et années sur une ligne défilante (au lieu de 3-4 lignes de boutons) */
+@media (max-width: 600px) {
+  .filter-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-right: -14px;          /* déborde jusqu'au bord de l'écran */
+    padding: 2px 14px 2px 0;
+  }
+  .filter-chips::-webkit-scrollbar { display: none; }
+  .filter-chips .filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 8px 12px;            /* cible tactile plus grande */
+  }
+  .filter-chips .filter-group-label { flex: 0 0 auto; }
+
+  /* Indicateurs de défilement : flèche + dégradé sur le bord concerné */
+  .filter-chips-wrap { position: relative; }
+  .chips-arrow {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 56px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+  }
+  .chips-arrow.left {
+    left: 0;
+    justify-content: flex-start;
+    background: linear-gradient(to right, #ECFFF4 45%, rgba(236, 255, 244, 0));
+  }
+  .chips-arrow.right {
+    right: -14px;
+    justify-content: flex-end;
+    padding-right: 14px;
+    width: 70px;
+    background: linear-gradient(to left, #ECFFF4 45%, rgba(236, 255, 244, 0));
+  }
+  .chips-arrow span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #5C743D;
+    color: #fff;
+    font: bold 20px/1 Arial, Helvetica, sans-serif;
+    padding-bottom: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+  }
+  .filter-chips-wrap.can-left .chips-arrow.left,
+  .filter-chips-wrap.can-right .chips-arrow.right {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .filter-chips-wrap.can-right .chips-arrow.right { animation: chips-nudge 1.4s ease-in-out 2; }
+  @keyframes chips-nudge {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(4px); }
+  }
+  .filter-select { flex: 1 1 auto; min-width: 0; }
+  .filter-search { flex: 1 1 100%; min-width: 0; font-size: 16px; } /* 16px : évite le zoom auto iOS */
 }
 
 .album-location {

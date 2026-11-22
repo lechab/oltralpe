@@ -20,6 +20,39 @@ function WebDate() {
   document.write('<p>' + GIORNI[now.getDay()] + ' ' + now.getDate() + ' ' + MESI[now.getMonth()] + ' ' + year + '<\/p>');
 }
 
+// Rangées de filtres défilantes (mobile) : ajoute des flèches ‹ › avec dégradé,
+// visibles seulement du côté où il reste des boutons à faire défiler.
+function initChipsScroll(root) {
+  (root || document).querySelectorAll('.filter-chips').forEach(function (row) {
+    if (row.parentNode.classList.contains('filter-chips-wrap')) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'filter-chips-wrap';
+    row.parentNode.insertBefore(wrap, row);
+    wrap.appendChild(row);
+
+    ['left', 'right'].forEach(function (side) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chips-arrow ' + side;
+      b.setAttribute('aria-label', side === 'left' ? 'Scorri a sinistra' : 'Scorri a destra');
+      b.innerHTML = '<span>' + (side === 'left' ? '&#8249;' : '&#8250;') + '</span>';
+      b.addEventListener('click', function () {
+        row.scrollBy({ left: (side === 'left' ? -1 : 1) * row.clientWidth * 0.7, behavior: 'smooth' });
+      });
+      wrap.appendChild(b);
+    });
+
+    function update() {
+      var max = row.scrollWidth - row.clientWidth;
+      wrap.classList.toggle('can-left', row.scrollLeft > 4);
+      wrap.classList.toggle('can-right', row.scrollLeft < max - 4);
+    }
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+}
+
 function buildHeader() {
   var now = new Date();
   var year = now.getFullYear();
