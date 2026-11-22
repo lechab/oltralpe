@@ -665,6 +665,7 @@ a, td, p { overflow-wrap: anywhere; }
 
 .event-badge.camminata { background: #D5EDB3; color: #336633; }
 .event-badge.evento    { background: #FFE8D6; color: #993300; }
+.event-badge.racconti  { background: #DCE6F2; color: #2C4A6E; }
 
 /* Lightbox vidéo */
 
