@@ -12,6 +12,7 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 - Pages principales à la racine : `index.html`, `novita.html`, `storia.html`, `iniziative.html`, `immagini.html`, `filmati.html`, `contatti.html`, `associazione.html`, `informazioni.html`, `iscrizione.html`, `galerie.html`, `privacy.html` — XHTML 1.0 (style Dreamweaver), contenu en italien.
 - `pages/` — pages d'événements et de photos archivées (anciennes, ne pas modifier).
 - `assets/css/oltralpe.css` — feuille de styles unique du site. Les styles globaux sont sans scope ; les styles page-spécifiques sont scopés via `.page-xxx` (ex. `.page-contatti`, `.page-storia`).
+- `assets/vendor/` — bibliothèques tierces hébergées localement (pas de CDN côté public, pour ne pas transmettre l'IP des visiteurs) : `glightbox/` (GLightbox 3.3.1, lightbox de la galerie). Pour une mise à jour, retélécharger les fichiers `dist/` de la version voulue et mettre à jour `README.txt`. Seul l'admin (`/admin/`) charge encore Sveltia CMS depuis unpkg.
 - `assets/js/common.js` — fonctions partagées `buildHeader()` et `buildNav()`, appelées sur chaque page, plus `formatDateIso()` et `initChipsScroll()` (rangées de filtres défilantes avec flèches sur mobile, Galleria et Filmati).
 - `data/` — données JSON (`news.json`, `filmati.json`, `associazione.json`) consommées côté client.
 - `images/` — assets visuels ; `images/shared/` contient les éléments communs (logo, favicon).
