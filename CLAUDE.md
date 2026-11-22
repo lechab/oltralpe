@@ -55,11 +55,13 @@ Tout est côté client dans `novita.html` (styles `.agenda`, `.cal-*`, `.ics-lin
 Couleurs communes à Novità, l'accueil, la Galleria et les Filmati : camminata/uscita vert `#D5EDB3`/`#336633`, evento/culturale orangé `#FFE8D6`/`#993300`, varie beige `#F2EBD9`/`#6B5B2E`, assemblea gris, via_presepi rouge `#F6DADA`/`#8B1A1A`, racconti bleu ardoise `#DCE6F2`/`#2C4A6E`. Classes `.news-type-badge.xxx` (Novità, accueil) et `.event-badge.xxx` (Galleria, Filmati). Tout nouveau thème ajouté dans `admin/config.yml` doit aussi être ajouté aux libellés (`LABELS` dans `galerie.html`, `THEMES` dans `filmati.html`) et recevoir une couleur.
 
 ### Déploiement
-GitHub Actions (`deploy.yml`) déploie par FTP vers l'hébergement Aruba via `SamKirkland/FTP-Deploy-Action@v4.3.4`, à chaque push sur `main` (y compris les commits du CMS). Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`. Exclus du FTP : `.git*`, `.claude/`, `content/`, `scripts/`.
+GitHub Actions (`deploy.yml`) déploie par FTP vers l'hébergement Aruba via `SamKirkland/FTP-Deploy-Action@v4.3.4`, à chaque push sur `main` (y compris les commits du CMS). Les secrets requis dans le dépôt GitHub sont `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`. Exclus du FTP : `.git*`, `.claude/`, `content/`, `scripts/`. Un fichier supprimé du dépôt est aussi supprimé du serveur au déploiement suivant (constaté avec `stats/genhash.php`).
+
+Suivre un déploiement : `gh run list --branch main --limit 1` puis `gh run watch <id> --exit-status`. Une fois terminé, vérifier en ligne avec `curl` (ex. `curl -s -o /dev/null -w "%{http_code}" https://www.oltralpe.it/<chemin>`). Ne pas appeler `stats/track.php` pour tester : chaque appel est enregistré dans les statistiques.
 
 **Serveur : Windows / IIS 10 avec PHP 8.4** (pas Apache). Conséquences :
 - les fichiers `.htaccess` (racine, `admin/`, `stats/data/`) sont **ignorés** ; la configuration passe par `web.config` (racine : types MIME `.yml`/`.json` ; `stats/web.config` : accès HTTP interdit à `stats/data/` et aux `.sqlite`) ;
-- toute protection d'un dossier ou d'un fichier doit être écrite en `web.config` (`requestFiltering`), puis vérifiée en ligne avec `curl` (attendu : 404) ;
+- toute protection d'un dossier ou d'un fichier doit être écrite en `web.config` (`requestFiltering`, accepté par Aruba), puis vérifiée en ligne avec `curl` : un fichier interdit renvoie 404, un dossier masqué par `hiddenSegments` renvoie 403 ou 404 (vérifié pour `stats/data/`) ;
 - PHP 8.4 : tester le code PHP avec l'image Docker `php:8.4-cli` ; `stats/lib.php` force le fuseau `Europe/Rome`.
 
 Pas d'environnement de test : pour vérifier une page, servir le dépôt en local (`python -m http.server`). Le compteur PHP n'y répond pas, c'est normal ; il se teste avec l'image Docker `php:8.4-cli`.
