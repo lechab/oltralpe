@@ -967,6 +967,23 @@ a, td, p { overflow-wrap: anywhere; }
 .agenda-item.is-cancelled .agenda-name { text-decoration: line-through; color: #999; }
 .agenda-item.is-cancelled .agenda-meta strong { color: #8B1A1A; }
 .agenda-empty { font-size: 12px; color: #888; padding: 6px 0; }
+.agenda-item { display: flex; align-items: center; gap: 8px; }
+.agenda-item .agenda-link { flex: 1 1 auto; min-width: 0; }
+
+/* Lien « Aggiungi al calendario » (.ics) */
+.page-novita .ics-row { margin: 0 0 10px 0; }
+.ics-link {
+  display: inline-block;
+  font: bold 12px Arial, Helvetica, sans-serif;
+  color: #5C743D;
+  background: #D5EDB3;
+  border: 1px solid #99CC66;
+  border-radius: 3px;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+.ics-link:hover { background: #5C743D; color: #fff; border-color: #5C743D; }
+.ics-link.ics-compact { flex: 0 0 auto; padding: 6px 8px; font-size: 13px; white-space: nowrap; }
 
 .cal-head {
   display: flex;

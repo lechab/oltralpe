@@ -35,6 +35,112 @@
 
 <script type="text/javascript">buildHeader();buildNav();</script>
 <script type="text/javascript">
+  var ARTICLES = [];   // articles triés, indexés comme les ancres #art-N
+
+  // ---------- Export .ics « Aggiungi al calendario » ----------
+  var ICS_DURATION = { camminata: 'PT3H', evento: 'PT3H', varie: 'PT2H' };
+
+  // Lien affiché seulement pour un rendez-vous à venir et non annulé.
+  function icsLink(n, i, compact) {
+    if (!n._appt || n.annullato || n._appt < new Date()) return '';
+    return compact
+      ? '<a href="#" class="ics-link ics-compact" data-art="' + i + '" title="Aggiungi al calendario" aria-label="Aggiungi al calendario">&#128197;+</a>'
+      : '<p class="ics-row"><a href="#" class="ics-link" data-art="' + i + '">&#128197; Aggiungi al calendario</a></p>';
+  }
+
+  function icsText(s) {
+    return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,')
+      .replace(/\r?\n/g, '\\n');
+  }
+
+  // Repli des lignes à 75 octets (RFC 5545), sans couper un caractère multi-octets.
+  function icsFold(line) {
+    var out = '', bytes = 0;
+    for (var k = 0; k < line.length; k++) {
+      var ch = line.charAt(k);
+      var code = line.charCodeAt(k);
+      if (code >= 0xD800 && code <= 0xDBFF) { ch += line.charAt(++k); }
+      var b = unescape(encodeURIComponent(ch)).length;
+      if (bytes + b > 74) { out += '\r\n '; bytes = 1; }
+      out += ch;
+      bytes += b;
+    }
+    return out;
+  }
+
+  function icsStamp(d) {
+    return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + 'T' + pad(d.getHours()) + pad(d.getMinutes()) + '00';
+  }
+
+  function buildIcs(n) {
+    var d = n._appt;
+    var now = new Date();
+    var utc = now.getUTCFullYear() + pad(now.getUTCMonth() + 1) + pad(now.getUTCDate()) + 'T' +
+              pad(now.getUTCHours()) + pad(now.getUTCMinutes()) + pad(now.getUTCSeconds()) + 'Z';
+    var desc = (n.body || '') + '\n\nhttps://www.oltralpe.it/novita.html';
+    var lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Oltr\'Alpe//Novita//IT',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VTIMEZONE',
+      'TZID:Europe/Rome',
+      'BEGIN:DAYLIGHT',
+      'TZOFFSETFROM:+0100',
+      'TZOFFSETTO:+0200',
+      'TZNAME:CEST',
+      'DTSTART:19700329T020000',
+      'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+      'END:DAYLIGHT',
+      'BEGIN:STANDARD',
+      'TZOFFSETFROM:+0200',
+      'TZOFFSETTO:+0100',
+      'TZNAME:CET',
+      'DTSTART:19701025T030000',
+      'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+      'END:STANDARD',
+      'END:VTIMEZONE',
+      'BEGIN:VEVENT',
+      'UID:' + icsStamp(d) + '-' + String(n.title || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 30) + '@oltralpe.it',
+      'DTSTAMP:' + utc,
+      'DTSTART;TZID=Europe/Rome:' + icsStamp(d),
+      'DURATION:' + (ICS_DURATION[n.type] || 'PT3H'),
+      'SUMMARY:' + icsText(n.title),
+      n.partenza ? 'LOCATION:' + icsText(n.partenza) : '',
+      'DESCRIPTION:' + icsText(desc),
+      'URL:https://www.oltralpe.it/novita.html',
+      'BEGIN:VALARM',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:' + icsText(n.title),
+      'TRIGGER:-P1D',
+      'END:VALARM',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ];
+    return lines.filter(function (l) { return l; }).map(icsFold).join('\r\n') + '\r\n';
+  }
+
+  function downloadIcs(n) {
+    var blob = new Blob([buildIcs(n)], { type: 'text/calendar;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'oltralpe-' + dayKey(n._appt) + '.ics';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.ics-link');
+    if (!link) return;
+    e.preventDefault();
+    var n = ARTICLES[parseInt(link.getAttribute('data-art'), 10)];
+    if (n && n._appt) downloadIcs(n);
+  });
+
   function bodyToHtml(text) {
     if (!text) return '';
     return text.split(/\n\n+/).map(function(p) {
@@ -121,7 +227,7 @@
               (n.partenza ? ' &bull; ' + esc(n.partenza) : '') +
               (n.annullato ? ' &bull; <strong>Annullato</strong>' : '') + '</span>' +
           '</span>' +
-        '</a></li>';
+        '</a>' + icsLink(n, a.i, true) + '</li>';
     }).join('') : '<li class="agenda-empty">Nessun appuntamento in programma.<br />Gli appuntamenti passati sono nel calendario.</li>';
 
     // Mois affiché au départ : celui du prochain rendez-vous, sinon le dernier mois avec un rendez-vous.
@@ -212,10 +318,11 @@
       }
       var html = '';
       var appts = [];
+      ARTICLES = items;
       for (var i = 0; i < items.length; i++) {
         var n = items[i];
         n._appt = parseAppt(n.data_camminata);
-        if (n._appt) appts.push({ d: n._appt, n: n, id: 'art-' + i });
+        if (n._appt) appts.push({ d: n._appt, n: n, id: 'art-' + i, i: i });
         html +=
           '<div id="art-' + i + '" class="news-item" style="margin-bottom:16px; border-bottom:1px solid #C0CFE0; padding-bottom:12px;">' +
             typeBadge(n) +
@@ -223,6 +330,7 @@
             '<p class="Stile27">' + formatDateIso(n.date) + '</p>' +
             apptLine(n) +
             camminateFiche(n) +
+            icsLink(n, i, false) +
             bodyToHtml(n.body) +
             (n.image ? '<p><img src="' + n.image + '" alt="' + n.title + '" style="max-width:100%;height:auto;" /></p>' : '') +
             videoEmbed(n.video_url) +
