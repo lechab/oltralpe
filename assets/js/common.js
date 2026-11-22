@@ -69,7 +69,8 @@ function buildHeader() {
     'associazione.html': 'Organizzazione',
     'iscrizione.html':   'Iscrizione',
     'galerie.html':      'Galleria',
-    'informazioni.html': 'Informazioni utili'
+    'informazioni.html': 'Informazioni utili',
+    'privacy.html':      'Privacy'
   };
   var path = window.location.pathname.split('/').pop() || 'index.html';
   var pageLabel = pageMap[path];
@@ -182,7 +183,8 @@ function buildFooter() {
   var f = document.createElement('footer');
   f.className = 'site-footer';
   f.innerHTML = '<strong>Oltr&apos;Alpe OdV</strong> &middot; via Matteotti, 1 &ndash; 40063 Monghidoro (BO)' +
-    ' &middot; C.F. 91207050377';
+    ' &middot; C.F. 91207050377' +
+    ' &middot; <a href="privacy.html">Privacy e cookie</a>';
   bar.parentNode.insertBefore(f, bar.nextSibling);
 }
 
@@ -197,7 +199,7 @@ if (document.readyState === 'loading') {
 // le compteur ne doit jamais perturber l'affichage du site.
 function trackVisit() {
   var path = window.location.pathname.split('/').pop() || 'index.html';
-  fetch('stats/track.php?p=' + encodeURIComponent(path))
+  fetch('stats/track.php?p=' + encodeURIComponent(path) + '&r=' + encodeURIComponent(document.referrer || ''))
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (!data || data.total === null || data.total === undefined) {

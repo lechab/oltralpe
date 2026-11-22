@@ -78,7 +78,10 @@ if (!$authenticated) {
 $pdo = db();
 
 $totalViews   = (int) $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
-$uniqueTotal  = (int) $pdo->query('SELECT COUNT(DISTINCT visitor) FROM visits')->fetchColumn();
+// Les identifiants changent chaque jour : on additionne les visiteurs uniques de chaque jour.
+$uniqueTotal  = (int) $pdo->query(
+    'SELECT COALESCE(SUM(n), 0) FROM (SELECT COUNT(DISTINCT visitor) AS n FROM visits GROUP BY day)'
+)->fetchColumn();
 $daysTracked  = (int) $pdo->query('SELECT COUNT(DISTINCT day) FROM visits')->fetchColumn();
 
 // Visites + uniques par jour, 30 derniers jours.
@@ -106,19 +109,90 @@ $topPages = $pdo->query(
      LIMIT 15'
 )->fetchAll(PDO::FETCH_ASSOC);
 
-// Top référents (hors visites directes).
-$topReferers = $pdo->query(
-    "SELECT referer, COUNT(*) AS views
+// Appareils : 30 derniers jours et depuis le début (les visites antérieures au
+// suivi des appareils ont device = '' et apparaissent comme « non rilevato »).
+$deviceRows = $pdo->query(
+    "SELECT device,
+            SUM(CASE WHEN day >= date('now', '-29 days') THEN 1 ELSE 0 END) AS v30,
+            COUNT(*) AS vall
+     FROM visits
+     GROUP BY device"
+)->fetchAll(PDO::FETCH_ASSOC);
+
+$DEVICE_LABELS = ['smartphone' => 'Smartphone', 'tablet' => 'Tablet', 'computer' => 'Computer', 'altro' => 'Altro', '' => 'Non rilevato'];
+$devices = [];
+foreach ($DEVICE_LABELS as $key => $label) {
+    $devices[$key] = ['label' => $label, 'v30' => 0, 'vall' => 0];
+}
+foreach ($deviceRows as $row) {
+    $key = array_key_exists($row['device'], $devices) ? $row['device'] : 'altro';
+    $devices[$key]['v30']  += (int) $row['v30'];
+    $devices[$key]['vall'] += (int) $row['vall'];
+}
+$devices = array_filter($devices, function ($d) { return $d['vall'] > 0; });
+$sum30  = array_sum(array_column($devices, 'v30'));
+$sumAll = array_sum(array_column($devices, 'vall'));
+$known30 = $sum30 - (isset($devices['']) ? $devices['']['v30'] : 0);
+$mobile30 = (isset($devices['smartphone']) ? $devices['smartphone']['v30'] : 0)
+          + (isset($devices['tablet']) ? $devices['tablet']['v30'] : 0);
+$mobilePct = $known30 > 0 ? round($mobile30 / $known30 * 100) : null;
+
+// Provenance : domaine des sites d'où arrivent les visiteurs (navigation interne et
+// visites directes exclues), regroupé par service connu.
+function source_label(string $host): string
+{
+    $map = [
+        '/(^|\.)google\./'                    => 'Google',
+        '/(^|\.)bing\.com$/'                  => 'Bing',
+        '/(^|\.)duckduckgo\.com$/'            => 'DuckDuckGo',
+        '/(^|\.)yahoo\./'                     => 'Yahoo',
+        '/(^|\.)ecosia\.org$/'                => 'Ecosia',
+        '/(^|\.)facebook\.com$|^fb\.me$/'     => 'Facebook',
+        '/(^|\.)instagram\.com$/'             => 'Instagram',
+        '/(^|\.)whatsapp\.(com|net)$/'        => 'WhatsApp',
+        '/(^|\.)(youtube\.com|youtu\.be)$/'  => 'YouTube',
+        '/^t\.co$|(^|\.)(twitter|x)\.com$/'  => 'X (Twitter)',
+        '/(^|\.)wikiloc\.com$/'               => 'Wikiloc',
+        '/^com\.google\.android\.gm$/'       => 'Gmail (app)',
+        '/^com\.google\.android\./'          => 'App Google (Android)',
+    ];
+    foreach ($map as $re => $label) {
+        if (preg_match($re, $host)) {
+            return $label;
+        }
+    }
+    return $host;
+}
+
+$refRows = $pdo->query(
+    "SELECT referer,
+            SUM(CASE WHEN day >= date('now', '-29 days') THEN 1 ELSE 0 END) AS v30,
+            COUNT(*) AS vall
      FROM visits
      WHERE referer <> ''
-     GROUP BY referer
-     ORDER BY views DESC
-     LIMIT 15"
+     GROUP BY referer"
 )->fetchAll(PDO::FETCH_ASSOC);
+
+$sources = [];
+foreach ($refRows as $row) {
+    $label = source_label((string) $row['referer']);
+    if (!isset($sources[$label])) {
+        $sources[$label] = ['v30' => 0, 'vall' => 0];
+    }
+    $sources[$label]['v30']  += (int) $row['v30'];
+    $sources[$label]['vall'] += (int) $row['vall'];
+}
+uasort($sources, function ($a, $b) { return [$b['v30'], $b['vall']] <=> [$a['v30'], $a['vall']]; });
+$sources = array_slice($sources, 0, 20, true);
 
 function h(string $s): string
 {
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+}
+
+function pct(int $n, int $total): string
+{
+    return $total > 0 ? round($n / $total * 100) . '%' : '–';
 }
 ?>
 <!DOCTYPE html>
@@ -154,6 +228,10 @@ function h(string $s): string
   td.n { text-align: right; font-variant-numeric: tabular-nums; }
   td.url { word-break: break-all; }
   .empty { color: #999; font-style: italic; }
+  .note { color: #888; font-size: .8rem; margin: .75rem 0 0; }
+  .meter { display: inline-block; width: 120px; height: 8px; background: #eee; border-radius: 4px; vertical-align: middle; margin-left: .5rem; overflow: hidden; }
+  .meter i { display: block; height: 100%; background: var(--verde-chiaro); }
+  @media (max-width: 600px) { .meter { display: none; } body { padding: 1rem; } }
 </style>
 </head>
 <body>
@@ -164,7 +242,8 @@ function h(string $s): string
 
   <div class="cards">
     <div class="card"><div class="num"><?= number_format($totalViews, 0, ',', '.') ?></div><div class="lbl">Pagine viste</div></div>
-    <div class="card"><div class="num"><?= number_format($uniqueTotal, 0, ',', '.') ?></div><div class="lbl">Visitatori unici</div></div>
+    <div class="card"><div class="num"><?= number_format($uniqueTotal, 0, ',', '.') ?></div><div class="lbl">Visitatori unici (somma giornaliera)</div></div>
+    <div class="card"><div class="num"><?= $mobilePct === null ? '–' : $mobilePct . '%' ?></div><div class="lbl">Da smartphone o tablet (30 giorni)</div></div>
     <div class="card"><div class="num"><?= number_format($daysTracked, 0, ',', '.') ?></div><div class="lbl">Giorni registrati</div></div>
   </div>
 
@@ -207,19 +286,47 @@ function h(string $s): string
   </section>
 
   <section>
-    <h2>Provenienza (referrer)</h2>
-    <?php if (empty($topReferers)): ?>
-      <p class="empty">Nessun referrer registrato (visite dirette).</p>
+    <h2>Dispositivi</h2>
+    <?php if (empty($devices)): ?>
+      <p class="empty">Nessun dato ancora.</p>
     <?php else: ?>
       <table>
-        <thead><tr><th>Origine</th><th class="n">Viste</th></tr></thead>
+        <thead><tr><th>Dispositivo</th><th class="n">Ultimi 30 giorni</th><th class="n">Da sempre</th></tr></thead>
         <tbody>
-          <?php foreach ($topReferers as $row): ?>
-            <tr><td class="url"><?= h($row['referer']) ?></td><td class="n"><?= number_format((int) $row['views'], 0, ',', '.') ?></td></tr>
+          <?php foreach ($devices as $d): ?>
+            <tr>
+              <td><?= h($d['label']) ?></td>
+              <td class="n"><?= number_format($d['v30'], 0, ',', '.') ?> (<?= pct($d['v30'], $sum30) ?>)<span class="meter"><i style="width: <?= $sum30 > 0 ? round($d['v30'] / $sum30 * 100) : 0 ?>%"></i></span></td>
+              <td class="n"><?= number_format($d['vall'], 0, ',', '.') ?> (<?= pct($d['vall'], $sumAll) ?>)</td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+      <p class="note">Pagine viste per tipo di dispositivo. «Non rilevato» = visite registrate prima dell'introduzione di questo dato. Gli iPad recenti si presentano come computer Mac.</p>
+    <?php endif; ?>
+  </section>
+
+  <section>
+    <h2>Provenienza</h2>
+    <?php if (empty($sources)): ?>
+      <p class="empty">Nessun arrivo da altri siti registrato.</p>
+    <?php else: ?>
+      <table>
+        <thead><tr><th>Origine</th><th class="n">Ultimi 30 giorni</th><th class="n">Da sempre</th></tr></thead>
+        <tbody>
+          <?php foreach ($sources as $label => $d): ?>
+            <tr>
+              <td class="url"><?= h((string) $label) ?></td>
+              <td class="n"><?= number_format($d['v30'], 0, ',', '.') ?></td>
+              <td class="n"><?= number_format($d['vall'], 0, ',', '.') ?></td>
+            </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
     <?php endif; ?>
+    <p class="note">Siti da cui arrivano i visitatori (solo il nome del sito, mai l'indirizzo completo). Non sono contate le visite dirette, la navigazione interna al sito e i link aperti da app che non trasmettono la provenienza (spesso WhatsApp ed e-mail).</p>
   </section>
+
+  <p class="note">Statistiche anonime: nessun indirizzo IP, nessun cookie. Il visitatore è identificato con una chiave casuale che cambia ogni giorno e viene distrutta il giorno dopo.</p>
 </body>
 </html>

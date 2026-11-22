@@ -2,8 +2,12 @@
 /**
  * Endpoint de comptage des visites — appelé en AJAX depuis assets/js/common.js.
  *
- * Enregistre une ligne de visite (anonyme) et renvoie le total de pages vues
- * au format JSON : {"total": 12345}.
+ * Paramètres GET :
+ *   p = page visitée (nom de fichier)
+ *   r = provenance de la page (document.referrer), réduite ici à son domaine
+ *
+ * Enregistre une ligne de visite anonyme (voir lib.php) et renvoie le total de
+ * pages vues au format JSON : {"total": 12345}.
  */
 
 declare(strict_types=1);
@@ -16,23 +20,29 @@ header('Cache-Control: no-store');
 try {
     $pdo = db();
 
-    $page = clean_str((string) ($_GET['p'] ?? ''));
-    if ($page === '') {
-        $page = '/';
-    }
-    $referer = clean_str((string) ($_SERVER['HTTP_REFERER'] ?? ''), 512);
+    $device = device_type((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''));
 
-    $stmt = $pdo->prepare(
-        'INSERT INTO visits (ts, day, page, referer, visitor)
-         VALUES (:ts, :day, :page, :referer, :visitor)'
-    );
-    $stmt->execute([
-        ':ts'      => time(),
-        ':day'     => date('Y-m-d'),
-        ':page'    => $page,
-        ':referer' => $referer,
-        ':visitor' => visitor_hash(),
-    ]);
+    // Les robots ne sont pas comptés.
+    if ($device !== 'bot') {
+        $page = clean_str((string) ($_GET['p'] ?? ''));
+        if ($page === '') {
+            $page = '/';
+        }
+        $referer = referer_host((string) ($_GET['r'] ?? ''), own_host());
+
+        $stmt = $pdo->prepare(
+            'INSERT INTO visits (ts, day, page, referer, visitor, device)
+             VALUES (:ts, :day, :page, :referer, :visitor, :device)'
+        );
+        $stmt->execute([
+            ':ts'      => time(),
+            ':day'     => date('Y-m-d'),
+            ':page'    => $page,
+            ':referer' => $referer,
+            ':visitor' => visitor_hash($pdo),
+            ':device'  => $device,
+        ]);
+    }
 
     $total = (int) $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
 

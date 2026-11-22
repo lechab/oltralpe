@@ -9,7 +9,7 @@ Site web statique pour l'association « Oltr'Alpe » (franco-italienne, thémati
 **Pas de système de build** — les fichiers sont déployés tels quels par FTP via GitHub Actions.
 
 ### Structure
-- Pages principales à la racine : `index.html`, `novita.html`, `storia.html`, `iniziative.html`, `immagini.html`, `filmati.html`, `contatti.html`, `associazione.html`, `informazioni.html` — XHTML 1.0 (style Dreamweaver), contenu en italien.
+- Pages principales à la racine : `index.html`, `novita.html`, `storia.html`, `iniziative.html`, `immagini.html`, `filmati.html`, `contatti.html`, `associazione.html`, `informazioni.html`, `iscrizione.html`, `galerie.html`, `privacy.html` — XHTML 1.0 (style Dreamweaver), contenu en italien.
 - `pages/` — pages d'événements et de photos archivées (anciennes, ne pas modifier).
 - `assets/css/oltralpe.css` — feuille de styles unique du site. Les styles globaux sont sans scope ; les styles page-spécifiques sont scopés via `.page-xxx` (ex. `.page-contatti`, `.page-storia`).
 - `assets/js/common.js` — fonctions partagées `buildHeader()` et `buildNav()`, appelées sur chaque page, plus `formatDateIso()` et `initChipsScroll()` (rangées de filtres défilantes avec flèches sur mobile, Galleria et Filmati).
@@ -39,6 +39,11 @@ Tout est côté client dans `novita.html` (styles `.agenda`, `.cal-*`, `.ics-lin
 - **« Prossimi appuntamenti »** : les 5 prochains rendez-vous (à partir d'aujourd'hui), annulés inclus mais barrés.
 - **Calendrier mensuel** : jours colorés selon le type, barrés si tous annulés, pastille si plusieurs rendez-vous. Il s'ouvre sur le mois du prochain rendez-vous (sinon le dernier mois avec un rendez-vous). Un clic sur un jour liste ses rendez-vous, avec un lien vers l'article (ancres `#art-N`, N = index dans la liste triée `ARTICLES`).
 - **« Aggiungi al calendario »** : `buildIcs()` génère un fichier `.ics` (RFC 5545) dans le navigateur au clic, téléchargé via un Blob. Il contient le fuseau `Europe/Rome` (VTIMEZONE incluse), une durée par type (`ICS_DURATION` : 3 h, 2 h pour varie), `partenza` en LOCATION, le corps en DESCRIPTION et un rappel la veille. Le lien n'est affiché que pour les rendez-vous à venir et non annulés.
+
+### Privacy et statistiques
+- `privacy.html` : informativa RGPD en italien. `buildFooter()` (`common.js`) ajoute sous `.footer-bar` de chaque page l'identification de l'association (Oltr'Alpe OdV, siège, C.F.) et le lien vers cette page. Toute modification de la collecte de données (statistiques, nouveau service tiers) doit y être reportée.
+- Aucun cookie sans action de l'utilisateur : les vidéos YouTube passent par `youtube-nocookie.com` (Novità : miniature puis lecteur au clic ; Filmati : lecteur au clic ; `pages/` : iframes nocookie).
+- Compteur de visites `stats/` (PHP + SQLite, `stats/data/visite.sqlite`, non versionné) : `track.php` est appelé par `trackVisit()` avec `p` (page) et `r` (`document.referrer`). Les données sont anonymes : visiteur = HMAC(IP + User-Agent) avec une clé aléatoire du jour (table `daily_key`, clés des jours passés supprimées), appareil stocké en catégorie (`smartphone` / `tablet` / `computer`, robots non comptés), provenance réduite au domaine (navigation interne = vide). Migrations par `PRAGMA user_version` dans `lib.php`. Tableau de bord protégé par mot de passe : `stats/stats.php` (hash dans `stats/config.php`, non versionné).
 
 ### Palette des badges
 Couleurs communes à Novità, l'accueil, la Galleria et les Filmati : camminata/uscita vert `#D5EDB3`/`#336633`, evento/culturale orangé `#FFE8D6`/`#993300`, varie beige `#F2EBD9`/`#6B5B2E`, assemblea gris, via_presepi rouge `#F6DADA`/`#8B1A1A`, racconti bleu ardoise `#DCE6F2`/`#2C4A6E`. Classes `.news-type-badge.xxx` (Novità, accueil) et `.event-badge.xxx` (Galleria, Filmati). Tout nouveau thème ajouté dans `admin/config.yml` doit aussi être ajouté aux libellés (`LABELS` dans `galerie.html`, `THEMES` dans `filmati.html`) et recevoir une couleur.
