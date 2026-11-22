@@ -77,19 +77,22 @@ if (!$authenticated) {
 // --- Données (utilisateur authentifié) -----------------------------------
 $pdo = db();
 
-$totalViews   = (int) $pdo->query('SELECT COUNT(*) FROM visits')->fetchColumn();
+// Visites humaines uniquement : les robots (device = 'bot') ont leur propre section.
+$pdo->exec("CREATE TEMP VIEW human AS SELECT * FROM visits WHERE device <> 'bot'");
+
+$totalViews   = (int) $pdo->query('SELECT COUNT(*) FROM human')->fetchColumn();
 // Les identifiants changent chaque jour : on additionne les visiteurs uniques de chaque jour.
 $uniqueTotal  = (int) $pdo->query(
-    'SELECT COALESCE(SUM(n), 0) FROM (SELECT COUNT(DISTINCT visitor) AS n FROM visits GROUP BY day)'
+    'SELECT COALESCE(SUM(n), 0) FROM (SELECT COUNT(DISTINCT visitor) AS n FROM human GROUP BY day)'
 )->fetchColumn();
-$daysTracked  = (int) $pdo->query('SELECT COUNT(DISTINCT day) FROM visits')->fetchColumn();
+$daysTracked  = (int) $pdo->query('SELECT COUNT(DISTINCT day) FROM human')->fetchColumn();
 
 // Visites + uniques par jour, 30 derniers jours.
 $perDay = $pdo->query(
     "SELECT day,
             COUNT(*)              AS views,
             COUNT(DISTINCT visitor) AS uniques
-     FROM visits
+     FROM human
      WHERE day >= date('now', '-29 days')
      GROUP BY day
      ORDER BY day ASC"
@@ -103,7 +106,7 @@ foreach ($perDay as $row) {
 // Top pages.
 $topPages = $pdo->query(
     'SELECT page, COUNT(*) AS views
-     FROM visits
+     FROM human
      GROUP BY page
      ORDER BY views DESC
      LIMIT 15'
@@ -115,7 +118,7 @@ $deviceRows = $pdo->query(
     "SELECT device,
             SUM(CASE WHEN day >= date('now', '-29 days') THEN 1 ELSE 0 END) AS v30,
             COUNT(*) AS vall
-     FROM visits
+     FROM human
      GROUP BY device"
 )->fetchAll(PDO::FETCH_ASSOC);
 
@@ -168,7 +171,7 @@ $refRows = $pdo->query(
     "SELECT referer,
             SUM(CASE WHEN day >= date('now', '-29 days') THEN 1 ELSE 0 END) AS v30,
             COUNT(*) AS vall
-     FROM visits
+     FROM human
      WHERE referer <> ''
      GROUP BY referer"
 )->fetchAll(PDO::FETCH_ASSOC);
@@ -184,6 +187,19 @@ foreach ($refRows as $row) {
 }
 uasort($sources, function ($a, $b) { return [$b['v30'], $b['vall']] <=> [$a['v30'], $a['vall']]; });
 $sources = array_slice($sources, 0, 20, true);
+
+// Robots : visites automatiques, comptées à part.
+$botTotal = (int) $pdo->query("SELECT COUNT(*) FROM visits WHERE device = 'bot'")->fetchColumn();
+$botRows = $pdo->query(
+    "SELECT bot,
+            SUM(CASE WHEN day >= date('now', '-29 days') THEN 1 ELSE 0 END) AS v30,
+            COUNT(*) AS vall,
+            MAX(day) AS last
+     FROM visits
+     WHERE device = 'bot'
+     GROUP BY bot
+     ORDER BY v30 DESC, vall DESC"
+)->fetchAll(PDO::FETCH_ASSOC);
 
 function h(string $s): string
 {
@@ -325,6 +341,28 @@ function pct(int $n, int $total): string
       </table>
     <?php endif; ?>
     <p class="note">Siti da cui arrivano i visitatori (solo il nome del sito, mai l'indirizzo completo). Non sono contate le visite dirette, la navigazione interna al sito e i link aperti da app che non trasmettono la provenienza (spesso WhatsApp ed e-mail).</p>
+  </section>
+
+  <section>
+    <h2>Robot (esclusi dalle statistiche)</h2>
+    <?php if (empty($botRows)): ?>
+      <p class="empty">Nessun robot registrato.</p>
+    <?php else: ?>
+      <table>
+        <thead><tr><th>Robot</th><th class="n">Ultimi 30 giorni</th><th class="n">Da sempre</th><th class="n">Ultima visita</th></tr></thead>
+        <tbody>
+          <?php foreach ($botRows as $row): ?>
+            <tr>
+              <td><?= h($row['bot'] !== '' ? (string) $row['bot'] : 'Robot') ?></td>
+              <td class="n"><?= number_format((int) $row['v30'], 0, ',', '.') ?></td>
+              <td class="n"><?= number_format((int) $row['vall'], 0, ',', '.') ?></td>
+              <td class="n"><?= h((string) $row['last']) ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    <?php endif; ?>
+    <p class="note">Pagine viste da programmi automatici (motori di ricerca, anteprime dei link, strumenti di analisi, intelligenze artificiali). Sono contati solo i robot che eseguono il JavaScript della pagina: quelli che leggono solo il testo non arrivano al contatore. Le visite registrate prima di questa separazione restano tra quelle umane.</p>
   </section>
 
   <p class="note">Statistiche anonime: nessun indirizzo IP, nessun cookie. Il visitatore è identificato con una chiave casuale che cambia ogni giorno e viene distrutta il giorno dopo.</p>

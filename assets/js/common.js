@@ -199,7 +199,8 @@ if (document.readyState === 'loading') {
 // le compteur ne doit jamais perturber l'affichage du site.
 function trackVisit() {
   var path = window.location.pathname.split('/').pop() || 'index.html';
-  fetch('stats/track.php?p=' + encodeURIComponent(path) + '&r=' + encodeURIComponent(document.referrer || ''))
+  fetch('stats/track.php?p=' + encodeURIComponent(path) + '&r=' + encodeURIComponent(document.referrer || '') +
+        '&w=' + (navigator.webdriver ? '1' : '0'))
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (!data || data.total === null || data.total === undefined) {
