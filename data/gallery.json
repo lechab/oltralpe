@@ -1,6 +1,28 @@
 {
   "albums": [
     {
+      "title": "Lanterne posizionate lungo la via dei presepi con all'interno dei piccoli presepi",
+      "event_type": "via_presepi",
+      "date": "2026-11-23",
+      "location": "Monghidoro",
+      "credit": "Oltr'Alpe",
+      "description": "Lanterne posizionate lungo la via dei presepi con all'interno dei piccoli presepi",
+      "cover": "/images/uploads/lanterne1.jpg",
+      "photos": [
+        "/images/uploads/594602275_3257078724460811_5738763443015185225_n.jpg",
+        "/images/uploads/594863508_3257078494460834_7109145711053188513_n.jpg",
+        "/images/uploads/594950380_3257067751128575_2687590320737707131_n.jpg",
+        "/images/uploads/594969886_3257067167795300_5907879729068416770_n.jpg",
+        "/images/uploads/594982908_3257085037793513_2782927877917604750_n.jpg",
+        "/images/uploads/595001465_3257078581127492_6238210293948359075_n.jpg",
+        "/images/uploads/595513844_3257078674460816_2097355434675430548_n.jpg",
+        "/images/uploads/595556197_3257060471129303_4979462145107907147_n.jpg",
+        "/images/uploads/595657141_3257067354461948_1119059456092018819_n.jpg",
+        "/images/uploads/596841765_3257067857795231_1151742372203580286_n.jpg",
+        "/images/uploads/596967145_3257067864461897_4059648972535174138_n.jpg"
+      ]
+    },
+    {
       "title": "Lanterne posizionate lungo la via dei presepi",
       "event_type": "via_presepi",
       "date": "2026-11-23",
@@ -9,7 +31,11 @@
       "description": "Lanterne posizionate lungo la via dei presepi",
       "cover": "/images/uploads/lanterne.JPG",
       "photos": [
-        "/images/uploads/IMG_20240724_204753.jpg"
+        "/images/uploads/IMG_20240724_204753.jpg",
+        "/images/uploads/P1036803.JPG",
+        "/images/uploads/P1036855.JPG",
+        "/images/uploads/P1036856.JPG",
+        "/images/uploads/P1036857.JPG"
       ]
     },
     {
