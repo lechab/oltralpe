@@ -1,6 +1,16 @@
 {
   "albums": [
     {
+      "title": "Lanterne posizionate lungo la via dei presepi",
+      "event_type": "via_presepi",
+      "date": "2026-11-23",
+      "location": "Monghidoro",
+      "credit": "Oltr'Alpe",
+      "description": "Lanterne posizionate lungo la via dei presepi",
+      "cover": "/images/uploads/lanterne.JPG",
+      "photos": []
+    },
+    {
       "title": "La via dei presepi",
       "event_type": "via_presepi",
       "date": "2026-11-23",
