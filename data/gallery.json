@@ -1,6 +1,31 @@
 {
   "albums": [
     {
+      "title": "La via dei presepi",
+      "event_type": "via_presepi",
+      "date": "2026-11-23",
+      "location": "Monghidoro",
+      "credit": "Oltr'Alpe",
+      "description": "Lungo una salita che porta alla croce sono stati posizionati tanti presepi",
+      "cover": "/images/uploads/salita.jpg",
+      "photos": [
+        "/images/uploads/IMG_20181215_094738.jpg",
+        "/images/uploads/IMG_20181215_094938.jpg",
+        "/images/uploads/IMG_20181215_095106.jpg",
+        "/images/uploads/IMG_20181215_095306.jpg",
+        "/images/uploads/IMG_20191214_110425.jpg",
+        "/images/uploads/IMG_20191214_110507.jpg",
+        "/images/uploads/IMG_20191214_110527.jpg",
+        "/images/uploads/IMG_20191214_110646.jpg",
+        "/images/uploads/IMG_20191214_110729.jpg",
+        "/images/uploads/IMG_20191214_110917.jpg",
+        "/images/uploads/IMG_20191214_111004.jpg",
+        "/images/uploads/IMG_20191214_111008.jpg",
+        "/images/uploads/IMG_20191214_111204.jpg",
+        "/images/uploads/IMG_20191214_111246.jpg"
+      ]
+    },
+    {
       "title": "Inaugurazione della Fontana degli Scalpellini il 12/07/2026 in Via Tre Fontane",
       "event_type": "culturale",
       "date": "2026-09-12",
